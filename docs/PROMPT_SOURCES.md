@@ -1,9 +1,0 @@
-# Prompt sources and adaptation
-
-Accessed 2026-09-11. These are instruction-design sources, not evidence that the revised prompt improves compression results.
-
-- OpenAI, [GPT-6 Astra release, footnote 8](https://openai.com/index/gpt-6-astra/) (2026 release; exact publication date is not stated in the accessed page). The FrontierCode developer message emphasizes restraint in adding test files, reusing utilities, reading local conventions, avoiding unrelated complexity and producing mergeable code. The release says the prompt was not optimized for that evaluation. This is the benchmark reference requested by the user; the adaptation is in `src/compression_lab/data/RESEARCH_GUIDANCE.md`.
-- OpenAI, [model guidance: testing and verification](https://developers.openai.com/api/docs/guides/latest-model#testing-and-verification) (living documentation; accessed 2026-09-11). Calibrate tests to the change, complete required checks and expand only for a concrete unresolved concern. The lab retains its mandatory scientific qualification gates.
-- Dietrich Gebert, [Ponytail's primary skill](https://github.com/DietrichGebert/ponytail/blob/main/skills/ponytail/SKILL.md) (living repository; accessed 2026-09-11). Its useful principles are to understand the problem before simplifying, reuse suitable existing code and omit speculative infrastructure. We use our own concise wording. We do not adopt a fixed one-test ceiling or treat the fewest lines as a substitute for correctness or measured performance. No plugin installation is required.
-
-The compact lab adaptation adds the user's specific engineering requirements: avoid redundant processing, allocations, copies and poor memory access; use bounded memory; profile the actual bottleneck; produce readable, reliable native code. A new prompt trial is needed to measure any effect on research quality.

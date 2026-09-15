@@ -30,11 +30,9 @@ native library versions selected by each candidate. The unchanged brief records 
 The old evaluator and historical candidate implementations are not installed or
 executed by this package.
 
-The optional MCP adapter uses the official Python MCP SDK 1.29.1. The source
-release includes its 29-package, hash-locked CPython 3.12 wheelhouse; upstream
-license metadata accompanies those wheels. No authentication material, provider
-account, model weights or imitation MCP protocol is included. Local installation and transport verification are recorded in release check receipts.
-The inherited 0.3 SDK 2.1.1 client-interoperability claim is historical evidence.
+The optional MCP adapter uses the official Python MCP SDK 1.29.1. Its CPython
+3.12 dependency hashes are recorded in `requirements-mcp.lock`. Dependency wheels
+are downloaded during setup; their upstream license metadata accompanies them.
 
 The Moby-derived seccomp/AppArmor profiles are Apache-2.0; attribution, original
 source commit and `runtime/oci/MOBY-LICENSE` are included. The OCI base is the

@@ -1,6 +1,6 @@
 # Using the integrated relational workloads
 
-Install the 0.2.1 wheel using the root README. No overlay is needed.
+Install the package using the [installation guide](../INSTALL.md).
 `examples/relational/` contains tiny generated cards and RLB1 inputs. Dataset cards
 select `static_relational` or `mutable_store`; registration validates the ABI.
 The same Engine serves CLI and MCP.
@@ -28,12 +28,8 @@ Protocol/oracle/failure semantics are in [CONTRACT.md](CONTRACT.md). `compare`
 accepts results from the same workspace and rejects incompatible workload/card
 contexts. `resume` returns advisory state without spending evaluation budget.
 
-Owner lifecycle commands are in the root README. The owner needs a separate
+Owner lifecycle commands are in the [API guide](../API.md). The owner needs a separate
 non-root UID, protected installation, 0700 tree with an existing parent, benchmark
 card and a public snapshot readable by that owner. The live public MCP ledger is
 owned by the public evaluator; another owner UID needs an explicit operator
 snapshot transfer.
-
-`tools/apply_relational_increment.py` is retained to reproduce original installer
-tests. Do not apply the old increment to this integrated release. The installer
-rejects independently modified files by design.

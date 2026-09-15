@@ -16,4 +16,5 @@ Optional tool integration:
 python -m pip install '.[mcp]'
 ```
 
-Usage and environment setup are documented in `docs/`.
+See [installation](docs/INSTALL.md), [usage](docs/CONTROLLER_USAGE.md), and the
+[API](docs/API.md). Results are in [R/README.md](R/README.md).

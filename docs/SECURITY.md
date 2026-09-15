@@ -83,15 +83,14 @@ completed separate-UID synthetic static/mutable owner lifecycles with fresh publ
 rechecks, one private attempt and aggregate disclosure. It also built the OCI image
 and ran an isolated live Prime session. These bounded checks are not a security
 audit or IMDb/power-loss certificate. `doctor --release` and owner promotion still
-refuse missing prerequisites. See `RELEASE_STATUS.md` for version-specific evidence.
+refuse missing prerequisites. Verify these boundaries on each deployment host.
 
 Resource enforcement combines RLIMIT_AS (except ASan's huge virtual reservation),
 RLIMIT_CPU/NPROC/NOFILE/FSIZE, bounded tmpfs, process-tree RSS and elapsed-time
 monitoring, and bounded diagnostic/aggregate output checks. RSS and aggregate
 output checks are polled, not cgroup-hard instantaneous limits; bursts can overshoot
 before termination. Use an outer container/cgroup memory, pids and disk quota on a
-dedicated host when evaluating adversarial code. The supplied OCI invocation recipe
-shows those limits. This implementation is not a replacement for a hardened
+dedicated host when evaluating adversarial code. This implementation is not a replacement for a hardened
 multi-tenant execution service. Namespaces require kernel support; never downgrade
 private work to --exploratory.
 

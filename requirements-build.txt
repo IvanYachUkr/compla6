@@ -1,2 +1,2 @@
-# Executed with this installed version. Its installed-file inventory is included.
+# Pinned source-build backend.
 setuptools==82.0.1

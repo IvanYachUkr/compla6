@@ -2,7 +2,7 @@
 
 The evaluator owns candidate snapshots and measurements. The trusted host configures an immutable completion protocol, observes native activity and decides whether a failed research round must continue. The agent can inspect `experiment_brief` and request `finish` through the public tools. A natural-language final answer cannot bypass the protocol.
 
-Use a new workspace and matching installed runtime. Keep controller state, host RPC, budget ledgers and native profiles outside agent write access. Commissioned research uses separate agent and evaluator UIDs; same-UID fixtures only test behavior. Installation and native dependencies are described in the [README](../README.md) and [installation guide](MORNING_INSTALL.md).
+Use a new workspace and matching installed runtime. Keep controller state, host RPC, budget ledgers and native profiles outside agent write access. Commissioned research uses separate agent and evaluator UIDs; same-UID fixtures only test behavior. Installation and native dependencies are described in the [installation guide](INSTALL.md).
 
 ## Configure before preparing instructions
 
@@ -37,4 +37,4 @@ Use the supervised [native RPC runner](PRIME_SUBSCRIPTION_RUNNER.md) and [comple
 
 The alternative [direct SDK adapter](PRIME_CONTROLLER.md) uses public native SDK services and can consume host controller RPC. It reports cumulative own-session usage without a token cap. Money-only commissions still require a protected metered provider path; usage reporting alone is not a dollar admission gate. Host stops drain active work before closure. Do not launch multiple supervisors for the same native root.
 
-Public scoped lessons remain governed by [REFINEMENT.md](REFINEMENT.md). Frozen and adaptive lesson modes do not change the scientific acceptance contract or expose private evidence. Historical validation reports describe their original releases; current release receipts are selected explicitly by the packager.
+Public scoped lessons remain governed by [REFINEMENT.md](REFINEMENT.md). Frozen and adaptive lesson modes do not change the scientific acceptance contract or expose private evidence.

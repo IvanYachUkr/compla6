@@ -85,11 +85,9 @@ jobs, not a long-lived model orchestrator. Registration remains a bounded native
 build and may take longer than a status call. Candidates supplied through MCP must
 be inside the public workspace. The API never exposes freeze/evaluate-private.
 
-`tests/test_mcp.py` exercised real SDK stdio initialization, profile, unsafe-path
-rejection and mutable register/evaluate/status/resume/export. Authenticated HTTP
-also passed bad-token and foreign-Origin checks. The final isolated Prime SDK
-2.1.1 client called the persistent SDK 1.29.1 service and completed a real worker
-job. See `COMPATIBILITY_EVIDENCE.md` for the model/configuration test boundaries.
+`tests/test_mcp.py` covers SDK stdio initialization, profile, unsafe-path
+rejection and mutable register/evaluate/status/resume/export.
+`tests/test_mcp_http.py` covers authenticated HTTP transport.
 
 MCP also exposes `compare` and advisory `resume`. Compare accepts two to eight
 distinct IDs with matching card, runtime, workload and depth, verifies evidence,

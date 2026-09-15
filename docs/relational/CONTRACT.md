@@ -1,7 +1,6 @@
 # Relational workload extension: contract v1
 
-Integrated in Compression Lab 0.2.1 from the preserved `0.1.0-relational.1` source
-increment. The local additions are specified in `../ALGORITHM_SPEC.md`.
+This contract defines the static relational and mutable-store workload interfaces.
 
 ## Workload and engine boundary
 

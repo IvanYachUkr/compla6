@@ -1,6 +1,6 @@
 # Runtime setup
 
-Use the current [README](../README.md) and
+Use the [installation guide](../docs/INSTALL.md) and
 [controller usage](../docs/CONTROLLER_USAGE.md) for installation and operation.
 The [dependency guide](../dependencies/README.md) describes the native build lock
 and evaluator-owned `COMPRESSION_LAB_NATIVE_PREFIX`. Native libraries, Linux
@@ -15,13 +15,17 @@ its current verification limits are described in
 The service units, AppArmor/seccomp policies, benchmark-lock rules and OCI files
 in this directory are provisioning templates. Review their paths, users, runtime
 versions and resource policy for the intended host before installing them.
-`SETUP_0_3.md` and versioned OCI evidence describe earlier installations; they are
-not current copy-and-run instructions or a claim that an image was rebuilt for
-this release. Original runtime guidance and raw receipts remain in the immutable
-0.5.0 archive identified by the generated `provenance/PREVIOUS_RELEASE.json` at
-the application root.
 
-Use [LOCAL_VALIDATION.md](../docs/LOCAL_VALIDATION.md) for the current tested
-boundary and reproduction commands. Install a changed runtime into a new
-versioned location and initialize a new workspace; preserve previous installations
-and their immutable experiment evidence.
+For the optional OCI build, prepare the untracked wheel inputs on Linux x86-64
+with CPython 3.12, then run the build script from the repository root:
+
+```sh
+python3.12 -m pip wheel --no-deps --wheel-dir dist .
+python3.12 -m pip download --only-binary=:all: --require-hashes \
+  -r requirements-mcp.lock --dest wheelhouse/mcp-linux-x86_64-cp312
+sh runtime/build-oci.sh
+```
+
+These templates pin their own Ubuntu/toolchain inputs. Building an image does
+not validate a deployment's user separation, resource limits, or native codec
+prefix. Provision and verify those prerequisites on the intended host.

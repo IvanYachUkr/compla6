@@ -4,8 +4,9 @@ Start with the current [README](../README.md) and
 [controller installation guide](../docs/CONTROLLER_USAGE.md).
 The core wheel needs Python 3.11 or newer and has no third-party Python runtime
 dependencies. Optional MCP 1.29.1 uses the hash-locked CPython 3.12 Linux x86-64
-closure in `../requirements-mcp.lock` and `../wheelhouse/mcp-linux-x86_64-cp312/`.
-The offline build backend is separately pinned in `../requirements-build.lock`.
+closure in `../requirements-mcp.lock`; download it as described in
+[runtime setup](../runtime/README.md) when building an offline OCI image.
+The build backend is separately pinned in `../requirements-build.lock`.
 These are integration pins, not claims about the latest upstream versions.
 
 `native-lock.json`, verified on 7 September 2026, pins Zstandard 1.5.7, LZ4 1.10.0,
@@ -49,9 +50,5 @@ the lock records, wheel metadata and the verified native prefix. Candidate
 exports retain and charge their required decoder runtime and notices under the
 experiment's accounting policy.
 
-`upstream-lock.json` and `upstream-extra.json` retain the earlier source audit.
-They are distinct from the active native build lock. The old full
-`observed-runtime*.json` dumps and their original guide remain in the immutable
-0.5.0 archive referenced by the generated `provenance/PREVIOUS_RELEASE.json` at
-the application root. They are historical observations, not current runtime
-attestations or required installation inputs.
+`upstream-lock.json` and `upstream-extra.json` contain source metadata used by
+`tools/fetch_upstream.py`. They are distinct from the active native build lock.
