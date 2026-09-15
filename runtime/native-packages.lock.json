@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "platform": "Debian 13 Linux x86-64",
+  "packages": [
+    {
+      "package": "g++",
+      "version": "4:14.2.0-1",
+      "architecture": "amd64"
+    },
+    {
+      "package": "g++-14",
+      "version": "14.2.0-19",
+      "architecture": "amd64"
+    },
+    {
+      "package": "gcc",
+      "version": "4:14.2.0-1",
+      "architecture": "amd64"
+    },
+    {
+      "package": "gcc-14",
+      "version": "14.2.0-19",
+      "architecture": "amd64"
+    },
+    {
+      "package": "cpp-14",
+      "version": "14.2.0-19",
+      "architecture": "amd64"
+    },
+    {
+      "package": "binutils",
+      "version": "2.44-3",
+      "architecture": "amd64"
+    },
+    {
+      "package": "binutils-x86-64-linux-gnu",
+      "version": "2.44-3",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libstdc++-14-dev",
+      "version": "14.2.0-19",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libasan8",
+      "version": "14.2.0-19",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libubsan1",
+      "version": "14.2.0-19",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libbrotli-dev",
+      "version": "1.1.0-2+b7",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libbrotli1",
+      "version": "1.1.0-2+b7",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libc6",
+      "version": "2.41-12+deb13u3",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libc6-dev",
+      "version": "2.41-12+deb13u3",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libgcc-s1",
+      "version": "14.2.0-19",
+      "architecture": "amd64"
+    },
+    {
+      "package": "liblz4-1",
+      "version": "1.10.0-4",
+      "architecture": "amd64"
+    },
+    {
+      "package": "liblz4-dev",
+      "version": "1.10.0-4",
+      "architecture": "amd64"
+    },
+    {
+      "package": "liblzma-dev",
+      "version": "5.8.1-1+deb13u1",
+      "architecture": "amd64"
+    },
+    {
+      "package": "liblzma5",
+      "version": "5.8.1-1+deb13u1",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libseccomp2",
+      "version": "2.6.0-2",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libstdc++6",
+      "version": "14.2.0-19",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libzstd-dev",
+      "version": "1.5.7+dfsg-1",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libzstd1",
+      "version": "1.5.7+dfsg-1",
+      "architecture": "amd64"
+    },
+    {
+      "package": "python3",
+      "version": "3.13.5-1",
+      "architecture": "amd64"
+    },
+    {
+      "package": "python3-venv",
+      "version": "3.13.5-1",
+      "architecture": "amd64"
+    },
+    {
+      "package": "util-linux",
+      "version": "2.41-5",
+      "architecture": "amd64"
+    },
+    {
+      "package": "libxxhash0",
+      "version": "0.8.3-2",
+      "architecture": "amd64"
+    }
+  ]
+}

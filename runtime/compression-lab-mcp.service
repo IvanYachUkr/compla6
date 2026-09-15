@@ -1,0 +1,27 @@
+[Unit]
+Description=Compression Lab public MCP evaluator
+After=network.target apparmor.service
+Requires=apparmor.service
+
+[Service]
+Slice=compression-lab.slice
+User=compression-evaluator
+Group=compression-evaluator
+WorkingDirectory=/var/lib/compression-lab/hadoop-sol-high-0.2.1-2026-09-06
+Environment=PYTHONNOUSERSITE=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+EnvironmentFile=/var/lib/compression-lab/compression-evaluator/mcp-service.env
+ExecStart=/opt/compression-lab-0.2.1/venv/bin/python /opt/compression-lab-0.2.1/tools/serve_linux.py --workspace /var/lib/compression-lab/hadoop-sol-high-0.2.1-2026-09-06 --port 8766
+Restart=on-failure
+RestartSec=30
+NoNewPrivileges=true
+AppArmorProfile=compression-lab-evaluator
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/compression-lab/hadoop-sol-high-0.2.1-2026-09-06 /run/compression-lab
+# Public exports are readable; state/jobs/candidates/results remain in mode-0700 directories.
+UMask=0022
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,122 @@
+{
+  "network_scope": "Execution container cannot resolve external hosts. Web source verification succeeded, but new source archives were not downloaded or built. A verified upstream version is not an observed executable version.",
+  "packages": {
+    "brotli": {
+      "latest_source_build_tested_here": false,
+      "license_expression": "MIT",
+      "license_url": "https://raw.githubusercontent.com/google/brotli/v1.2.0/LICENSE",
+      "observed_in_this_environment": "1.1.0",
+      "release_date": "2025-10-27",
+      "release_url": "https://github.com/google/brotli/releases/tag/v1.2.0",
+      "repository_url": "https://github.com/google/brotli",
+      "source": {
+        "commit_sha1": "028fb5a23661f123017c060daa546b55cf4bde29",
+        "hash_scope": "Git object ID verified upstream, not an archive SHA-256; fetch receipt records local tree SHA-256.",
+        "kind": "git-commit",
+        "source_archive_sha256": null,
+        "url": "https://github.com/google/brotli.git"
+      },
+      "version": "1.2.0"
+    },
+    "lz4": {
+      "latest_source_build_tested_here": false,
+      "license_expression": "BSD-2-Clause",
+      "license_scope": "liblz4; upstream CLI/test code additionally uses GPL-2.0-or-later.",
+      "license_url": "https://raw.githubusercontent.com/lz4/lz4/v1.10.0/lib/LICENSE",
+      "observed_in_this_environment": "1.10.0",
+      "release_date": "2024-07-22",
+      "release_url": "https://github.com/lz4/lz4/releases/tag/v1.10.0",
+      "repository_url": "https://github.com/lz4/lz4",
+      "source": {
+        "commit_sha1": "ebb370ca83af193212df4dcbadcc5d87bc0de2f0",
+        "hash_scope": "Git object ID verified upstream, not an archive SHA-256; fetch receipt records local tree SHA-256.",
+        "kind": "git-commit",
+        "source_archive_sha256": null,
+        "url": "https://github.com/lz4/lz4.git"
+      },
+      "tag_date": "2024-07-21",
+      "version": "1.10.0"
+    },
+    "mcp": {
+      "integration_pin": "1.29.1",
+      "integration_pin_date": "2026-08-24",
+      "integration_pin_reason": "Official supported v1 maintenance line, supplied offline wheel; FastMCP/auth API used by this adapter. v2 is current stable but migration was not run here.",
+      "integration_pin_source_sha256": "1967ba4c315f7a375146209949f45950d18b0efd2f913d7cf3400bc723ee5f04",
+      "integration_pin_url": "https://pypi.org/project/mcp/1.29.1/",
+      "integration_pin_wheel_sha256": "b6310eeb59153300c4ab8b9aec4c52f4819a2d6a8e429eb43d908bed7c783648",
+      "license_expression": "MIT",
+      "license_url": "https://github.com/modelcontextprotocol/python-sdk/blob/v2.1.1/LICENSE",
+      "release_date": "2026-08-25",
+      "release_url": "https://pypi.org/project/mcp/2.1.1/",
+      "source": {
+        "commit_sha1": "0921d94a74db900dccd2d534842aa7b6160542d2",
+        "filename": "mcp-2.1.1.tar.gz",
+        "kind": "sdist",
+        "sha256": "50b7ba1ebbe117008ea7bdd288234043e69c20b403d6851d19661e6d431a75ef"
+      },
+      "version": "2.1.1",
+      "wheel": {
+        "filename": "mcp-2.1.1-py3-none-any.whl",
+        "sha256": "1c6c31c5d6471c58db76af3af8af67f46d11d01f0a59077d0a308cbdb3d3e915"
+      }
+    },
+    "setuptools": {
+      "integration_pin": "82.0.1",
+      "integration_pin_date": "2026-03-09",
+      "integration_pin_reason": "Observed preinstalled build backend and installed-file inventory; no upstream setuptools wheel was supplied. Pin retained for the tested offline build, not claimed latest.",
+      "integration_pin_url": "https://pypi.org/project/setuptools/82.0.1/",
+      "license_expression": "MIT",
+      "license_url": "https://github.com/pypa/setuptools/blob/v84.0.0/LICENSE",
+      "release_date": "2026-08-08",
+      "release_url": "https://pypi.org/project/setuptools/84.0.0/",
+      "source": {
+        "filename": "setuptools-84.0.0.tar.gz",
+        "kind": "sdist",
+        "sha256": "f4695c21257f0d9b537ec2692c941d02ee143b7cc1276941349a546573b2ef73"
+      },
+      "version": "84.0.0",
+      "wheel": {
+        "filename": "setuptools-84.0.0-py3-none-any.whl",
+        "sha256": "51a52592b3b99e102b609654876bd65f19f999935166d1352678931132b0c670"
+      }
+    },
+    "xz": {
+      "latest_source_build_tested_here": false,
+      "license_expression": "0BSD",
+      "license_scope": "liblzma; the complete XZ source distribution has additional licenses, see COPYING.",
+      "license_url": "https://raw.githubusercontent.com/tukaani-project/xz/v5.8.3/COPYING",
+      "observed_in_this_environment": "5.8.1",
+      "release_date": "2026-03-31",
+      "release_url": "https://tukaani.org/xz/",
+      "repository_url": "https://github.com/tukaani-project/xz",
+      "source": {
+        "hash_source_url": "https://github.com/tukaani-project/xz/releases/expanded_assets/v5.8.3",
+        "kind": "tar.gz",
+        "sha256": "3d3a1b973af218114f4f889bbaa2f4c037deaae0c8e815eec381c3d546b974a0",
+        "url": "https://github.com/tukaani-project/xz/releases/download/v5.8.3/xz-5.8.3.tar.gz"
+      },
+      "version": "5.8.3"
+    },
+    "zstd": {
+      "latest_source_build_tested_here": false,
+      "license_expression": "BSD-3-Clause OR GPL-2.0-only",
+      "license_url": "https://raw.githubusercontent.com/facebook/zstd/v1.5.7/LICENSE",
+      "observed_in_this_environment": "1.5.7",
+      "release_date": "2025-02-19",
+      "release_url": "https://github.com/facebook/zstd/releases/tag/v1.5.7",
+      "repository_url": "https://github.com/facebook/zstd",
+      "selected_library_license": "BSD-3-Clause",
+      "source": {
+        "commit_sha1": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+        "hash_scope": "Git object ID verified upstream, not an archive SHA-256; fetch receipt records local tree SHA-256.",
+        "kind": "git-commit",
+        "source_archive_sha256": null,
+        "url": "https://github.com/facebook/zstd.git"
+      },
+      "version": "1.5.7"
+    }
+  },
+  "schema_version": 1,
+  "verification_method": "Official upstream release pages, source license files, Git commit pages and PyPI file hashes inspected with web tools.",
+  "verified_on": "2026-09-07"
+}

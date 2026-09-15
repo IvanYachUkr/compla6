@@ -1,0 +1,13 @@
+**
+!runtime/
+!runtime/Dockerfile
+!runtime/verify-native-lock.py
+!runtime/oci/
+!runtime/oci/native-packages.lock.json
+!runtime/oci/native-toolchain-files.lock.json
+!requirements-mcp.lock
+!dist/
+!dist/compression_lab-*-py3-none-any.whl
+!wheelhouse/
+!wheelhouse/mcp-linux-x86_64-cp312/
+!wheelhouse/mcp-linux-x86_64-cp312/*.whl

@@ -1,0 +1,19 @@
+{
+  "schema_version": 2,
+  "objective": "qualification",
+  "max_children": 0,
+  "max_depth": 0,
+  "models": {
+    "root": [
+      {
+        "model": "openai/gpt-5.6-sol",
+        "effort": "max"
+      }
+    ],
+    "worker": []
+  },
+  "time_limit_seconds": null,
+  "max_cost_nano": 50000000000,
+  "max_failure_continuations": 3,
+  "stop_on_success": false
+}

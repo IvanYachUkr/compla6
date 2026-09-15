@@ -1,0 +1,7 @@
+[Unit]
+Description=Compression Lab evaluator scope
+
+[Slice]
+# Match the commissioned CLI cgroup layout. Candidate affinity remains explicit.
+# This affects only this slice, not the host's other CPU/resource controllers.
+DisableControllers=cpuset

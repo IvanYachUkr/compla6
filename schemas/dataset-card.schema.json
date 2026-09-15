@@ -1,0 +1,447 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Compression Lab public dataset card v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dataset_id",
+    "adapter",
+    "public_manifest",
+    "objective",
+    "limits",
+    "search_budget"
+  ],
+  "properties": {
+    "evaluation_mode": {"enum": ["split", "whole_dataset"], "description": "New card creation explicitly selects whole_dataset; omitted legacy values retain split behavior."},
+    "baseline_visibility": {"enum": ["visible", "hidden"]},
+    "implementation_policy": {"enum": ["open", "from_scratch"]},
+    "hypothesis_policy": {"enum": ["optional", "required"]},
+    "primary_size_policy": {"enum": ["strict-deployment-v1", "standard-codec-available-v1"]},
+    "accounting_policy": {"enum": ["standalone-v1", "supervisor-decoder-v1"]},
+    "resource_profiles": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "primary", "profiles"],
+      "properties": {
+        "schema_version": {"const": 1},
+        "primary": {"type": "string"},
+        "profiles": {"type": "array", "minItems": 1, "maxItems": 8,
+          "items": {"type": "object", "additionalProperties": false,
+            "required": ["id", "threads", "cpus"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{0,63}$"},
+              "threads": {"type": "integer", "minimum": 1, "maximum": 64},
+              "cpus": {"type": "array", "minItems": 1, "uniqueItems": true,
+                "items": {"type": "integer", "minimum": 0}}
+            }}}
+      },
+      "$comment": "Engine also checks unique IDs, primary membership and consistent limits."
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "dataset_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "adapter": {
+      "enum": [
+        "bytes",
+        "hcb1",
+        "relational_bundle"
+      ]
+    },
+    "public_manifest": {
+      "type": "string",
+      "minLength": 1
+    },
+    "group_key": {
+      "type": "string"
+    },
+    "input_domain": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "development_policy": {
+      "type": "object"
+    },
+    "objective": {
+      "type": "object",
+      "required": [
+        "encode_floor_bytes_per_second",
+        "deployment_canonical_bytes",
+        "rank_by"
+      ],
+      "properties": {
+        "encode_floor_bytes_per_second": {
+          "enum": [
+            100000000,
+            null
+          ]
+        },
+        "decode_floor_bytes_per_second": {
+          "type": "null"
+        },
+        "deployment_canonical_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "rank_by": {
+          "const": "deployment_total_bytes"
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "required": [
+        "threads",
+        "memory_bytes",
+        "timeout_seconds"
+      ],
+      "properties": {
+        "threads": {"type": "integer", "minimum": 1, "maximum": 64},
+        "memory_bytes": {
+          "type": "integer",
+          "minimum": 67108864,
+          "maximum": 17179869184
+        },
+        "timeout_seconds": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 3600
+        },
+        "offline_timeout_seconds": {
+          "type": "number", "exclusiveMinimum": 0, "maximum": 3600
+        },
+        "output_bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "search_budget": {
+      "type": "object",
+      "required": [
+        "candidate_evaluations",
+        "wall_seconds"
+      ],
+      "properties": {
+        "candidate_evaluations": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "wall_seconds": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "timing_policy": {
+      "type": "object",
+      "properties": {
+        "operation": {"enum": ["end-to-end-encode-v1", "offline-plus-online-v1"]},
+        "encoding_floor_scope": {"enum": ["online", "combined"]},
+        "scope": {"enum": ["train-plus-development-v1", "validation-only-v2", "whole-dataset-v1"]},
+        "role": {
+          "enum": [
+            "smoke",
+            "benchmark"
+          ]
+        },
+        "warmup_trials": {
+          "const": 0
+        },
+        "noise_relative_mad_limit": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 0.25
+        }
+      }
+    },
+    "workload": {
+      "enum": [
+        "independent_objects",
+        "static_relational",
+        "mutable_store"
+      ]
+    },
+    "mutable_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocol_version",
+        "single_writer",
+        "insert_only",
+        "durability",
+        "cache_procedure",
+        "metric_trials"
+      ],
+      "properties": {
+        "protocol_version": {
+          "const": 1
+        },
+        "single_writer": {
+          "const": true
+        },
+        "insert_only": {
+          "const": true
+        },
+        "durability": {
+          "const": "process_crash"
+        },
+        "cache_procedure": {
+          "const": "fresh_process_then_warm_no_os_cache_drop"
+        },
+        "metric_trials": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 11
+        },
+        "measurement_sequences": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "transactions",
+              "merges"
+            ],
+            "properties": {
+              "transactions": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 256
+              },
+              "merges": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 256
+              }
+            }
+          },
+          "$comment": "Engine additionally requires merges <= transactions and strictly increasing (transactions, merges) pairs."
+        }
+      }
+    },
+    "screening_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "max_objects",
+        "max_canonical_bytes",
+        "seed"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "max_objects": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "max_canonical_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 67108864
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        }
+      }
+    },
+    "runtime_scenarios": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "profiles"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "profiles": {
+          "type": "array",
+          "maxItems": 16,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "libraries"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                "not": {
+                  "const": "standalone-v1"
+                }
+              },
+              "libraries": {
+                "type": "array",
+                "maxItems": 128,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "soname",
+                    "sha256"
+                  ],
+                  "properties": {
+                    "soname": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z0-9_+.-]{1,128}$"
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "$comment": "Engine additionally rejects duplicate profile IDs, duplicate SONAMEs, and dot/dot-dot SONAMEs."
+    }
+  },
+  "allOf": [
+    {
+      "if": {"required": ["timing_policy"], "properties": {"timing_policy": {
+        "required": ["operation"], "properties": {"operation": {"const": "offline-plus-online-v1"}}
+      }}},
+      "then": {"properties": {
+        "timing_policy": {"required": ["encoding_floor_scope"], "properties": {"encoding_floor_scope": {"enum": ["online", "combined"]}}},
+        "workload": {"enum": ["independent_objects", "static_relational"]}
+      }},
+      "else": {"properties": {"timing_policy": {"not": {"required": ["encoding_floor_scope"]}}}}
+    },
+    {
+      "if": {"required": ["primary_size_policy"], "properties": {"primary_size_policy": {"const": "standard-codec-available-v1"}}},
+      "then": {
+        "required": ["accounting_policy", "runtime_scenarios"],
+        "properties": {
+          "accounting_policy": {"const": "supervisor-decoder-v1"},
+          "runtime_scenarios": {"properties": {"profiles": {"contains": {
+            "required": ["id", "libraries"],
+            "properties": {"id": {"const": "standard-codec-available-v1"}, "libraries": {"items": {"properties": {
+              "soname": {"enum": ["libzstd.so.1", "liblz4.so.1", "libbrotlienc.so.1", "libbrotlidec.so.1", "libbrotlicommon.so.1", "liblzma.so.5", "libz.so.1", "libbz2.so.1.0", "libxxhash.so.0"]}
+            }}}}
+          }}}}
+        }
+      }
+    },
+    {
+      "if": {"required": ["evaluation_mode"], "properties": {"evaluation_mode": {"const": "whole_dataset"}}},
+      "then": {
+        "required": ["accounting_policy", "timing_policy"],
+        "properties": {
+          "accounting_policy": {"const": "supervisor-decoder-v1"},
+          "timing_policy": {"required": ["scope"], "properties": {"scope": {"const": "whole-dataset-v1"}}},
+          "workload": {"enum": ["independent_objects", "static_relational"]}
+        },
+        "not": {"required": ["development_policy"]}
+      },
+      "else": {"properties": {"timing_policy": {"properties": {"scope": {"enum": ["train-plus-development-v1", "validation-only-v2"]}}}}}
+    },
+    {
+      "if": {
+        "required": [
+          "workload"
+        ],
+        "properties": {
+          "workload": {
+            "const": "mutable_store"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "mutable_policy"
+        ],
+        "properties": {
+          "objective": {
+            "properties": {
+              "encode_floor_bytes_per_second": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "screening_policy"
+              ]
+            },
+            {
+              "required": [
+                "runtime_scenarios"
+              ]
+            }
+          ]
+        }
+      },
+      "else": {
+        "not": {
+          "required": [
+            "mutable_policy"
+          ]
+        },
+        "properties": {
+          "objective": {
+            "properties": {
+              "encode_floor_bytes_per_second": {
+                "const": 100000000
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "workload"
+        ],
+        "properties": {
+          "workload": {
+            "enum": [
+              "static_relational",
+              "mutable_store"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "adapter": {
+            "const": "relational_bundle"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "adapter": {
+            "enum": [
+              "bytes",
+              "hcb1"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

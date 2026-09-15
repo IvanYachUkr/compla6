@@ -1,0 +1,16 @@
+FROM ubuntu:24.04@sha256:1e0a86e57d247923571b75e0aaf48a1449cf8c543d51fb3e07a4a7d7bfa79316
+# Public Mozilla roots extracted from the hash-verified Ubuntu CA package.
+# Bootstrap HTTPS without using a mutable archive or disabling TLS verification.
+COPY ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources
+RUN apt-get -o Acquire::Check-Valid-Until=false update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+      ca-certificates python3 python3-venv g++ gcc binutils make pkg-config \
+      util-linux libseccomp2 libzstd-dev liblz4-dev libbrotli-dev liblzma-dev \
+      libasan8 libubsan1 libxxhash0 && \
+    rm -rf /var/lib/apt/lists/*
+RUN groupadd --gid 10001 lab-evaluator && \
+    useradd --uid 10001 --gid 10001 --home-dir /work --no-create-home --shell /usr/sbin/nologin lab-evaluator && \
+    install -d -m 0755 -o 10001 -g 10001 /work && \
+    install -d -m 0755 /run/compression-lab && \
+    install -m 0666 /dev/null /run/compression-lab/benchmark.lock

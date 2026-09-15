@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "scope": "Build tools, GCC helper programs/static runtime and libseccomp; candidate runtime closures separately inventoried.",
+  "files": [
+    {
+      "path": "/usr/bin/x86_64-linux-gnu-g++-14",
+      "bytes": 1166360,
+      "sha256": "6b3696e4dcb85e1c949c732a02befa50e3983ecf94ce7e8e58d9d503b954b79d"
+    },
+    {
+      "path": "/usr/bin/x86_64-linux-gnu-gcc-14",
+      "bytes": 1162264,
+      "sha256": "a23ecab8ff08f09ad8c80602c2c5df7f49e09c25905cb8975902e101bf72635f"
+    },
+    {
+      "path": "/usr/bin/unshare",
+      "bytes": 92792,
+      "sha256": "d82900dfd64b5dd01493d206236575623c2dcf306c466dbe127e171c18cb4614"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtbegin.o",
+      "bytes": 2432,
+      "sha256": "df8f8079c3724e8cd011f77df3ce9046183354bccaa6d0029a2860f4fcbcab4d"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o",
+      "bytes": 2736,
+      "sha256": "37af2040527c75078f900a29ea4a71b22576aa5c26f1f29af7b5935cebbe571e"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtbeginT.o",
+      "bytes": 2936,
+      "sha256": "d4c928492dd7f652f72fa706bd59b0e77eb3d842863d2287a9059e37b4bf5ba2"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtend.o",
+      "bytes": 1152,
+      "sha256": "8981687575c10a2e2146947bce387769cbd118f5b8c5dda489f514dc7d2ed4c7"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o",
+      "bytes": 1152,
+      "sha256": "8981687575c10a2e2146947bce387769cbd118f5b8c5dda489f514dc7d2ed4c7"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtfastmath.o",
+      "bytes": 4008,
+      "sha256": "4a4b5da5fd229544100dd71fac0b42153b835d89c353f304912c617178567b9b"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtoffloadbegin.o",
+      "bytes": 1312,
+      "sha256": "2a84f51fb496357bca648daeb80840e318ee30841ef947f8dd97b0fd706e8aab"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtoffloadend.o",
+      "bytes": 1312,
+      "sha256": "ce4ac342e6c582d6739cce337baf1fe009b68143eb104dd2a97a0e10116f0cbf"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtoffloadtable.o",
+      "bytes": 1576,
+      "sha256": "87fdafc169b42d7289ea36e95d2bb39b53b59ac4c464312c7302f3cca767cbd2"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtoffloadtableS.o",
+      "bytes": 1584,
+      "sha256": "378304a7c1096d1b8076b834990f10670555b7a8edb23140d14d067c201d982f"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtprec32.o",
+      "bytes": 3664,
+      "sha256": "4b204df042a300c808e09cc5e280db511cf92acb4ec43f7d31de8e64f6244d87"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtprec64.o",
+      "bytes": 3680,
+      "sha256": "4a377c45adde6ea546915b53f0fc3c7182b5110807a373a8fe71c0d67c92320a"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/crtprec80.o",
+      "bytes": 3664,
+      "sha256": "64ef8c0809a2a9f57f8881578c8a56545ad2023831e99e5d9c89f8294bc11fe0"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libasan.a",
+      "bytes": 3370018,
+      "sha256": "89f0ef9dc1c5ab572eca99991f8ee4b623e50ab2d3fe5fcccb369a2c791dcdbd"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libasan_preinit.o",
+      "bytes": 14920,
+      "sha256": "dc6c53e3748bf5598a6438df0df714408d31c1d04b2d96d10d090ca16b28235b"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libatomic.a",
+      "bytes": 139184,
+      "sha256": "958fc9b76940194104ddba207e6567f136278ea38f7ea12bdfe7546ab38ac480"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libbacktrace.a",
+      "bytes": 124386,
+      "sha256": "972057773df2212a027d416bebd42d49dff10d4fceb64e05a79c98de9e206135"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libcaf_single.a",
+      "bytes": 65890,
+      "sha256": "86ea7be23841ed02efa0c67cb134ea5edb9a8a1f46aa754f4cdba00c2618c05d"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libgcc.a",
+      "bytes": 3243220,
+      "sha256": "c53c33f587ceaf0fc9a4b6bb5c5437082068f64ac70eb3b7a0d899e7ac5ffd3d"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libgcc_eh.a",
+      "bytes": 71330,
+      "sha256": "4622efa3af50eaea4fbb4bc520ada4c88008c5343e0ad306633821fd2432102d"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so",
+      "bytes": 132,
+      "sha256": "69a56a9993b7729b29b274e65016031c81f2397f176ed5ad44d59bd50425e0bd"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libgcov.a",
+      "bytes": 66666,
+      "sha256": "4d2dd24d0bcbc295bf30b0e07e5e85e70472fe61fb094f0884f59bfef3c92982"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libgfortran.a",
+      "bytes": 5443868,
+      "sha256": "1948c1b92b36e54026315fcbe61ae73c1c40c68f9b8873842b6158a09612c45e"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libgfortran.spec",
+      "bytes": 278,
+      "sha256": "30117db11e12cd33bd7406c760dfc2eaef907ea40a2646523f036ea57b87700a"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libgomp.a",
+      "bytes": 621656,
+      "sha256": "154cc0e6ed92b6bbeb5d5f77e00e6ef04379e24b35c892c5bfa5b83e963d98cc"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libgomp.spec",
+      "bytes": 169,
+      "sha256": "1745a1f1bfd4f9db9eabaf769f6ae7f109b8d200633dcf127b19df324eb1db52"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libhwasan.a",
+      "bytes": 1507804,
+      "sha256": "2eb0ca4f57f30fdcdf413f06d63b4820a7cec06512d474606df9d2d62e0fe7ed"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libhwasan_preinit.o",
+      "bytes": 6176,
+      "sha256": "357460a4f5140f99fadf245a886376f7bdbbb1093005b3e6750749727571a536"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libitm.a",
+      "bytes": 200934,
+      "sha256": "32f70f6d7a935db36f9c98d4503d12ae66df055a4b8f9b7adfacc4cc87dbd52e"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libitm.spec",
+      "bytes": 162,
+      "sha256": "66bc196e461b4a8b729e89992421235f7a03a7d873329059faa2100f5d33c335"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/liblsan.a",
+      "bytes": 1218248,
+      "sha256": "2e0dd38f396ed0a372e7d00a27aa2ba305c872a8057977732c4ccba4b9e359f1"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/liblsan_preinit.o",
+      "bytes": 5968,
+      "sha256": "561dbd0c9ddacc679866dbf131f077c5d775841bb2dbdab3a0fda038a619ecd1"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libquadmath.a",
+      "bytes": 620188,
+      "sha256": "688bf41661de1f19afe9ba8838266f9fa05a4130b1a9b6eeaa4712488c6b86a6"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libsanitizer.spec",
+      "bytes": 362,
+      "sha256": "15e0778e7a6d3ed8763425c801cc714cec9d0438251726809c035c581daee94d"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libssp_nonshared.a",
+      "bytes": 1478,
+      "sha256": "c70892e8fec2524db2b9b2c362a2c8c8d5338786b32160004c70e062eaff676b"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libstdc++.a",
+      "bytes": 6531228,
+      "sha256": "3a7def7eb48c699651c0a301d1f5eb1263bbfd2ec186b152bfbc5debb60ad3d7"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libstdc++exp.a",
+      "bytes": 980942,
+      "sha256": "ff2d5d76345552e3438474de81fac6cec440bb667d07fd714f08251ace1b1312"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libstdc++fs.a",
+      "bytes": 694272,
+      "sha256": "7c25ff60fa05dda6b1eb179b65f2f32215e63793e35e0f55bf3804784e1665a5"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libsupc++.a",
+      "bytes": 379480,
+      "sha256": "145f678cb8d5df4c6637ff4f3281fb337cd518e3a56ffb9c01aaba9b0f345c46"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libtsan.a",
+      "bytes": 2692878,
+      "sha256": "9ae67d6228f8cd6b42b8e592ce84347d85e9909d0ca12b8a917b72b77422ed9a"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libtsan_preinit.o",
+      "bytes": 4616,
+      "sha256": "ed8c1e15a105656e860fc03db60e66fd74fac1853ed7d2f7a4d2f0b9a0edf407"
+    },
+    {
+      "path": "/usr/lib/gcc/x86_64-linux-gnu/14/libubsan.a",
+      "bytes": 1090176,
+      "sha256": "b84dcb4b1f202b6d9a7490fd533425ef3e8caa47f584d59a748d868c732f3ba0"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libseccomp.so.2.6.0",
+      "bytes": 182560,
+      "sha256": "c851a2378b4ef3a42ada5f8ff1604ad38f6bbcafa2aeea3f6680160d628c2f27"
+    }
+  ]
+}

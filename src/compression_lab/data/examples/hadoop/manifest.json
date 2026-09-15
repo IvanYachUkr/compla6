@@ -1,0 +1,68 @@
+{
+  "adapter": "hcb1",
+  "dataset_id": "hadoop-public-smoke",
+  "objects": [
+    {
+      "alias": "search-000001",
+      "canonical_bytes": 574354,
+      "canonical_sha256": "715e80ebfc3c8dddf07b1deb3b1f5369b3384ab9bdd6fe4135e4b0bd8ef6c12b",
+      "file_count": 1,
+      "group_alias": "search-group-0001",
+      "path": "objects/search-000001.hcb",
+      "raw_bytes": 574291,
+      "split": "train"
+    },
+    {
+      "alias": "search-000019",
+      "canonical_bytes": 1462632,
+      "canonical_sha256": "23d8df673019c5f525af6d1fad2532b91fe0e843cc96f01963c115710c5cdc73",
+      "file_count": 1,
+      "group_alias": "search-group-0002",
+      "path": "objects/search-000019.hcb",
+      "raw_bytes": 1462569,
+      "split": "train"
+    },
+    {
+      "alias": "search-000036",
+      "canonical_bytes": 392574,
+      "canonical_sha256": "79717096ba0f996837b7ed1b903bc3a786a4d257fd6f75a60487a3ea8812304f",
+      "file_count": 1,
+      "group_alias": "search-group-0003",
+      "path": "objects/search-000036.hcb",
+      "raw_bytes": 392511,
+      "split": "train"
+    },
+    {
+      "alias": "search-000059",
+      "canonical_bytes": 257868,
+      "canonical_sha256": "4c79a590526db2389030d779d2f4382d88d4c21b21f9dacf17ae194bc910aab7",
+      "file_count": 1,
+      "group_alias": "search-group-0004",
+      "path": "objects/search-000059.hcb",
+      "raw_bytes": 257805,
+      "split": "train"
+    },
+    {
+      "alias": "search-000075",
+      "canonical_bytes": 280430,
+      "canonical_sha256": "3151061052bee78f75af30e3acbc14e034da08de2d05b94ffea8769cfdf3feae",
+      "file_count": 1,
+      "group_alias": "search-group-0005",
+      "path": "objects/search-000075.hcb",
+      "raw_bytes": 280367,
+      "split": "train"
+    },
+    {
+      "alias": "search-000088",
+      "canonical_bytes": 528792,
+      "canonical_sha256": "5b6246033bb78110da63f8a767f35f8a85089258e9e904aa5bbc4952abbe7817",
+      "file_count": 1,
+      "group_alias": "search-group-0006",
+      "path": "objects/search-000088.hcb",
+      "raw_bytes": 528729,
+      "split": "development"
+    }
+  ],
+  "schema_version": 1,
+  "scope": "public smoke examples, not a held-out benchmark"
+}

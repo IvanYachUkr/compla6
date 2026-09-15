@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "lock_name": "morning-2026-09-07-static-native",
+  "verified_on": "2026-09-07",
+  "network_policy": {
+    "source_only": true,
+    "official_urls_only": true,
+    "max_parallel_build_jobs": 2,
+    "global_install": false,
+    "sudo": false,
+    "ldconfig": false
+  },
+  "compiler": {
+    "cc": "gcc",
+    "ar": "ar",
+    "ranlib": "ranlib",
+    "cflags": ["-O3", "-fPIC", "-ffunction-sections", "-fdata-sections"],
+    "march": null
+  },
+  "packages": {
+    "zstd": {
+      "version": "1.5.7",
+      "release_date": "2025-02-19",
+      "release_url": "https://github.com/facebook/zstd/releases/tag/v1.5.7",
+      "source_url": "https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-1.5.7.tar.gz",
+      "source_archive": "zstd-1.5.7.tar.gz",
+      "source_archive_sha256": "eb33e51f49a15e023950cd7825ca74a4a2b43db8354825ac24fc1b7ee09e6fa3",
+      "source_hash_url": "https://github.com/facebook/zstd/releases/expanded_assets/v1.5.7",
+      "license_expression": "BSD-3-Clause OR GPL-2.0-only",
+      "license_url": "https://raw.githubusercontent.com/facebook/zstd/v1.5.7/LICENSE",
+      "static_libraries": ["libzstd.a"],
+      "headers": ["zstd.h", "zstd_errors.h", "zdict.h"],
+      "probe_expected_version": "1.5.7"
+    },
+    "lz4": {
+      "version": "1.10.0",
+      "release_date": "2024-07-22",
+      "release_url": "https://github.com/lz4/lz4/releases/tag/v1.10.0",
+      "source_url": "https://github.com/lz4/lz4/releases/download/v1.10.0/lz4-1.10.0.tar.gz",
+      "source_archive": "lz4-1.10.0.tar.gz",
+      "source_archive_sha256": "537512904744b35e232912055ccf8ec66d768639ff3abe5788d90d792ec5f48b",
+      "source_hash_url": "https://github.com/lz4/lz4/releases/expanded_assets/v1.10.0",
+      "license_expression": "BSD-2-Clause",
+      "license_url": "https://raw.githubusercontent.com/lz4/lz4/v1.10.0/lib/LICENSE",
+      "license_scope": "liblz4; CLI and tests are GPL-2.0-or-later",
+      "static_libraries": ["liblz4.a"],
+      "headers": ["lz4.h", "lz4hc.h", "lz4frame.h", "lz4file.h"],
+      "probe_expected_version": "1.10.0"
+    },
+    "brotli": {
+      "version": "1.2.0",
+      "release_date": "2025-10-27",
+      "release_url": "https://github.com/google/brotli/releases/tag/v1.2.0",
+      "source_url": "https://github.com/google/brotli/archive/028fb5a23661f123017c060daa546b55cf4bde29.tar.gz",
+      "source_archive": "brotli-028fb5a23661f123017c060daa546b55cf4bde29.tar.gz",
+      "source_archive_sha256": null,
+      "source_hash_url": null,
+      "immutable_git_commit": "028fb5a23661f123017c060daa546b55cf4bde29",
+      "unverified_archive_hash_reason": "Official source archive has no published adjacent checksum asset; receipt records local SHA-256 and immutable commit.",
+      "license_expression": "MIT",
+      "license_url": "https://raw.githubusercontent.com/google/brotli/v1.2.0/LICENSE",
+      "static_libraries": ["libbrotlienc.a", "libbrotlidec.a", "libbrotlicommon.a"],
+      "headers": ["brotli/encode.h", "brotli/decode.h", "brotli/port.h", "brotli/shared_dictionary.h", "brotli/types.h"],
+      "probe_expected_version": "1.2.0",
+      "probe_expected_version_number": "0x01002000"
+    },
+    "xz": {
+      "version": "5.8.3",
+      "release_date": "2026-03-31",
+      "release_url": "https://github.com/tukaani-project/xz/releases/tag/v5.8.3",
+      "source_url": "https://github.com/tukaani-project/xz/releases/download/v5.8.3/xz-5.8.3.tar.gz",
+      "source_archive": "xz-5.8.3.tar.gz",
+      "source_archive_sha256": "3d3a1b973af218114f4f889bbaa2f4c037deaae0c8e815eec381c3d546b974a0",
+      "source_hash_url": "https://github.com/tukaani-project/xz/releases/expanded_assets/v5.8.3",
+      "license_expression": "0BSD",
+      "license_url": "https://raw.githubusercontent.com/tukaani-project/xz/v5.8.3/COPYING",
+      "license_scope": "liblzma; full source distribution has additional licenses in COPYING",
+      "static_libraries": ["liblzma.a"],
+      "headers": ["lzma.h", "lzma/base.h", "lzma/container.h", "lzma/check.h"],
+      "probe_expected_version": "5.8.3"
+    },
+    "zlib": {
+      "version": "1.3.2",
+      "release_date": "2026-02-17",
+      "release_url": "https://www.zlib.net/",
+      "source_url": "https://zlib.net/fossils/zlib-1.3.2.tar.gz",
+      "source_archive": "zlib-1.3.2.tar.gz",
+      "source_archive_sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16",
+      "source_hash_url": "https://www.zlib.net/",
+      "license_expression": "Zlib",
+      "license_url": "https://www.zlib.net/zlib_license.html",
+      "static_libraries": ["libz.a"],
+      "headers": ["zlib.h", "zconf.h"],
+      "probe_expected_version": "1.3.2"
+    },
+    "bzip2": {
+      "version": "1.0.8",
+      "release_date": "2019-07-13",
+      "release_url": "https://sourceware.org/bzip2/downloads.html",
+      "source_url": "https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz",
+      "source_archive": "bzip2-1.0.8.tar.gz",
+      "source_archive_sha512": "083f5e675d73f3233c7930ebe20425a533feedeaaa9d8cc86831312a6581cefbe6ed0d08d2fa89be81082f2a5abdabca8b3c080bf97218a1bd59dc118a30b9f3",
+      "source_hash_url": "https://sourceware.org/pub/bzip2/sha512.sum",
+      "license_expression": "bzip2-custom",
+      "license_url": "https://sourceware.org/bzip2/manual/manual.html",
+      "static_libraries": ["libbz2.a"],
+      "headers": ["bzlib.h"],
+      "probe_expected_version": "1.0.8"
+    }
+  }
+}

@@ -1,0 +1,2 @@
+# Executed with this installed version. Its installed-file inventory is included.
+setuptools==82.0.1

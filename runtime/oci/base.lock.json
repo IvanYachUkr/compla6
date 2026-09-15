@@ -1,0 +1,34 @@
+{
+  "accessed_at": "2026-09-06",
+  "registry_url": "https://registry-1.docker.io/v2/library/ubuntu/manifests/24.04",
+  "index_digest": "sha256:33ceb71981b602c1a7443a53469e4dba065f7503eab3078a2d7a57a2ab987517",
+  "platform_manifest": {
+    "annotations": {
+      "com.docker.official-images.bashbrew.arch": "amd64",
+      "org.opencontainers.image.base.name": "scratch",
+      "org.opencontainers.image.created": "2026-08-10T00:00:00Z",
+      "org.opencontainers.image.revision": "461fbe29535e51d03451ae146a90f730671d950d",
+      "org.opencontainers.image.source": "https://git.launchpad.net/cloud-images/+oci/ubuntu-base",
+      "org.opencontainers.image.url": "https://hub.docker.com/_/ubuntu",
+      "org.opencontainers.image.version": "24.04"
+    },
+    "digest": "sha256:1e0a86e57d247923571b75e0aaf48a1449cf8c543d51fb3e07a4a7d7bfa79316",
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "platform": {
+      "architecture": "amd64",
+      "os": "linux"
+    },
+    "size": 424
+  },
+  "base_image": "ubuntu:24.04@sha256:1e0a86e57d247923571b75e0aaf48a1449cf8c543d51fb3e07a4a7d7bfa79316",
+  "snapshot": "20260906T000000Z",
+  "snapshot_documentation": "https://snapshot.ubuntu.com/",
+  "bootstrap_ca": {
+    "ubuntu_package": "ca-certificates=20240203",
+    "deb_sha256": "641de77d8f142cfd62a1a6f964ba67b20754d3337c480efb529d086075a06c9a",
+    "archive_metadata_sha256_matched": true,
+    "certificate_count": 146,
+    "bundle_sha256": "4d8bff5680e5b59090c3ffc5cec04ef668395cd875ca0fe30d1f9c8ef1b60b31",
+    "source": "http://archive.ubuntu.com/ubuntu/pool/main/c/ca-certificates/ca-certificates_20240203_all.deb"
+  }
+}

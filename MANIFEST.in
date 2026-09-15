@@ -1,0 +1,14 @@
+include README.md LICENSE THIRD_PARTY_NOTICES.md
+recursive-include src/compression_lab/data *
+recursive-include tests *.py
+recursive-include docs *.md
+recursive-include runtime *
+recursive-include tools *.py *.sh
+
+recursive-include schemas *.json
+include requirements-*.txt
+
+include requirements-*.lock
+recursive-include dependencies *.json *.md
+recursive-include provenance *.cpp *.md *.py *.sh
+recursive-include examples *

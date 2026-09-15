@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools==82.0.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "compression-lab"
+version = "0.6.4"
+description = "Offline native lossless compression experiments with immutable evidence and an owner-controlled private boundary"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{name = "Compression Lab contributors"}]
+dependencies = []
+
+[project.optional-dependencies]
+mcp = ["mcp==1.29.1"]
+
+[project.scripts]
+compression-lab = "compression_lab.cli:main"
+compression-lab-mcp = "compression_lab.mcp_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+compression_lab = ["data/**/*", "data/*"]
