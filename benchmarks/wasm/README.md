@@ -1,7 +1,7 @@
 # Optional WebAssembly measurement
 
 `driver.mjs` is the exact server WASM timer adapter. It consumes the same archives
-and row IDs as `dbtext/driver.cpp`, loads the same decoder entry points, checks
+and row IDs as `dbtext/benchmark.cpp`, loads the same decoder entry points, checks
 output canaries, and reports open/setup, fresh reconstruction, warm reconstruction
 and cleanup separately. Module compilation, instantiation, input copies and host
 output copies are outside those native-style operation timers; compile and

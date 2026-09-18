@@ -6,7 +6,7 @@ five selectivities. This is a quick additional measurement; the previous native
 and WebAssembly results remain unchanged.
 
 The unchanged [filtertest.cpp at e638d4c](https://github.com/cwida/fsst/blob/e638d4cf8c26129d73c242a4127b42b975de5b63/paper/filtertest.cpp)
-is included by `adapter.cpp`. The upstream FSST and LZ4 runners, `doTest`, random
+is included by [wrapper.cpp](../../fsst-paper/wrapper.cpp). The upstream FSST and LZ4 runners, `doTest`, random
 selection, sorting, warmup, timer, correctness oracle and aggregation are unchanged.
 The added runner loads the already measured Astra and OnPair+ native libraries.
 Its row-ID conversion and production of output offsets are inside the timed call;

@@ -5,16 +5,28 @@ Yelp tables. The small Python entry points replace machine-specific paths with
 arguments. C++ timers, workload selection and codec mechanisms are retained.
 Recorded server results are separate from newly generated runs.
 
+## The two DBText comparisons
+
+These are separate code paths. For the review, choose the table first:
+
+| Table we shared | Our code to inspect | Reading guide |
+|---|---|---|
+| **First: our native DBText benchmark** (MB/s, fresh/warm decoding and selected-row milliseconds) | [dbtext/benchmark.cpp](dbtext/benchmark.cpp): 90-line timer; [strings.py](../src/compression_lab/strings.py): selection, correctness and aggregation | [Original benchmark](dbtext/README.md) |
+| **Later: the FSST paper benchmark replay** (million rows/s at 1/3/10/30/100%) | [fsst-paper/wrapper.cpp](fsst-paper/wrapper.cpp): our 83-line wrapper | [Paper wrapper](fsst-paper/README.md) |
+
+The authors' unmodified `filtertest.cpp` lives separately under `upstream/fsst/`.
+The paper replay does not call our original `benchmark.cpp` or `strings.py`.
+
 ## Start here
 
 | Question | Code to read |
 |---|---|
-| Where do DBText timers start and stop? | [dbtext/driver.cpp](dbtext/driver.cpp), about 100 lines |
+| Where do DBText timers start and stop? | [dbtext/benchmark.cpp](dbtext/benchmark.cpp), about 100 lines |
 | How are columns, selected rows and exactness checked? | [strings.py](../src/compression_lab/strings.py): `rows`, `selections`, `evaluate` |
 | How are column times aggregated? | [strings.py](../src/compression_lab/strings.py): `evaluate`, near `corpus=[]` |
 | What do the baseline wrappers add? | [dbtext/reference.cpp](dbtext/reference.cpp), [dbtext/onpair.cpp](dbtext/onpair.cpp) |
 | What was taken from the FSST paper? | Unmodified [upstream/fsst/paper/filtertest.cpp](upstream/fsst/paper/filtertest.cpp) |
-| How do Astra/OnPair+ enter that benchmark? | [fsst-paper/adapter.cpp](fsst-paper/adapter.cpp) |
+| How do Astra/OnPair+ enter that benchmark? | [fsst-paper/wrapper.cpp](fsst-paper/wrapper.cpp) |
 | What is timed for Python/Yelp? | [whole/ram_bench.cpp](whole/ram_bench.cpp), about 80 lines |
 | Which native baseline settings were used there? | [whole/baseline.cpp](whole/baseline.cpp) |
 | Where are model implementations and small RAM adapters? | [DBText candidates](dbtext/candidates), [Python/Yelp candidates](whole/candidates) |

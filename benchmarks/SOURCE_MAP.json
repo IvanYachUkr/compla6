@@ -3,10 +3,6 @@
   "toolkit_version": "0.6.6.dev1",
   "note": "Core timing and adapter sources below are byte-identical to the measured snapshots. Portable Python runners replace host-specific orchestration. Recorded JSON extracts retain numerical values; private paths and process records are omitted. Data, archives, executables and research chats are not included.",
   "kernels": {
-    "dbtext/driver.cpp": {
-      "sha256": "4f82558380a5a5f5efa8a0a6e68920d5a332a6e18396bfae0f4cd1bd2cbecee0",
-      "source": "experiments/dbtext-astra-2026-09-16/lab/src/compression_lab/data/strings/driver.cpp"
-    },
     "dbtext/codec.h": {
       "sha256": "95ca377d103cfc75f115ba8bc1f6e5397ca0aa38508fb98b92985c9ae048883c",
       "source": "experiments/dbtext-astra-2026-09-16/lab/src/compression_lab/data/strings/codec.h"
@@ -31,13 +27,17 @@
       "sha256": "870b5ef48ae8c382782f78e925594649fd3be4e17bdf55e6bd612b68c42db1b8",
       "source": "experiments/python-yelp-ram-2026-09-18/ram_api.hpp"
     },
-    "fsst-paper/adapter.cpp": {
-      "sha256": "a820b48d2be319a0b04bf67f74a1fc0dd1a99840f50a99ba3b3a244389b994de",
-      "source": "experiments/dbtext-astra-2026-09-16/paper-filtertest-2026-09-17/adapter.cpp"
-    },
     "wasm/driver.mjs": {
       "sha256": "93e0ec93c4b612b9d58b12212663677b2f7ed4c6a1117e3ea10d5c8f37f5303f",
       "source": "experiments/dbtext-astra-2026-09-16/final-comparison/wasm-server/driver.mjs"
+    },
+    "dbtext/benchmark.cpp": {
+      "sha256": "4f82558380a5a5f5efa8a0a6e68920d5a332a6e18396bfae0f4cd1bd2cbecee0",
+      "source": "experiments/dbtext-astra-2026-09-16/lab/src/compression_lab/data/strings/driver.cpp"
+    },
+    "fsst-paper/wrapper.cpp": {
+      "sha256": "a820b48d2be319a0b04bf67f74a1fc0dd1a99840f50a99ba3b3a244389b994de",
+      "source": "experiments/dbtext-astra-2026-09-16/paper-filtertest-2026-09-17/adapter.cpp"
     }
   },
   "upstream": {

@@ -35,7 +35,7 @@ def main():
     if not inputs or any(p.stat().st_size >= 7000000 or not p.read_bytes().endswith(b'\n') for p in inputs):
         raise RuntimeError('Paper selective path requires LF-terminated columns below its 7 MB cutoff')
     argv = ['g++', '-std=c++17', '-O3', '-DNDEBUG', '-I' + str(FSST / 'paper'), '-I' + str(FSST),
-            str(HERE / 'adapter.cpp'), '-L' + str(build / 'fsst-lib'), '-lfsst', '-llz4', '-ldl',
+            str(HERE / 'wrapper.cpp'), '-L' + str(build / 'fsst-lib'), '-lfsst', '-llz4', '-ldl',
             '-Wl,-rpath,' + str(build / 'fsst-lib'), '-o', str(out / 'filtertest')]
     result = subprocess.run(argv, capture_output=True, text=True, timeout=120)
     (out / 'build.json').write_text(json.dumps(dict(argv=argv, stdout=result.stdout, stderr=result.stderr), indent=2))

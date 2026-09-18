@@ -29,7 +29,7 @@ def build(output):
     run(['cmake', '-S', UPSTREAM / 'fsst', '-B', output / 'fsst-lib',
          '-DBUILD_SHARED_LIBS=ON', '-DCMAKE_BUILD_TYPE=Release'])
     run(['cmake', '--build', output / 'fsst-lib', '--target', 'fsst', '--parallel', '2'])
-    run(['g++', '-std=c++17', '-O3', '-DNDEBUG', HERE / 'driver.cpp', '-ldl', '-o', output / 'driver'])
+    run(['g++', '-std=c++17', '-O3', '-DNDEBUG', HERE / 'benchmark.cpp', '-ldl', '-o', output / 'driver'])
     common = ['g++', '-std=c++23', '-O3', '-DNDEBUG', '-fPIC', '-shared',
               '-I' + str(HERE), '-I' + str(UPSTREAM / 'fsst'),
               '-L' + str(output / 'fsst-lib')]

@@ -6,7 +6,7 @@
 | OnPair+ | [umbra-db/token-vldb2026 at e202e36](https://github.com/umbra-db/token-vldb2026/tree/e202e36e2b33a4768d1122f96880b64416234175/src/compressor/onpair_advanced) | `fetch.py` downloads and hash-checks the exact [44-file dependency snapshot](onpair-lock.json) into ignored `token/`. |
 | LZ4 / Zstd / LZMA / xxHash | Installed native libraries | Linked by the wrappers; not copied into the repository. Versions used in the recorded tests are documented with the protocols. |
 
-The FSST benchmark source is unchanged; `../fsst-paper/adapter.cpp` is ours and
+The FSST benchmark source is unchanged; `../fsst-paper/wrapper.cpp` is ours and
 adds the `lab_*` interface to its existing runner. We use the original FSST/LZ4
 runners and selection/timing/aggregation logic. We do not claim to use the
 OnPair+ paper's original benchmark harness. Its encoder calls the upstream
