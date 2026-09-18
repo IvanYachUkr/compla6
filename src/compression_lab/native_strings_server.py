@@ -18,6 +18,10 @@ def make_server(root, workbench, port, token):
     commission=load(root/'commission.json')
     if commission['contract']!='native-exact-dataset-v1' or c['encode_floor_bytes_per_second'] is not None:
         raise Error('native_commission_mismatch')
+    variants=set(commission['variants'])
+    if (not variants or not variants <= {'bulk','rows'} or
+        (c.get('row_framing','lf')=='none' and 'rows' in variants)):
+        raise Error('native_commission_mismatch')
     class Verifier:
         async def verify_token(self,value):
             if hmac.compare_digest(value,token):return AccessToken(token=value,client_id='researcher',scopes=['public'])
@@ -46,6 +50,7 @@ def make_server(root, workbench, port, token):
     @server.tool()
     def manifest_template(name:str='my-codec',variant:str='bulk')->dict:
         """Native C/C++ source manifest; compiler commands produce encoder.so and decoder.so."""
+        if variant not in variants:raise Error('native_variant_not_commissioned')
         return native.template(name,variant)
 
     @server.tool()
@@ -103,7 +108,11 @@ def make_server(root, workbench, port, token):
         report=(workbench/report_path).resolve()
         if not report.is_relative_to(workbench) or not report.is_file() or report.stat().st_size==0:
             raise Error('native_report_required')
-        if outcome!='negative' and (not bulk_result or not rows_result):raise Error('native_both_variants_required')
+        selected={'bulk':bulk_result,'rows':rows_result}
+        if any(rid and variant not in variants for variant,rid in selected.items()):
+            raise Error('native_variant_not_commissioned')
+        if outcome!='negative' and any(not selected[variant] for variant in variants):
+            raise Error('native_commissioned_variants_required')
         exports=[]
         for variant,rid in (('bulk',bulk_result),('rows',rows_result)):
             if rid:

@@ -137,6 +137,55 @@ class RunInstructionTests(unittest.TestCase):
         run.card['timing_policy']['encoding_floor_scope'] = 'online'
         self.assertIn('online encoding only', '\n'.join(contract(run)))
 
+    def test_inactive_speed_and_hypothesis_requirements_are_omitted(self):
+        from compression_lab.instructions import contract
+        class Run:
+            card = dataset.research_card('package-size')
+            def metadata(self): return self.card, []
+            def state(self): return {'card_digest':'fixture'}
+            def _controller(self):
+                class Controller:
+                    def state(self): return {'protocol':{'schema_version':1}, 'protocol_digest':'fixture'}
+                return Controller()
+        run = Run()
+        run.card['objective']['encode_floor_bytes_per_second'] = None
+        run.card['hypothesis_policy'] = 'optional'
+        for scope in ('combined', 'online'):
+            with self.subTest(scope=scope):
+                run.card['timing_policy']['encoding_floor_scope'] = scope
+                text = '\n'.join(contract(run))
+                self.assertIn('package size', text)
+                self.assertNotIn('floor', text)
+                self.assertNotIn('fast mode', text)
+                self.assertNotIn('qualified fast', text)
+                self.assertNotIn('record_hypothesis', text)
+                self.assertIn('status(job_id=job_id)', text)
+
+    def test_native_prompt_resolves_variants_framing_and_objectives(self):
+        from compression_lab.instructions import native_prompt
+        config = dict(row_framing='nul', trials=7, warmups=1, memory_bytes=2*1024**3,
+                      selectivities=[1,3,10,30,100], compression_speed='competitive with matched baselines')
+        commission = dict(dataset='queries', original_bytes=42, implementation='open',
+                          variants=['bulk','rows'], objectives=['package_bytes','decode_seconds'],
+                          workbench='/work/workbench', public_inputs=[{'name':'queries'}])
+        text = native_prompt(config, commission)
+        self.assertIn('NUL', text)
+        self.assertIn('lab_rows', text)
+        self.assertIn('setup plus reconstruction', text)
+        self.assertIn('Existing codec libraries', text)
+        self.assertIn('lab_encode', text)
+        self.assertIn('status(job_id=job_id)', text)
+        self.assertNotIn('floor', text)
+        self.assertNotIn('fast mode', text)
+        config['row_framing'] = 'none'
+        commission.update(implementation='from_scratch', variants=['bulk'], objectives=['package_bytes'])
+        text = native_prompt(config, commission)
+        self.assertIn('from scratch', text)
+        self.assertNotIn('lab_rows', text)
+        self.assertNotIn('selected-row', text)
+        self.assertNotIn('Existing codec libraries', text)
+        self.assertNotIn('Reduce complete package size and', text)
+
     def test_prepared_workbench_uses_generated_prompt_and_preserves_existing_files(self):
         import hashlib
         import importlib.util

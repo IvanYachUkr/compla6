@@ -19,6 +19,7 @@ class ClientHelperTests(unittest.TestCase):
         for value in (wanted, json.dumps(wanted), SDK(), {'content': [{'type': 'text', 'text': json.dumps(wanted)}]}):
             self.assertEqual(client.unpack(value), wanted)
         self.assertEqual(client.unpack({'isError': True, 'content': [{'type':'text','text':'bad candidate'}]})['status'], 'tool_error')
+        self.assertEqual(client.unpack({'structuredContent': {}, 'content': []}), {})
 
     def test_bounded_display_retains_full_result(self):
         full = {'status':'ok','metrics':{'rows':[{'result_id':str(i)} for i in range(30)],'pareto_frontier':[1]*30,'best_size':{},'best_eligible':{'result_id':'0'}}}
@@ -31,6 +32,38 @@ class ClientHelperTests(unittest.TestCase):
         self.assertEqual(short['metrics']['rows']['remaining_items'],18)
         self.assertNotIn('pareto_frontier',short['metrics'])
         self.assertEqual(short['metrics']['best_eligible_result_id'],'0')
+
+    def test_authoritative_instructions_and_templates_remain_complete(self):
+        from compression_lab import candidate, dataset
+        from compression_lab.instructions import contract
+        class Run:
+            def metadata(self): return dataset.research_card('instructions'), []
+            def state(self): return {'card_digest':'fixture'}
+            def _controller(self): return None
+        responses = {'brief': {'metrics': {'search_contract': contract(Run())}},
+                     'manifest_template': {'metrics': {'manifest': candidate.blank_manifest('my-codec')}}}
+        class Bridge:
+            async def call_tool(self, server, tool, args): return responses[tool]
+        lab = client.LabClient(Bridge())
+        for tool, expected in responses.items():
+            with self.subTest(tool=tool):
+                self.assertEqual(asyncio.run(lab.call(tool)), expected)
+
+    def test_native_methods_forward_the_advertised_arguments(self):
+        calls = []
+        class Bridge:
+            async def call_tool(self, server, tool, args):
+                calls.append((tool, args))
+                return {'status':'queued','job_id':'j-example'}
+        lab = client.LabClient(Bridge())
+        for tool, arguments in (
+            ('submit', {'candidate_path':'agent/my-codec/candidate.json', 'quick':True}),
+            ('server_benchmark', {'result_id':'s-example'}),
+            ('server_status', {'job_id':'j-example'}),
+        ):
+            asyncio.run(getattr(lab, tool)(**arguments))
+            self.assertEqual(calls[-1], (tool, arguments))
+        with self.assertRaises(AttributeError): getattr(lab, '__missing__')
 
     def test_register_repairs_only_public_owned_permissions(self):
         with tempfile.TemporaryDirectory() as d:

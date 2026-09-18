@@ -20,6 +20,62 @@ from . import candidate, runner, strings
 from .util import Error, canonical, digest, load, rel, safe, save, sha
 
 
+def init(workspace, dataset, inputs, *, row_framing='lf', implementation='from_scratch',
+         cpu=None, standard_libraries=None):
+    """Provision a fresh native commission using this installed Lab package."""
+    from . import __version__
+    from .benchmark_run import write_metadata
+    from .instructions import native_prompt
+    root=Path(workspace).resolve()
+    if root.exists() and any(root.iterdir()):raise Error('native_workspace_not_empty')
+    if not isinstance(dataset,str) or not dataset.strip():raise Error('native_dataset_required')
+    if implementation not in ('open','from_scratch'):raise Error('native_invalid_implementation')
+    if row_framing not in strings.ROW_FRAMINGS:raise Error('strings_invalid_row_framing')
+    cpu=min(os.sched_getaffinity(0)) if cpu is None else cpu
+    if cpu not in os.sched_getaffinity(0):raise Error('strings_cpu_unavailable')
+    inputs=[Path(path).resolve() for path in inputs]
+    if not inputs or len({path.name for path in inputs})!=len(inputs):raise Error('strings_invalid_columns')
+    for path in inputs:
+        if not path.is_file():raise Error('native_input_required',str(path))
+    libraries={name:dict(path=str(Path(path).resolve()),sha256=sha(path),standard_codec=True)
+               for name,path in (standard_libraries or {}).items()}
+    if libraries and implementation!='open':raise Error('native_standard_libraries_require_open')
+    compiler=shutil.which('g++')
+    if not compiler:raise Error('blocked_toolchain','g++')
+    root.mkdir(parents=True,exist_ok=True);runtime=root/'runtime';runtime.mkdir()
+    sources={}
+    for name in ('driver.cpp','codec.h'):
+        target=runtime/name;shutil.copyfile(Path(__file__).parent/'data/strings'/name,target)
+        target.chmod(0o444);sources[name]=target
+    command=[compiler,'-std=c++17','-O3','-DNDEBUG',str(sources['driver.cpp']),'-ldl','-o',str(runtime/'driver')]
+    started=time.monotonic()
+    built=subprocess.run(command,capture_output=True,text=True,timeout=300)
+    save(runtime/'build.json',dict(toolkit_version=__version__,argv=command,returncode=built.returncode,
+         stdout=built.stdout,stderr=built.stderr,data_independent_seconds=time.monotonic()-started,
+         compiler={'path':str(Path(compiler).resolve()),'sha256':sha(compiler)}),0o444)
+    if built.returncode:raise Error('native_driver_build_failed',built.stderr[-2000:])
+    (runtime/'driver').chmod(0o555)
+    receipt=strings.init(root,[(path.name,path) for path in inputs],runtime/'driver',libraries,cpu,
+                         row_framing=row_framing,driver_sources=sources)
+    c=strings.config(root)
+    variants=['bulk'] if row_framing=='none' else ['bulk','rows']
+    commission=dict(contract='native-exact-dataset-v1',dataset=dataset,
+        original_bytes=receipt['original_bytes'],columns=len(inputs),implementation=implementation,
+        variants=variants,objectives=c['primary_objectives'],workbench=str(root/'workbench'),
+        public_inputs=c['columns'],reference_docs=['INSTRUCTIONS.md','workbench/codec.h','references.json'])
+    save(root/'commission.json',commission,0o444)
+    save(root/'references.json',{'results':{},'bulk':[],'rows':[]},0o444)
+    (root/'hypotheses').mkdir();(root/'native-evidence').mkdir()
+    shutil.copyfile(sources['codec.h'],root/'workbench/codec.h')
+    save(root/'workbench/manifest-template.json',template())
+    (root/'INSTRUCTIONS.md').write_text(native_prompt(c,commission));(root/'INSTRUCTIONS.md').chmod(0o444)
+    write_metadata(root,protocol='strings-v1',inputs={path.name:path for path in inputs},cpu=cpu,dataset=dataset,
+        parameters={key:c[key] for key in ('row_framing','trials','warmups','seed','memory_bytes','timeout_seconds',
+                                          'selectivities','full_decode','row_decode')},
+        artifacts=[runtime/'driver',*sources.values(),*(row['path'] for row in libraries.values())])
+    return {**receipt,'commission':commission,'instructions':str(root/'INSTRUCTIONS.md')}
+
+
 def template(name='my-codec', variant='bulk'):
     return dict(schema_version=1, name=name, variant=variant,
                 source_paths=['encoder.cpp', 'decoder.cpp', 'codec.h', 'ALGORITHM.md'],
@@ -99,6 +155,8 @@ def qualify(root, manifest, quick=False):
     work.mkdir(parents=True);save(work/'ATTEMPT.json',{'manifest_path':str(manifest),'quick':quick})
     try:
         m,provenance=snapshot(root,manifest,work/'source')
+        if (root/'commission.json').exists() and m['variant'] not in load(root/'commission.json')['variants']:
+            raise Error('native_variant_not_commissioned')
         first,logs=build(c,work/'source',m,work/'build')
         identity={role:sha(p) for role,p in first.items()}
         provenance.update(build_logs=logs,compiler={name:dict(path=shutil.which(name),sha256=sha(Path(shutil.which(name))))
@@ -148,6 +206,7 @@ def qualify(root, manifest, quick=False):
 def result(root,rid):
     strings.compare(root,[rid])
     row=load(Path(root)/'results'/(rid+'.json'))
+    if row['workload_digest']!=digest(strings.config(root)):raise Error('native_workload_changed')
     if not row.get('eligible'):raise Error('native_full_qualified_result_required')
     provenance=Path(row['native_provenance'])
     if sha(provenance)!=row['native_provenance_sha256']:raise Error('native_provenance_changed')
@@ -173,6 +232,7 @@ def export(root,rid):
            'driver':Path(c['driver']['path']),
            'codec.h':Path(__file__).parent/'data/strings/codec.h',
            'driver.cpp':Path(__file__).parent/'data/strings/driver.cpp'}
+    for name,source in c['driver'].get('sources',{}).items():files[name]=Path(source['path'])
     for file in Path(row['native_source']).rglob('*'):
         if file.is_file():files['source/'+str(file.relative_to(row['native_source']))]=file
     for file in Path(row['evidence']).rglob('*'):
@@ -182,6 +242,7 @@ def export(root,rid):
         if not dep['platform']:files['decoder-libraries/'+dep['soname']]=Path(dep['path'])
     inventory={name:dict(sha256=sha(file),bytes=file.stat().st_size) for name,file in files.items()}
     descriptor={'result_id':rid,'workload_digest':row['workload_digest'],'files':inventory,
+                'row_framing':c.get('row_framing','lf'),
                 'accounting':row['accounting'],'decoder':'measured/decoder.so',
                 'encoder':'measured/encoder.so','same_measured_native_variant':True,
                 'platform_libraries':[x for x in row['dependencies'] if x['platform']],

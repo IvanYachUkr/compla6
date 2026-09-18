@@ -7,8 +7,11 @@ from pathlib import Path
 import resource
 import statistics
 import subprocess
+import sys
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1] / 'src'))
+from compression_lab.benchmark_run import measurement_lock, write_metadata
 
 
 def sha(path):
@@ -86,35 +89,42 @@ def main():
         resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
 
     trials = 1 if args.smoke else 3
+    metadata = write_metadata(out, protocol='whole-ram-v1', dataset=args.dataset,
+        inputs={args.dataset: source}, cpu=args.cpu, smoke=args.smoke,
+        parameters=dict(trials=trials, warmups=0, aggregation='median whole-corpus time',
+                        decode='fresh codec call', memory_bytes=4 * 1024**3),
+        artifacts=[out / 'ram_bench', *out.glob('*.so')])
     rows = []
-    for entry in [dict(id=b, baseline=True) for b in baselines] + methods:
-        name = entry['id']
-        prefix = 'baseline' if entry.get('baseline') else name
-        archive = out / (name + '.archive')
-        env = dict(os.environ, COMPRESSION_LAB_THREADS='1', OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1',
-                   RAM_METHOD=name, RAM_ORIGINAL_BYTES=str(source.stat().st_size))
-        argv = [out / 'ram_bench', source, out / (prefix + '-encode.so'), out / (prefix + '-decode.so'),
-                '-', archive, str(trials), '0' if entry.get('baseline') else '34']
-        print('Measuring', name, flush=True)
-        result = subprocess.run(list(map(str, argv)), env=env, capture_output=True, text=True,
-                                preexec_fn=limits, timeout=960)
-        (out / (name + '.jsonl')).write_text(result.stdout)
-        (out / (name + '.stderr')).write_text(result.stderr)
-        if result.returncode:
-            raise RuntimeError(result.stderr)
-        records = [json.loads(line) for line in result.stdout.splitlines()]
-        if len(records) != trials or not all(r['exact'] for r in records):
-            raise RuntimeError('Incomplete or inexact benchmark')
-        row = dict(id=name, trials=records, payload_sha256=sha(archive), archive_bytes=records[0]['archive_bytes'])
-        for phase in ('encode', 'decode'):
-            row[phase + '_MB_s'] = source.stat().st_size / statistics.median(r[phase + '_seconds'] for r in records) / 1e6
-        if not args.smoke and not entry.get('baseline') and row['archive_bytes'] != entry['prior_archive_bytes']:
-            raise RuntimeError('Rebuilt archive size differs from the recorded result; inspect library versions.')
-        if not args.smoke and not entry.get('baseline') and row['payload_sha256'] != entry['payload_sha256']:
-            raise RuntimeError('Rebuilt payload differs from the frozen server archive; inspect library versions.')
-        rows.append(row)
-        (out / 'summary.json').write_text(json.dumps(dict(dataset=args.dataset, cpu=args.cpu, smoke=args.smoke,
-             input_sha256=sha(source), rows=rows), indent=2) + '\n')
+    with measurement_lock():
+        for entry in [dict(id=b, baseline=True) for b in baselines] + methods:
+            name = entry['id']
+            prefix = 'baseline' if entry.get('baseline') else name
+            archive = out / (name + '.archive')
+            env = dict(os.environ, COMPRESSION_LAB_THREADS='1', OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1',
+                       RAM_METHOD=name, RAM_ORIGINAL_BYTES=str(source.stat().st_size))
+            argv = [out / 'ram_bench', source, out / (prefix + '-encode.so'), out / (prefix + '-decode.so'),
+                    '-', archive, str(trials), '0' if entry.get('baseline') else '34']
+            print('Measuring', name, flush=True)
+            result = subprocess.run(list(map(str, argv)), env=env, capture_output=True, text=True,
+                                    preexec_fn=limits, timeout=960)
+            (out / (name + '.jsonl')).write_text(result.stdout)
+            (out / (name + '.stderr')).write_text(result.stderr)
+            if result.returncode:
+                raise RuntimeError(result.stderr)
+            records = [json.loads(line) for line in result.stdout.splitlines()]
+            if len(records) != trials or not all(r['exact'] for r in records):
+                raise RuntimeError('Incomplete or inexact benchmark')
+            row = dict(id=name, trials=records, payload_sha256=sha(archive), archive_bytes=records[0]['archive_bytes'])
+            for phase in ('encode', 'decode'):
+                row[phase + '_MB_s'] = source.stat().st_size / statistics.median(r[phase + '_seconds'] for r in records) / 1e6
+            if not args.smoke and not entry.get('baseline') and row['archive_bytes'] != entry['prior_archive_bytes']:
+                raise RuntimeError('Rebuilt archive size differs from the recorded result; inspect library versions.')
+            if not args.smoke and not entry.get('baseline') and row['payload_sha256'] != entry['payload_sha256']:
+                raise RuntimeError('Rebuilt payload differs from the frozen server archive; inspect library versions.')
+            rows.append(row)
+            (out / 'summary.json').write_text(json.dumps(dict(dataset=args.dataset, cpu=args.cpu, smoke=args.smoke,
+                 input_sha256=metadata['inputs'][0]['sha256'], original_bytes=metadata['original_bytes'],
+                 rows=rows), indent=2) + '\n')
 
 
 if __name__ == '__main__':

@@ -266,11 +266,11 @@ selected stage medians. Evaluator staging, hash verification, diagnostic builds
 and correctness gates are excluded from codec timing and included in evaluation
 wall time. Data-independent builds remain separately disclosed.
 
-New cards normally set `encoding_floor_scope: combined`: the 100 MB/s bare minimum and
-noise rule apply to end-to-end encoding, including offline work. Continue seeking
-higher speed and compression after clearing it. If the densest implementation
-misses this floor, deliver a separately qualified fast mode and retain the slower
-maximum-compression mode with its measured tradeoffs. A codec without an offline
+With `encoding_floor_scope: combined`, the noise rule and any configured encoding
+threshold apply to end-to-end encoding, including offline work. If the densest
+implementation misses an active threshold, deliver a qualified fast mode and
+retain the slower maximum-compression mode with its measured tradeoffs. Continue
+improving within the commissioned allowance. A codec without an offline
 stage reports zero offline time and combined time equal to online time. Preserve
 all three trial series in results and exports. An existing card explicitly using
 `encoding_floor_scope: online` retains that older rule; other legacy cards retain
@@ -288,4 +288,6 @@ short peaks. Corruption/diagnostic checks are bounded deterministic tests, not a
 proof of safety or coverage-guided fuzzing. Report these practical limits without
 weakening the required checks.
 
-For a commission whose card explicitly sets `encode_floor_bytes_per_second: null`, no fixed encoding floor applies. Follow its generated objective. The optional `strings-v1` RAM interface and supplied row-access workloads are documented in [NATIVE_STRINGS.md](NATIVE_STRINGS.md) and exposed by `strings_profile`.
+For the native RAM interface, its commissioned framing and selected-row workloads,
+see [NATIVE_STRINGS.md](NATIVE_STRINGS.md). Its manifest and `codec.h` are separate
+from this file-interface ABI.

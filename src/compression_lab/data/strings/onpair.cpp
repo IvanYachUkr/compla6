@@ -4,6 +4,9 @@
 #include <memory>
 #include <stdexcept>
 #include <vector>
+#ifndef LAB_ROW_DELIMITER
+#define LAB_ROW_DELIMITER 10
+#endif
 #ifndef DECODE_ONLY
 #include "compressor/onpair_advanced/OnPairAdvancedCompressor.hpp"
 #endif
@@ -35,7 +38,7 @@ struct Dictionary {
 #ifndef DECODE_ONLY
 extern "C" int64_t lab_encode(const uint8_t* raw,size_t n,uint8_t* out,size_t cap) try {
     std::vector<std::string_view> rows;size_t begin=0;
-    for(size_t i=0;i<n;++i)if(raw[i]=='\n'){rows.emplace_back((const char*)raw+begin,i+1-begin);begin=i+1;}
+    for(size_t i=0;i<n;++i)if(raw[i]==LAB_ROW_DELIMITER){rows.emplace_back((const char*)raw+begin,i+1-begin);begin=i+1;}
     if(begin<n)rows.emplace_back((const char*)raw+begin,n-begin);
     using namespace sgtt::compressor;
     OnPairAdvancedCompressor<onpair::MaxSymbolLength::SIXTEEN> codec({true,true});

@@ -31,6 +31,8 @@ The paper replay does not call our original `benchmark.cpp` or `strings.py`.
 | Which native baseline settings were used there? | [whole/baseline.cpp](whole/baseline.cpp) |
 | Where are model implementations and small RAM adapters? | [DBText candidates](dbtext/candidates), [Python/Yelp candidates](whole/candidates) |
 | What does the optional WASM driver time? | [wasm/driver.mjs](wasm/driver.mjs) |
+| What identifies a new run's data, machine and build? | [benchmark_run.py](../src/compression_lab/benchmark_run.py) |
+| How are tables and Pareto frontiers generated? | [reporting.py](../src/compression_lab/reporting.py), [reporting guide](../docs/REPORTING.md) |
 
 ## The three protocols
 
@@ -83,6 +85,15 @@ new. Data is supplied separately and checked against [DBText](dbtext/columns.jso
 or [Python/Yelp](whole/inputs.json) hashes. `--smoke` permits tiny inputs for wiring
 checks and explicitly marks the output as a smoke run. It is not a performance result.
 
+New runs write `run-metadata.json` alongside measurements, with input and build
+hashes, machine identity and timing parameters. Runners share a host measurement
+lock with native Lab evaluation. The lock serializes these tools; choose a quiet
+machine for measurements because it does not control unrelated processes.
+
+For a new dataset, use [native workspace setup](../docs/NATIVE_STRINGS.md).
+It supports LF-separated columns, NUL-separated queries and bulk byte sequences
+without maintaining a dataset-specific copy of the evaluator.
+
 The Python/Yelp runner supports `--only METHOD_ID ...` and `--build-only`; IDs and
 original compiler flags are in [methods.json](whole/methods.json). DBText selection
 uses `--methods`. Build logs retain exact commands. Rebuilding uses your installed
@@ -91,6 +102,17 @@ compiler/library versions and hardware can change speeds and package sizes.
 The historical runs used GCC 13.3, LZ4 1.9.4 and Zstd 1.5.5.
 
 ## Results and provenance
+
+Generate a table and optional plots without repeating measurements:
+
+```sh
+compression-lab-report benchmarks/_runs/yelp/summary.json \
+  --out benchmarks/_runs/yelp-report --plots
+```
+
+The [reporting guide](../docs/REPORTING.md) lists input formats and comparison
+boundaries. Different machines, protocols, decoder states and size conventions
+receive separate panels.
 
 - [DBText native tables](recorded/dbtext/README.md), [CSV](recorded/dbtext/native-results.csv)
 - [FSST paper replay](recorded/fsst-paper/README.md), [trial measurements](recorded/fsst-paper/trials.json)

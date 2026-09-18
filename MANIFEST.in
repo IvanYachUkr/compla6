@@ -1,4 +1,4 @@
-include README.md LICENSE THIRD_PARTY_NOTICES.md
+include README.md CHANGELOG.md LICENSE THIRD_PARTY_NOTICES.md
 recursive-include src/compression_lab/data *
 recursive-include tests *.py *.mjs
 recursive-include docs *.md
@@ -12,3 +12,10 @@ include requirements-*.lock
 recursive-include dependencies *.json *.md
 recursive-include provenance *.cpp *.md *.py *.sh
 recursive-include examples *
+
+# Reviewable benchmark sources and historical extracts accompany source releases.
+recursive-include benchmarks *.py *.cpp *.hpp *.h *.inc *.json *.csv *.md *.mjs *.png *.pdf CMakeLists.txt LICENSE README
+prune benchmarks/_build
+prune benchmarks/_runs
+prune benchmarks/upstream/token
+global-exclude __pycache__ *.py[cod]

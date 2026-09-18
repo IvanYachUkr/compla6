@@ -2,9 +2,11 @@
 #include <stddef.h>
 #include <stdint.h>
 
-/* strings-v1: native C ABI. Each input is one complete column. All persistent
- * dataset-specific information must be in the archive. Rows include their LF
- * terminator when present; a final unterminated row is preserved exactly.
+/* strings-v1: native C ABI. Each input is one complete column or byte file.
+ * All persistent dataset-specific information must be in the archive.
+ * The pinned workload declares row_framing: lf (legacy default), nul, or none.
+ * Rows include their declared delimiter; a final unterminated row is preserved
+ * exactly. Embedded other bytes are not boundaries. none supports bulk only.
  * Return -1/null on failure. No output may exceed the supplied capacity.
  * Implement encoder and decoder in separate shared libraries. No file I/O,
  * clocks, threads, external services or persistent uncompressed caches.

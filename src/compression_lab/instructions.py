@@ -26,6 +26,9 @@ def configuration(engine):
 
 def contract(engine):
     card, _ = engine.metadata()
+    controller = engine._controller()
+    protocol = controller.state()['protocol'] if controller else {}
+    floor = card['objective']['encode_floor_bytes_per_second']
     text = [
         ('Build byte-exact lossless compression software for the complete supplied corpus, with a working encoder, independent decoder, reproducible build and documented command-line interface.'
          if card.get('evaluation_mode') == 'whole_dataset' else
@@ -38,33 +41,36 @@ def contract(engine):
          'Use the supplied full baseline table when available; only compare results with matching card and resource identities.'),
     ]
     text += (Path(__file__).parent/'data/RESEARCH_GUIDANCE.md').read_text().strip().split('\n\n')
+    if card.get('hypothesis_policy') == 'required':
+        text.append('Before a substantive experiment, record a short hypothesis, expected benefit and falsifier with record_hypothesis; put its experiment_id in candidate.json under hypothesis. Separate later observations from the original hypothesis.')
     timing = card.get('timing_policy', {})
     if timing.get('operation') == 'offline-plus-online-v1':
-        text.append('Offline fitting and preprocessing are permitted, including slow preparation. Declare a reproducible offline stage for fitted artifacts, precomputed representations or generated code; include required dataset-dependent compilation in that stage. Measure every dataset-dependent operation from raw input to the complete archive. Report offline, online and combined encoding time. The lab sums paired stage times before aggregation, with no hidden amortization; data-independent software builds are disclosed separately.')
-        if card['objective']['encode_floor_bytes_per_second'] is None:
-            text.append('This commissioned run has no fixed compression-speed floor. Prioritize complete package size and decompression speed. Compression speed should remain competitive with the supplied baselines; measure and report the complete dataset-dependent encoding pipeline and its tradeoffs.')
-        elif timing['encoding_floor_scope'] == 'combined':
-            text.append('Deliver at least one fast mode that compresses the supplied raw data at the highest speed you can achieve while also improving compression. The 100 MB/s end-to-end encoding floor is a bare minimum for acceptance, not sufficient performance or a reason to stop optimizing. All dataset-dependent offline work counts toward that floor; a cached archive lookup cannot omit the work that created its archive. Seek substantially higher speed and better compression throughout the available budget.')
-            text.append('Also seek the highest compression possible on this dataset. If the densest approach misses the end-to-end floor, retain and optimize it as a separate maximum-compression mode, and develop a fast mode with the best measured combination of compression and speed. A slower correct mode is a useful result but cannot replace the required qualified fast mode. Explain the measured size, end-to-end speed, online speed, offline preparation, decode speed and memory tradeoffs, using immutable result IDs and exports for each mode. One mode can serve both objectives when the evidence supports it.')
-        else:
-            text.append('This run retains its sealed legacy rule: the 100 MB/s floor applies to online encoding only. Combined encoding time is still reported, with every declared preparation step included.')
+        text.append('Offline fitting and preprocessing are permitted. Declare a reproducible offline stage for fitted artifacts, precomputed representations and generated code, including dataset-dependent compilation. Measure every dataset-dependent operation from raw input to the complete archive. Report offline, online and combined encoding time; the lab sums paired stage times before aggregation without amortization. Disclose data-independent builds separately.')
+        if floor is not None:
+            if timing['encoding_floor_scope'] == 'combined':
+                text.append(f'Deliver at least one fast mode meeting the {floor/1e6:g} MB/s end-to-end encoding floor. This is a bare minimum: seek substantially higher speed and better compression throughout the available budget. Every dataset-dependent offline step counts, including preparation of a cached archive.')
+                text.append('Also pursue maximum compression. If the densest approach misses the floor, retain and optimize it as a separate maximum-compression mode alongside the qualified fast mode. One mode can serve both objectives. Report each mode\'s size, encoding-stage times, decoding speed and memory with its immutable result ID and export.')
+            else:
+                text.append(f'This run retains its sealed legacy rule: the {floor/1e6:g} MB/s floor applies to online encoding only. Report combined encoding time with every declared preparation step included.')
     else:
-        text.append('Follow this run\'s legacy timing policy: encoding includes every per-input transformation and compression operation from raw input to the completed archive. Reusable fitting and software build costs are disclosed separately. Precomputing an archive in fitting does not establish per-input encoding speed.')
+        text.append('Encoding includes every per-input transformation from raw input to the completed archive. Disclose reusable fitting and software builds separately. Precomputing an archive in fitting does not establish per-input encoding speed.')
+    if floor is None:
+        text.append('Minimize complete package size under the declared primary size policy. Report measured encoding, decoding and memory tradeoffs.')
     text.append('Primary size: '+card.get('primary_size_policy', 'strict-deployment-v1')+'. '+
         ('Exclude only pinned standard codec library files in the decoder inventory; charge custom binaries and every required artifact. Also report the strict deployment total. Statically linked code has no automatic deduction.'
          if card.get('primary_size_policy') == 'standard-codec-available-v1' else
          'Use the card accounting policy and preserve its strict deployment total.'))
-    text.append('Evaluation runs asynchronously. Retain its job_id and poll status(job=job_id) until it is terminal; then read the result and feedback before deciding the next step. Queued or running is not completion, and no automatic wake-up is guaranteed. Keep one evaluation active at a time; temporary benchmark-lease contention is a reason to retry the pending operation, not to abandon the task. Record durable paths and job IDs before any waiting turn.')
-    text.append('Final handoff procedure, after the research is complete: use '+configuration(engine)['completion_method']+': '+
-        ('export the selected modes, write RESULT.md and CHECKPOINT.md with their immutable result IDs and paths, then submit the selected qualified fast result and inspect the acceptance receipt.' if engine._controller() else
-         'export the selected full result, write RESULT.md and CHECKPOINT.md with its IDs and paths, then report completion to the supervisor.'))
-    controller = engine._controller()
-    if not controller or not controller.state()['protocol'].get('stop_on_success', False):
-        text.append('A qualifying result establishes a working reference point; it does not establish that the research is complete. Continue investigating promising changes to both compression and speed while useful research and configured allowances remain. If progress within one approach stalls, use corpus observations and small experiments to consider materially different mechanisms. Negative experiments are useful evidence; avoid repeating equivalent attempts merely to spend budget. Before choosing to finish, state which alternatives and bottlenecks you investigated, cite their result or experiment IDs, and explain why the remaining directions are unlikely to justify further work within the available allowance, or identify the limit that requires stopping. A successful finish receipt verifies acceptance gates, not the strength or completeness of the research.')
-    if controller and controller.state()['protocol']['schema_version']==2:
-        text.append('The host checks committed lab evidence after each research round. A failed submission or final answer cannot end the run while the configured time, money and continuation allowances remain. Each failure continuation is one additional research round, not an evaluator call or provider capacity retry. Any configured limit can end the run. Use experiment_brief for remaining allowances; infrastructure stops require the host. In your final allowed round, complete the research and evaluations before submitting finish and a durable handoff.')
-    if controller and controller.state()['protocol'].get('stop_on_success', False):
-        objective = controller.state()['protocol']['objective']
+    text.append('Evaluation is asynchronous. Save the job_id and durable paths, then poll status(job_id=job_id) until terminal. Read the result and feedback before the next experiment. Keep one evaluation active at a time and retry temporary benchmark-lease contention; waiting does not guarantee an automatic wake-up.')
+    text.append('Final handoff: '+('controller_finish' if controller else 'export_and_report')+
+        '. Export selected full results and write RESULT.md and CHECKPOINT.md with their immutable IDs and paths. '+
+        ('Submit the selected qualified result with finish and inspect its receipt.' if controller else
+         'Report completion to the supervisor.'))
+    if not protocol.get('stop_on_success', False):
+        text.append('Continue promising, falsifiable improvements toward the configured objective while useful research and allowances remain. When one approach stalls, investigate different mechanisms using corpus observations and small experiments. Preserve negative evidence without repeating equivalent attempts. Before finishing, cite investigated alternatives and bottlenecks by result or experiment ID, and explain why further work is unlikely to help within the remaining allowance or which limit requires stopping. Qualification verifies acceptance gates; it does not establish that research is complete.')
+    if protocol.get('schema_version') == 2:
+        text.append('The host checks committed evidence after each research round. A failed submission or final answer must continue while the configured time, money and failure-round allowances remain; any exhausted limit can end the run. A continuation is an additional research round, not an evaluator call or provider capacity retry. Use experiment_brief for remaining allowances. Infrastructure stops require the host. Complete evaluation and handoff in the final allowed round.')
+    if protocol.get('stop_on_success', False):
+        objective = protocol['objective']
         text.append('Owner-enabled completion condition: finish when a full candidate '+
                     ('qualifies.' if objective == 'qualification' else 'improves on a compatible baseline.'))
     return text
@@ -76,6 +82,40 @@ def prompt(engine):
             canonical(configuration(engine)).decode()+'\n```\n\n'+
             '\n\n'.join(contract(engine))+
             '\n\nUse brief for current budgets and results. Consult CANDIDATE_ABI.md only as needed.\n')
+
+
+def native_prompt(config, commission):
+    """Generate a native run's instructions at provisioning, from its commission."""
+    goals = {'package_bytes': 'complete package size',
+             'decode_seconds': 'fresh decoding time (setup plus reconstruction)'}
+    text = [f'Develop byte-exact lossless compression for {commission["dataset"]}: '
+            f'{commission["original_bytes"]:,} supplied bytes. Inspect the complete inputs and preserve every byte and boundary.',
+            'Reduce '+' and '.join(goals[goal] for goal in commission['objectives'])+
+            ' in the same configuration. Preserve useful operating points and report remaining losses. '
+            'Compression speed: '+config['compression_speed']+'.',
+            ('Write C or C++ compression software from scratch. Implement the mechanism yourself; do not read, copy, import or link codec implementations or supplied recipes. Standard language/runtime facilities and reimplementations of known algorithms are allowed.'
+             if commission['implementation'] == 'from_scratch' else
+             'Write C or C++ compression software. Existing codec libraries, custom algorithms and hybrids are permitted. Explore improvements beyond reproducing a supplied baseline.'),
+            {'lf': 'LF terminates each row and belongs to that row. Preserve a final unterminated row and every other byte.',
+             'nul': 'NUL terminates each row and belongs to that row. Preserve a final unterminated row, embedded line breaks and every other byte.',
+             'none': 'Treat each input as one complete byte sequence.'}[config['row_framing']]]
+    if 'bulk' in commission['variants']:
+        text.append('Bulk variant: reconstruct each complete input column with lab_decode.')
+    if 'rows' in commission['variants']:
+        text.append('Row-access variant: implement lab_rows to reconstruct requested complete rows directly from relevant encoded data, without decoding the entire column or scanning all preceding rows. Evaluation uses fixed nested selections of '+
+                    ', '.join(str(value)+'%' for value in config['selectivities'])+' with sorted row IDs.')
+    text += [
+        'Use separate native encoder and decoder libraries implementing codec.h. Put all automatic fitting, dictionary construction and preprocessing inside lab_encode, so encoding measures raw input through the complete archive. Source builds are data-independent. Decode using only the archive and charged decoder artifacts.',
+        f'The RAM workload uses one pinned CPU core, {config["memory_bytes"]/1024**2:g} MiB of memory, '
+        f'{config["warmups"]} warmup and {config["trials"]} measured trials. Report fresh decoder setup plus reconstruction and warm operation separately. Compare size and speed from the same configuration and machine; inspect timing spread.',
+        'Charge payloads, framing, indexes, dictionaries, learned information, embedded constants and custom decoder code. Exclude only separately pinned standard codec libraries and also report the strict deployment total. Static codec code has no automatic deduction. Report archive bytes, custom decoder bytes and complete package bytes separately.',
+        'Start with brief, profile and manifest_template. Work under '+str(Path(commission['workbench'])/'agent')+
+        '. Before substantive algorithm changes, use record_hypothesis(statement, expected_benefit, falsifier) and put the returned hypothesis_id in the manifest. Keep ALGORITHM.md precise about the format, steps, assumptions and failure cases; cite primary sources for unfamiliar methods.',
+        'For example, submit(candidate_path="agent/my-codec/candidate.json", quick=True) starts a development job. Save its job_id and poll status(job_id=job_id) until terminal; inspect the result before the next experiment. Serialize official measurements and retry temporary benchmark-lease contention. Submit with quick=False for full qualification, which checks exact reconstruction, independent decoding, reproducible builds and valid-corpus UBSan diagnostics.',
+        'Use compare(result_ids=[reference_id, candidate_id]) for matched full results and export(result_id=selected_id) to preserve the measured implementation. Continue substantive improvements while useful research and commissioned allowances remain; reserve time for full validation and handoff.',
+        'Keep RESULT.md and CHECKPOINT.md current with result IDs, export paths, unsuccessful directions and unmet objectives. Finish with the selected results for every commissioned variant and the report path. Qualification alone does not establish a baseline win; scientific claims require evidence and source review.'
+    ]
+    return '\n\n'.join(text)+'\n'
 
 
 def record_hypothesis(engine, statement, expected_benefit, falsifier):

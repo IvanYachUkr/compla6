@@ -13,7 +13,9 @@ def unpack(value):
         return json.loads(value)
     if not isinstance(value, dict):
         raise TypeError('Expected a JSON object, JSON text or official MCP response')
-    structured = value.get('structuredContent') or value.get('structured_content')
+    structured = value.get('structuredContent')
+    if structured is None:
+        structured = value.get('structured_content')
     if structured is not None:
         return structured
     if 'content' in value and 'status' not in value:
@@ -102,10 +104,8 @@ class LabClient:
         self.last = None
 
     def __getattr__(self, name):
-        """Keyword-only Python names/arguments match the public MCP tool schema."""
-        if name not in {'profile','baselines','inventory','brief','experiment_brief','feedback','manifest_template','record_hypothesis',
-                        'recipe_create','baseline_trial','register','evaluate','compare','resume',
-                        'status','artifact','cancel','export','finish','lesson_propose','lesson_check','lesson_list'}:
+        """Forward public tool names; the connected server defines their schemas."""
+        if name.startswith('_'):
             raise AttributeError(name)
         async def invoke(**arguments):
             return await self.call(name, **arguments)
@@ -115,4 +115,4 @@ class LabClient:
         if tool == 'register':
             arguments['candidate_path'] = prepare_candidate(self.workspace, arguments['candidate_path'])
         self.last = unpack(await self.mcp.call_tool(self.server, tool, arguments))
-        return brief(self.last)
+        return self.last if tool in ('brief', 'manifest_template') else brief(self.last)

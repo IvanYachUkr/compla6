@@ -6,9 +6,12 @@ from pathlib import Path
 import statistics
 import subprocess
 import hashlib
+import sys
 
 HERE = Path(__file__).resolve().parent
 FSST = HERE.parent / 'upstream/fsst'
+sys.path.insert(0, str(HERE.parents[1] / 'src'))
+from compression_lab.benchmark_run import measurement_lock, write_metadata
 
 
 def main():
@@ -47,27 +50,36 @@ def main():
         methods[name] = ['native', str(build / folder / 'encoder.so'), str(build / folder / 'decoder.so')]
     env = dict(os.environ, DEBUG='1', LC_ALL='C', OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1')
     env.pop('LOOP', None)
+    write_metadata(out, protocol='fsst-paper-selective-v1', dataset='dbtext',
+        inputs={p.name: p for p in inputs}, cpu=args.cpu, smoke=args.smoke,
+        parameters=dict(replays=1 if args.smoke else 3, warmups=100, calls=100,
+                        decode='warm selected rows', aggregation='geometric mean of per-column row throughput',
+                        selectivities=[1, 3, 10, 30, 100], seed=123, lz4_block_rows=1000),
+        artifacts=[out / 'filtertest', build / 'fsst-lib/libfsst.so',
+                   *[build / folder / (role + '.so') for folder in ('onpairplus', 'astra-rows')
+                     for role in ('encoder', 'decoder')]])
     records = []
-    for repeat in range(1 if args.smoke else 3):
-        names = list(methods)
-        for name in names[repeat:] + names[:repeat]:
-            print('Replay', repeat + 1, name, flush=True)
-            result = subprocess.run([str(out / 'filtertest'), *methods[name], *map(str, inputs)],
-                                    env=env, capture_output=True, text=True, timeout=360)
-            for stream in ('stdout', 'stderr'):
-                (out / f'{repeat + 1}-{name}.{stream}').write_text(getattr(result, stream))
-            if result.returncode:
-                raise RuntimeError(result.stderr)
-            scores = {}
-            for line in result.stdout.splitlines():
-                fields = line.split()
-                if len(fields) == 3 and fields[0] in {'1', '3', '10', '30', '100'}:
-                    scores[fields[0]] = float(fields[2])
-            if len(scores) != 5:
-                raise RuntimeError('Incomplete paper benchmark output')
-            size = int(next(line.split(':')[1] for line in result.stdout.splitlines() if line.startswith('# total compress size:')))
-            records.append(dict(replay=repeat + 1, method=name, archive_bytes=size, krows_per_second=scores))
-            (out / 'trials.json').write_text(json.dumps(records, indent=2) + '\n')
+    with measurement_lock():
+        for repeat in range(1 if args.smoke else 3):
+            names = list(methods)
+            for name in names[repeat:] + names[:repeat]:
+                print('Replay', repeat + 1, name, flush=True)
+                result = subprocess.run([str(out / 'filtertest'), *methods[name], *map(str, inputs)],
+                                        env=env, capture_output=True, text=True, timeout=360)
+                for stream in ('stdout', 'stderr'):
+                    (out / f'{repeat + 1}-{name}.{stream}').write_text(getattr(result, stream))
+                if result.returncode:
+                    raise RuntimeError(result.stderr)
+                scores = {}
+                for line in result.stdout.splitlines():
+                    fields = line.split()
+                    if len(fields) == 3 and fields[0] in {'1', '3', '10', '30', '100'}:
+                        scores[fields[0]] = float(fields[2])
+                if len(scores) != 5:
+                    raise RuntimeError('Incomplete paper benchmark output')
+                size = int(next(line.split(':')[1] for line in result.stdout.splitlines() if line.startswith('# total compress size:')))
+                records.append(dict(replay=repeat + 1, method=name, archive_bytes=size, krows_per_second=scores))
+                (out / 'trials.json').write_text(json.dumps(records, indent=2) + '\n')
     summary = {name: {p: statistics.median(r['krows_per_second'][p] for r in records if r['method'] == name)
                      for p in ('1', '3', '10', '30', '100')} for name in methods}
     (out / 'summary.json').write_text(json.dumps(dict(smoke=args.smoke, cpu=args.cpu, krows_per_second=summary), indent=2) + '\n')

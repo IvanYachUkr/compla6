@@ -5,8 +5,8 @@ import re
 import time
 import uuid
 
-from . import native_strings as native
-from .util import Error, load, save, sha
+from . import native_strings as native, strings
+from .util import Error, digest, load, save, sha
 
 
 def status(root, job_id, include_columns=False):
@@ -29,10 +29,16 @@ def submit(root, result_id):
     root = Path(root)
     if not (root/'server.json').exists():
         raise Error('server_benchmark_not_configured')
+    config = strings.config(root)
     row, _ = native.result(root, result_id)
-    if len(row['columns']) != 23 or row['original_bytes'] != 39841347:
-        raise Error('server_requires_complete_dbtext')
+    fields = ('name', 'sha256', 'bytes', 'rows')
+    columns = [{key: col[key] for key in fields} for col in config['columns']]
+    if (row['workload_digest'] != digest(config) or
+        [{key: col[key] for key in fields} for col in row['columns']] != columns or
+        row['original_bytes'] != sum(col['bytes'] for col in columns)):
+        raise Error('server_requires_complete_workload')
     jobs = root/'server-jobs'
+    jobs.mkdir(exist_ok=True)
     with (jobs/'submit.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         active = jobs/'active.json'
@@ -46,7 +52,9 @@ def submit(root, result_id):
         folder.mkdir(mode=0o770)
         folder.chmod(0o2770)
         request = {'job_id': job, 'result_id': result_id, 'export_sha256': bundle['sha256'],
-                   'variant': row['variant'], 'submitted_epoch': time.time()}
+                   'variant': row['variant'], 'submitted_epoch': time.time(),
+                   'workload_digest': row['workload_digest'],
+                   'row_framing': config.get('row_framing', 'lf'), 'columns': columns}
         save(folder/'request.json', request, 0o440)
         state = {**request, 'status': 'queued'}
         save(folder/'state.json', state, 0o660)

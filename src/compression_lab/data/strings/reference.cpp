@@ -7,6 +7,10 @@
 #include <stdexcept>
 #include <vector>
 
+#ifndef LAB_ROW_DELIMITER
+#define LAB_ROW_DELIMITER 10
+#endif
+
 // Build METHOD=0 (LZ4 bulk), 1 (Zstd1 bulk), 2 (FSST indexed strings).
 static void need(bool ok) { if (!ok) throw std::runtime_error("invalid codec input"); }
 static uint64_t get64(const uint8_t* p) { uint64_t n; std::memcpy(&n,p,8); return n; }
@@ -25,7 +29,7 @@ extern "C" int64_t lab_encode(const uint8_t* raw,size_t n,uint8_t* out,size_t ca
     if(n==0) {need(cap>=20);put64(out+8,0);put32(out+16,0);return 20;}
     std::vector<size_t> lengths; std::vector<const uint8_t*> pointers;
     size_t begin=0;
-    for(size_t i=0;i<n;++i) if(raw[i]=='\n') { lengths.push_back(i+1-begin);pointers.push_back(raw+begin);begin=i+1; }
+    for(size_t i=0;i<n;++i) if(raw[i]==LAB_ROW_DELIMITER) { lengths.push_back(i+1-begin);pointers.push_back(raw+begin);begin=i+1; }
     if(begin<n) {lengths.push_back(n-begin);pointers.push_back(raw+begin);}
     put64(out+8,lengths.size());
     size_t header=16+4*(lengths.size()+1); need(cap>header+FSST_MAXHEADER+2*n+32);

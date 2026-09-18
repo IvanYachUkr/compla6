@@ -24,12 +24,15 @@ from . import candidate, runner
 from .util import Error, canonical, digest, load, save, sha
 
 SELECTIVITIES = (1, 3, 10, 30, 100)
+ROW_FRAMINGS = ('lf', 'nul', 'none')
 
 
-def rows(raw):
-    """Split on LF only; retain every byte, including CR and final terminator."""
-    parts = raw.split(b'\n')
-    return [p+b'\n' for p in parts[:-1]] + ([parts[-1]] if parts[-1] else [])
+def rows(raw, framing='lf'):
+    """Split only at the commissioned delimiter, preserving it and a final tail."""
+    if framing not in ('lf', 'nul'): raise Error('strings_rows_not_configured')
+    separator = b'\n' if framing == 'lf' else b'\0'
+    parts = raw.split(separator)
+    return [p+separator for p in parts[:-1]] + ([parts[-1]] if parts[-1] else [])
 
 
 def selections(count, seed):
@@ -37,27 +40,36 @@ def selections(count, seed):
     return {str(p): sorted(order[:math.ceil(count*p/100)]) for p in SELECTIVITIES}
 
 
-def init(workspace, columns, driver, libraries, cpu):
+def init(workspace, columns, driver, libraries, cpu, *, row_framing='lf', driver_sources=None):
     """Host-only provisioning. All names, binaries and inputs are pinned here."""
     root = Path(workspace).resolve(); root.mkdir(parents=True, exist_ok=True)
     if (root/'strings.json').exists(): raise Error('strings_already_initialized')
     if cpu not in os.sched_getaffinity(0): raise Error('strings_cpu_unavailable')
+    if row_framing not in ROW_FRAMINGS: raise Error('strings_invalid_row_framing')
     pins = []
     for name, path in columns:
         path = Path(path).resolve(); raw = path.read_bytes()
-        pins.append(dict(name=name, path=str(path), bytes=len(raw), sha256=sha(path), rows=len(rows(raw))))
+        pins.append(dict(name=name, path=str(path), bytes=len(raw), sha256=sha(path),
+                         rows=len(rows(raw, row_framing)) if row_framing != 'none' else None))
     if not pins or len({p['name'] for p in pins}) != len(pins): raise Error('strings_invalid_columns')
     for directory in ('results', 'evidence', 'workbench'): (root/directory).mkdir(exist_ok=True)
     config = dict(schema_version=1, workload='strings-v1', columns=pins, cpu=cpu,
+                  row_framing=row_framing,
                   trials=7, warmups=1, seed=20260916, memory_bytes=2*1024**3,
-                  timeout_seconds=300, selectivities=list(SELECTIVITIES),
+                  timeout_seconds=300, selectivities=[] if row_framing=='none' else list(SELECTIVITIES),
                   driver=dict(path=str(Path(driver).resolve()), sha256=sha(Path(driver))),
                   libraries=libraries, encode_floor_bytes_per_second=None,
                   primary_objectives=['package_bytes', 'decode_seconds'],
                   compression_speed='competitive with matched baselines; report all dataset-dependent work',
                   full_decode='fresh setup plus reconstruction; warm operation separately',
-                  row_decode='fixed nested random subsets, sorted row IDs; fresh setup and warm operation separately',
-                  boundaries='one complete original column per block; LF-preserving strings; no duplicated rows')
+                  row_decode=None if row_framing=='none' else
+                      'fixed nested random subsets, sorted row IDs; fresh setup and warm operation separately',
+                  boundaries='one complete original column per block; '+
+                      ('opaque bytes; no row-access workload' if row_framing == 'none' else
+                       row_framing.upper()+'-preserving strings; no duplicated rows'))
+    if driver_sources:
+        config['driver']['sources']={name:dict(path=str(Path(path).resolve()),sha256=sha(path))
+                                     for name,path in driver_sources.items()}
     save(root/'strings.json', config, 0o444)
     return {'workspace':str(root), 'workload_digest':digest(config), 'original_bytes':sum(p['bytes'] for p in pins)}
 
@@ -65,7 +77,12 @@ def init(workspace, columns, driver, libraries, cpu):
 def config(root):
     c = load(Path(root)/'strings.json')
     if c['schema_version'] != 1 or c['workload'] != 'strings-v1': raise Error('strings_bad_protocol')
+    # Do not add defaults to legacy dictionaries: their digests identify sealed
+    # workloads and results. Missing framing means the original LF protocol.
+    if c.get('row_framing', 'lf') not in ROW_FRAMINGS: raise Error('strings_invalid_row_framing')
     if sha(Path(c['driver']['path'])) != c['driver']['sha256']: raise Error('strings_driver_changed')
+    for source in c['driver'].get('sources',{}).values():
+        if sha(source['path']) != source['sha256']: raise Error('strings_driver_source_changed')
     for row in c['columns']:
         if sha(Path(row['path'])) != row['sha256']: raise Error('strings_input_changed', row['name'])
     for library in c['libraries'].values():
@@ -121,12 +138,15 @@ def _summary(trials, field, work):
                 work_per_second=work/middle if middle else None)
 
 
-def evaluate(workspace, manifest, quick=False):
+def evaluate(workspace, manifest, quick=False, *, run=None):
     root=Path(workspace).resolve();c=config(root);m=load(Path(manifest))
     if set(m)!={'name','variant','encoder','decoder'} or m['variant'] not in ('bulk','rows'):
         raise Error('strings_invalid_candidate_manifest')
     if not isinstance(m['name'],str) or not m['name'].replace('-','').replace('_','').isalnum():
         raise Error('strings_invalid_candidate_name')
+    framing=c.get('row_framing','lf')
+    if framing=='none' and m['variant']=='rows':raise Error('strings_rows_not_configured')
+    execute=run or _run
     serial=uuid.uuid4().hex; evidence=root/'evidence'/serial;evidence.mkdir()
     binaries={}
     for role in ('encoder','decoder'):
@@ -160,20 +180,23 @@ def evaluate(workspace, manifest, quick=False):
                 tmp=Path(tmp)
                 for trial in range(count+1):
                     for col in c['columns']:
-                        raw=Path(col['path']).read_bytes();values=rows(raw)
-                        seed=int(col['sha256'][:16],16)^c['seed']
-                        ids_by_percent=selections(len(values),seed)
+                        raw=Path(col['path']).read_bytes()
+                        if m['variant']=='rows':
+                            values=rows(raw,framing)
+                            seed=int(col['sha256'][:16],16)^c['seed']
+                            ids_by_percent=selections(len(values),seed)
                         for child in tmp.iterdir():
                             if child.is_dir():shutil.rmtree(child)
                             else:child.unlink()
                         current=dict(column=col['name'],trial=trial,operation='encode')
-                        enc, enc_resources=_run(c,binaries['encoder'],'encode',Path(col['path']),tmp/'encode',4*len(raw)+8*1024**2)
+                        enc, enc_resources=execute(c,binaries['encoder'],'encode',Path(col['path']),tmp/'encode',
+                                                  min(4*len(raw)+8*1024**2,512*1024**2))
                         archive=tmp/'encode/data'; archive_hash=sha(archive)
                         if col['name'] in archives and archives[col['name']]['sha256']!=archive_hash:
                             raise Error('strings_nondeterministic_archive',col['name'])
                         archives[col['name']]={'sha256':archive_hash,'bytes':archive.stat().st_size}
                         current['operation']='decode'
-                        dec,dec_resources=_run(c,binaries['decoder'],'decode',archive,tmp/'decode',len(raw)+32)
+                        dec,dec_resources=execute(c,binaries['decoder'],'decode',archive,tmp/'decode',len(raw)+32)
                         if (tmp/'decode/data').read_bytes()!=raw: raise Error('strings_reconstruction_mismatch',col['name'])
                         row=dict(trial=trial,column=col['name'],archive_bytes=archive.stat().st_size,archive_sha256=archive_hash,
                                  encode_seconds=enc['operation_seconds'],
@@ -186,7 +209,7 @@ def evaluate(workspace, manifest, quick=False):
                                 current.update(operation='rows',selectivity=percent)
                                 ids=tmp/'ids';ids.write_bytes(struct.pack('<'+'Q'*len(selected),*selected))
                                 output=tmp/('rows-'+percent)
-                                timing,resources=_run(c,binaries['decoder'],'rows',archive,output,len(raw)+32,ids)
+                                timing,resources=execute(c,binaries['decoder'],'rows',archive,output,len(raw)+32,ids)
                                 expected=b''.join(values[i] for i in selected)
                                 lengths=[0]
                                 for i in selected:lengths.append(lengths[-1]+len(values[i]))

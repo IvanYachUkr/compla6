@@ -1,9 +1,13 @@
 # compla6
 
-Team workspace utilities, version 0.6.6.dev1.
+Team workspace utilities, version 0.7.0.
 
-For the benchmark code review, start with [benchmarks/README.md](benchmarks/README.md).
-It maps the timers, upstream benchmark, wrappers, selected implementations and recorded results.
+| Task | Start here |
+|---|---|
+| Prepare a dataset and run native research | [Native workflow](docs/NATIVE_STRINGS.md) |
+| Inspect or replay the published benchmarks | [Benchmark code map](benchmarks/README.md) |
+| Generate tables and Pareto plots from results | [Reporting](docs/REPORTING.md) |
+| Use the file-interface research controller | [Controller workflow](docs/CONTROLLER_USAGE.md) |
 
 Requires Python 3.11 or newer. Native workflows target Linux x86-64.
 
@@ -13,12 +17,11 @@ python3 -m venv .venv
 python -m pip install .
 ```
 
-Optional tool integration:
+Optional agent tools and plotting:
 
 ```sh
-python -m pip install '.[mcp]'
+python -m pip install '.[mcp,plots]'
 ```
 
-See [installation](docs/INSTALL.md), [usage](docs/CONTROLLER_USAGE.md), and the
-[API](docs/API.md). Historical results are in [R/README.md](R/README.md). The current native string
-workflow is described in [NATIVE_STRINGS.md](docs/NATIVE_STRINGS.md).
+See [installation and deployment](docs/INSTALL.md), [release changes](CHANGELOG.md),
+and the [API](docs/API.md). Historical tables remain in [R/README.md](R/README.md).
