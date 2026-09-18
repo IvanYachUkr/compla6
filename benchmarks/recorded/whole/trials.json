@@ -1,0 +1,716 @@
+[
+  {
+    "id": "python-lz4-1",
+    "dataset": "python",
+    "label": "LZ4-1",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 99999986,
+        "payload_bytes": 46483401,
+        "archive_bytes": 46483401,
+        "encode_seconds": 0.293902674,
+        "decode_seconds": 0.105558863,
+        "exact": true,
+        "frozen_payload_match": null
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 99999986,
+        "payload_bytes": 46483401,
+        "archive_bytes": 46483401,
+        "encode_seconds": 0.301532432,
+        "decode_seconds": 0.104606821,
+        "exact": true,
+        "frozen_payload_match": null
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 99999986,
+        "payload_bytes": 46483401,
+        "archive_bytes": 46483401,
+        "encode_seconds": 0.292827091,
+        "decode_seconds": 0.104686444,
+        "exact": true,
+        "frozen_payload_match": null
+      }
+    ],
+    "archive_bytes": 46483401,
+    "encode_MB_s": 340.2486429912509,
+    "decode_MB_s": 955.2333824616298,
+    "payload_sha256": "dc1d09ff44c8f90a734059f5a4af5fd03ee427842d1ed9023d9b8826d818dbe5",
+    "exact": true
+  },
+  {
+    "id": "python-zstd-3",
+    "dataset": "python",
+    "label": "Zstd-3",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 99999986,
+        "payload_bytes": 28367376,
+        "archive_bytes": 28367376,
+        "encode_seconds": 0.57699889,
+        "decode_seconds": 0.137737558,
+        "exact": true,
+        "frozen_payload_match": null
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 99999986,
+        "payload_bytes": 28367376,
+        "archive_bytes": 28367376,
+        "encode_seconds": 0.581011275,
+        "decode_seconds": 0.138060587,
+        "exact": true,
+        "frozen_payload_match": null
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 99999986,
+        "payload_bytes": 28367376,
+        "archive_bytes": 28367376,
+        "encode_seconds": 0.588976574,
+        "decode_seconds": 0.137897726,
+        "exact": true,
+        "frozen_payload_match": null
+      }
+    ],
+    "archive_bytes": 28367376,
+    "encode_MB_s": 172.11367541877735,
+    "decode_MB_s": 725.1750184770996,
+    "payload_sha256": "ca3a2d1c2f4a0a434383ea0d0eb127e954782e58234fe8a9316b4903c8437b54",
+    "exact": true
+  },
+  {
+    "id": "python-zstd-19",
+    "dataset": "python",
+    "label": "Zstd-19",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 99999986,
+        "payload_bytes": 20230351,
+        "archive_bytes": 20230351,
+        "encode_seconds": 50.088727546,
+        "decode_seconds": 0.135250977,
+        "exact": true,
+        "frozen_payload_match": null
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 99999986,
+        "payload_bytes": 20230351,
+        "archive_bytes": 20230351,
+        "encode_seconds": 50.293313454,
+        "decode_seconds": 0.137231311,
+        "exact": true,
+        "frozen_payload_match": null
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 99999986,
+        "payload_bytes": 20230351,
+        "archive_bytes": 20230351,
+        "encode_seconds": 50.26550543,
+        "decode_seconds": 0.135464581,
+        "exact": true,
+        "frozen_payload_match": null
+      }
+    ],
+    "archive_bytes": 20230351,
+    "encode_MB_s": 1.9894356009064804,
+    "decode_MB_s": 738.2002384815261,
+    "payload_sha256": "728d389410a311a9697775be47508fc28e3a29a662d1e79755955c2817d9a0f8",
+    "exact": true
+  },
+  {
+    "id": "python-glm-fast",
+    "dataset": "python",
+    "label": "GLM \u2014 from scratch, fast",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 99999986,
+        "payload_bytes": 27732443,
+        "archive_bytes": 27732477,
+        "encode_seconds": 1.7444635,
+        "decode_seconds": 0.571378695,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 99999986,
+        "payload_bytes": 27732443,
+        "archive_bytes": 27732477,
+        "encode_seconds": 1.720801266,
+        "decode_seconds": 0.568157415,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 99999986,
+        "payload_bytes": 27732443,
+        "archive_bytes": 27732477,
+        "encode_seconds": 1.75267998,
+        "decode_seconds": 0.569599674,
+        "exact": true,
+        "frozen_payload_match": true
+      }
+    ],
+    "archive_bytes": 27732477,
+    "encode_MB_s": 57.324206554049425,
+    "decode_MB_s": 175.5618736537409,
+    "payload_sha256": "4fdef9571719fa6291c5010d59b8d4413da263fd1ca0fddfe820fc00f3531d66",
+    "exact": true
+  },
+  {
+    "id": "python-glm-zstd",
+    "dataset": "python",
+    "label": "GLM \u2014 tuned Zstd",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 99999986,
+        "payload_bytes": 24082327,
+        "archive_bytes": 24082361,
+        "encode_seconds": 2.178218213,
+        "decode_seconds": 0.19755609,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 99999986,
+        "payload_bytes": 24082327,
+        "archive_bytes": 24082361,
+        "encode_seconds": 2.159092675,
+        "decode_seconds": 0.197372418,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 99999986,
+        "payload_bytes": 24082327,
+        "archive_bytes": 24082361,
+        "encode_seconds": 2.166180364,
+        "decode_seconds": 0.199519053,
+        "exact": true,
+        "frozen_payload_match": true
+      }
+    ],
+    "archive_bytes": 24082361,
+    "encode_MB_s": 46.16420112651339,
+    "decode_MB_s": 506.18528641663244,
+    "payload_sha256": "19b86eb6e84519aed5589da2320d222fd7bf488be1474105c633150e8994df1a",
+    "exact": true
+  },
+  {
+    "id": "python-terra-dense",
+    "dataset": "python",
+    "label": "Terra MAX \u2014 from scratch, dense",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 99999986,
+        "payload_bytes": 21835629,
+        "archive_bytes": 21835663,
+        "encode_seconds": 39.33143073,
+        "decode_seconds": 1.230543212,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 99999986,
+        "payload_bytes": 21835629,
+        "archive_bytes": 21835663,
+        "encode_seconds": 39.259985983,
+        "decode_seconds": 1.240637132,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 99999986,
+        "payload_bytes": 21835629,
+        "archive_bytes": 21835663,
+        "encode_seconds": 39.174971373,
+        "decode_seconds": 1.241720538,
+        "exact": true,
+        "frozen_payload_match": true
+      }
+    ],
+    "archive_bytes": 21835663,
+    "encode_MB_s": 2.54712230522194,
+    "decode_MB_s": 80.60373450115307,
+    "payload_sha256": "76e7e2ceda9c6a514e596fc2b5b8e9ad02428eab3f637cc122adb65ae00d7317",
+    "exact": true
+  },
+  {
+    "id": "yelp-lz4-1",
+    "dataset": "yelp",
+    "label": "LZ4-1",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 100000488,
+        "payload_bytes": 30131385,
+        "archive_bytes": 30131385,
+        "encode_seconds": 0.24134931,
+        "decode_seconds": 0.100839515,
+        "exact": true,
+        "frozen_payload_match": null
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 100000488,
+        "payload_bytes": 30131385,
+        "archive_bytes": 30131385,
+        "encode_seconds": 0.237827008,
+        "decode_seconds": 0.101991774,
+        "exact": true,
+        "frozen_payload_match": null
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 100000488,
+        "payload_bytes": 30131385,
+        "archive_bytes": 30131385,
+        "encode_seconds": 0.241071638,
+        "decode_seconds": 0.102825175,
+        "exact": true,
+        "frozen_payload_match": null
+      }
+    ],
+    "archive_bytes": 30131385,
+    "encode_MB_s": 414.8164787431361,
+    "decode_MB_s": 980.4760136832213,
+    "payload_sha256": "c236bbb7dc14a6079970bd35a45446d274fa5a1afe0983738b96b895901f9473",
+    "exact": true
+  },
+  {
+    "id": "yelp-zstd-3",
+    "dataset": "yelp",
+    "label": "Zstd-3",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 100000488,
+        "payload_bytes": 17915255,
+        "archive_bytes": 17915255,
+        "encode_seconds": 0.34248546,
+        "decode_seconds": 0.114486453,
+        "exact": true,
+        "frozen_payload_match": null
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 100000488,
+        "payload_bytes": 17915255,
+        "archive_bytes": 17915255,
+        "encode_seconds": 0.341816836,
+        "decode_seconds": 0.117107864,
+        "exact": true,
+        "frozen_payload_match": null
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 100000488,
+        "payload_bytes": 17915255,
+        "archive_bytes": 17915255,
+        "encode_seconds": 0.342703857,
+        "decode_seconds": 0.115660074,
+        "exact": true,
+        "frozen_payload_match": null
+      }
+    ],
+    "archive_bytes": 17915255,
+    "encode_MB_s": 291.9846232304285,
+    "decode_MB_s": 864.6068132379027,
+    "payload_sha256": "f70ac849093ebfc58aad60e3bd8ffc2ce0747051de68b0d86b4ba68b385c4819",
+    "exact": true
+  },
+  {
+    "id": "yelp-zstd-19",
+    "dataset": "yelp",
+    "label": "Zstd-19",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 100000488,
+        "payload_bytes": 9440097,
+        "archive_bytes": 9440097,
+        "encode_seconds": 60.795894562,
+        "decode_seconds": 0.088207138,
+        "exact": true,
+        "frozen_payload_match": null
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 100000488,
+        "payload_bytes": 9440097,
+        "archive_bytes": 9440097,
+        "encode_seconds": 60.636307648,
+        "decode_seconds": 0.088759892,
+        "exact": true,
+        "frozen_payload_match": null
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 100000488,
+        "payload_bytes": 9440097,
+        "archive_bytes": 9440097,
+        "encode_seconds": 60.573077453,
+        "decode_seconds": 0.088692593,
+        "exact": true,
+        "frozen_payload_match": null
+      }
+    ],
+    "archive_bytes": 9440097,
+    "encode_MB_s": 1.6491849830387615,
+    "decode_MB_s": 1127.495370442039,
+    "payload_sha256": "3691fb5f1d4bd79d56315b53baacaf9783563f2211fc37f0f3648965f5e238da",
+    "exact": true
+  },
+  {
+    "id": "yelp-astra-compact",
+    "dataset": "yelp",
+    "label": "Astra Ultra \u2014 compact fast",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 100000488,
+        "payload_bytes": 8602699,
+        "archive_bytes": 8602733,
+        "encode_seconds": 0.643278151,
+        "decode_seconds": 0.217064091,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 100000488,
+        "payload_bytes": 8602699,
+        "archive_bytes": 8602733,
+        "encode_seconds": 0.623084777,
+        "decode_seconds": 0.206836081,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 100000488,
+        "payload_bytes": 8602699,
+        "archive_bytes": 8602733,
+        "encode_seconds": 0.613338744,
+        "decode_seconds": 0.203015467,
+        "exact": true,
+        "frozen_payload_match": true
+      }
+    ],
+    "archive_bytes": 8602733,
+    "encode_MB_s": 160.49258735139986,
+    "decode_MB_s": 483.4770003208483,
+    "payload_sha256": "4b140e808e861799e2215d297c54273342a626d24f7860e444fde027fb8c8a9b",
+    "exact": true
+  },
+  {
+    "id": "yelp-glm-zstd",
+    "dataset": "yelp",
+    "label": "GLM \u2014 columnizer + Zstd",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 100000488,
+        "payload_bytes": 7317467,
+        "archive_bytes": 7317501,
+        "encode_seconds": 0.866620023,
+        "decode_seconds": 0.289326569,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 100000488,
+        "payload_bytes": 7317467,
+        "archive_bytes": 7317501,
+        "encode_seconds": 0.858349172,
+        "decode_seconds": 0.284340475,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 100000488,
+        "payload_bytes": 7317467,
+        "archive_bytes": 7317501,
+        "encode_seconds": 0.848986185,
+        "decode_seconds": 0.286291715,
+        "exact": true,
+        "frozen_payload_match": true
+      }
+    ],
+    "archive_bytes": 7317501,
+    "encode_MB_s": 116.50327309921374,
+    "decode_MB_s": 349.2957803546638,
+    "payload_sha256": "9adfac26d20444711d924e6f1f987d1d19f1759791e8b5b1b096ac48b8fb83dd",
+    "exact": true
+  },
+  {
+    "id": "yelp-astra-density",
+    "dataset": "yelp",
+    "label": "Astra Ultra \u2014 higher compression",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 100000488,
+        "payload_bytes": 8034909,
+        "archive_bytes": 8034943,
+        "encode_seconds": 1.094696569,
+        "decode_seconds": 0.175508065,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 100000488,
+        "payload_bytes": 8034909,
+        "archive_bytes": 8034943,
+        "encode_seconds": 1.0231798,
+        "decode_seconds": 0.180047667,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 100000488,
+        "payload_bytes": 8034909,
+        "archive_bytes": 8034943,
+        "encode_seconds": 1.003206734,
+        "decode_seconds": 0.178807963,
+        "exact": true,
+        "frozen_payload_match": true
+      }
+    ],
+    "archive_bytes": 8034943,
+    "encode_MB_s": 97.7350100148576,
+    "decode_MB_s": 559.2619384629979,
+    "payload_sha256": "7a36e79e4dd350bd4a1fc76abba34bf0a1c2081de1feda5d6c7d23ce1409ff57",
+    "exact": true
+  },
+  {
+    "id": "yelp-sol-terra-dense",
+    "dataset": "yelp",
+    "label": "Sol plan \u2192 Terra \u2014 dense",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 100000488,
+        "payload_bytes": 6780491,
+        "archive_bytes": 6780525,
+        "encode_seconds": 7.071541142,
+        "decode_seconds": 0.7685416,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 100000488,
+        "payload_bytes": 6780491,
+        "archive_bytes": 6780525,
+        "encode_seconds": 7.061072731,
+        "decode_seconds": 0.748973848,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 100000488,
+        "payload_bytes": 6780491,
+        "archive_bytes": 6780525,
+        "encode_seconds": 7.051086754,
+        "decode_seconds": 0.750990601,
+        "exact": true,
+        "frozen_payload_match": true
+      }
+    ],
+    "archive_bytes": 6780525,
+    "encode_MB_s": 14.162223193222621,
+    "decode_MB_s": 133.15810859262672,
+    "payload_sha256": "9daff511b7afb38b7e79ace2f90ff04ca0db3a2c1f7c5295be0226d5cdc8a462",
+    "exact": true
+  },
+  {
+    "id": "yelp-glm-decode-structured",
+    "dataset": "yelp",
+    "label": "GLM new \u2014 structured",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 100000488,
+        "payload_bytes": 7861875,
+        "archive_bytes": 7861909,
+        "encode_seconds": 0.305783012,
+        "decode_seconds": 0.191590689,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 100000488,
+        "payload_bytes": 7861875,
+        "archive_bytes": 7861909,
+        "encode_seconds": 0.29164846,
+        "decode_seconds": 0.193046015,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 100000488,
+        "payload_bytes": 7861875,
+        "archive_bytes": 7861909,
+        "encode_seconds": 0.291794139,
+        "decode_seconds": 0.192898863,
+        "exact": true,
+        "frozen_payload_match": true
+      }
+    ],
+    "archive_bytes": 7861909,
+    "encode_MB_s": 342.70903570136477,
+    "decode_MB_s": 518.4089032188853,
+    "payload_sha256": "1e2d578e1b708824b6f84108496a2e643c546e3047fa540a399130df25ce3d4b",
+    "exact": true
+  },
+  {
+    "id": "python-glm-decode-fast",
+    "dataset": "python",
+    "label": "GLM new \u2014 fast mode",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 99999986,
+        "payload_bytes": 36793781,
+        "archive_bytes": 36793815,
+        "encode_seconds": 2.516085551,
+        "decode_seconds": 0.17707101,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 99999986,
+        "payload_bytes": 36793781,
+        "archive_bytes": 36793815,
+        "encode_seconds": 2.431048393,
+        "decode_seconds": 0.1746576,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 99999986,
+        "payload_bytes": 36793781,
+        "archive_bytes": 36793815,
+        "encode_seconds": 2.438897359,
+        "decode_seconds": 0.175147697,
+        "exact": true,
+        "frozen_payload_match": true
+      }
+    ],
+    "archive_bytes": 36793815,
+    "encode_MB_s": 41.00212976613421,
+    "decode_MB_s": 570.9466222670344,
+    "payload_sha256": "d69f326bd2e0704c9df9c499b24774b7dffef8b5357c8f3bb4052c52d4d9cd27",
+    "exact": true
+  },
+  {
+    "id": "python-glm-decode-size",
+    "dataset": "python",
+    "label": "GLM new \u2014 size mode\u2020",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 99999986,
+        "payload_bytes": 17780029,
+        "archive_bytes": 17780063,
+        "encode_seconds": 88.307081055,
+        "decode_seconds": 1.246208057,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 99999986,
+        "payload_bytes": 17780029,
+        "archive_bytes": 17780063,
+        "encode_seconds": 88.898489158,
+        "decode_seconds": 1.247077681,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 99999986,
+        "payload_bytes": 17780029,
+        "archive_bytes": 17780063,
+        "encode_seconds": 88.817159594,
+        "decode_seconds": 1.24839461,
+        "exact": true,
+        "frozen_payload_match": true
+      }
+    ],
+    "archive_bytes": 17780063,
+    "encode_MB_s": 1.125908399425503,
+    "decode_MB_s": 80.18745545972128,
+    "payload_sha256": "5e5264bc5f645c2ca14cf82f0906e9064fbe39cc5c5cd17aed950a5c415f8545",
+    "exact": true
+  },
+  {
+    "id": "python-glm-decode-zstd",
+    "dataset": "python",
+    "label": "GLM new \u2014 Zstd mode\u2020",
+    "trials": [
+      {
+        "trial": 1,
+        "raw_bytes": 99999986,
+        "payload_bytes": 18111402,
+        "archive_bytes": 18111436,
+        "encode_seconds": 85.991882091,
+        "decode_seconds": 0.419680893,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 2,
+        "raw_bytes": 99999986,
+        "payload_bytes": 18111402,
+        "archive_bytes": 18111436,
+        "encode_seconds": 86.081187041,
+        "decode_seconds": 0.418018631,
+        "exact": true,
+        "frozen_payload_match": true
+      },
+      {
+        "trial": 3,
+        "raw_bytes": 99999986,
+        "payload_bytes": 18111402,
+        "archive_bytes": 18111436,
+        "encode_seconds": 85.994980426,
+        "decode_seconds": 0.419322312,
+        "exact": true,
+        "frozen_payload_match": true
+      }
+    ],
+    "archive_bytes": 18111436,
+    "encode_MB_s": 1.162858407602657,
+    "decode_MB_s": 238.48000246645594,
+    "payload_sha256": "7aa09cad0b5671edc6c9f09b78dc90d0e321b30c5f1538984612fc094b337331",
+    "exact": true
+  }
+]

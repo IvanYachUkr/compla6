@@ -1,0 +1,2126 @@
+{
+  "rows": [
+    {
+      "accounting": {
+        "archive_bytes": 24606522,
+        "custom_decoder_bytes": 16496,
+        "excluded_standard_codec_bytes": 137440,
+        "nonplatform_dependency_bytes": 137440,
+        "package_bytes": 24623018,
+        "strict_deployment_bytes": 24760458
+      },
+      "columns": [
+        {
+          "archive_bytes": 576296,
+          "bytes": 1900000,
+          "decode_seconds": {
+            "max_seconds": 0.000435106,
+            "median_seconds": 0.000352858,
+            "min_seconds": 0.00033489399999999997,
+            "relative_MAD": 0.05090999778947915,
+            "work_per_second": 5384602304.609786
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000428853,
+            "median_seconds": 0.000327718,
+            "min_seconds": 0.000316755,
+            "relative_MAD": 0.03345254151435078,
+            "work_per_second": 5797667506.819888
+          },
+          "encode_seconds": {
+            "max_seconds": 0.002430385,
+            "median_seconds": 0.002368309,
+            "min_seconds": 0.002355392,
+            "relative_MAD": 0.0018076188537898038,
+            "work_per_second": 802260178.0426457
+          },
+          "name": "c_name",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "6341c1c1f597341e8e85f0cb2debe01c15b9a2e2f49ba2c4c7fce1d38ea00239"
+        },
+        {
+          "archive_bytes": 550499,
+          "bytes": 763287,
+          "decode_seconds": {
+            "max_seconds": 0.000354751,
+            "median_seconds": 0.000262382,
+            "min_seconds": 0.00025613599999999996,
+            "relative_MAD": 0.01158616063601923,
+            "work_per_second": 2909067695.1925054
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000339955,
+            "median_seconds": 0.000261232,
+            "min_seconds": 0.000244179,
+            "relative_MAD": 0.03171127580082074,
+            "work_per_second": 2921874042.9962635
+          },
+          "encode_seconds": {
+            "max_seconds": 0.002172299,
+            "median_seconds": 0.00188334,
+            "min_seconds": 0.001836813,
+            "relative_MAD": 0.02470451432030328,
+            "work_per_second": 405283698.1108031
+          },
+          "name": "chinese",
+          "rows": 8729,
+          "selective": {},
+          "sha256": "917586b53b066a97f3f94dc41eb919c0e43ed68aadb9f0ec90a7dd24b27b7a13"
+        },
+        {
+          "archive_bytes": 101297,
+          "bytes": 133839,
+          "decode_seconds": {
+            "max_seconds": 6.589e-05,
+            "median_seconds": 4.9579e-05,
+            "min_seconds": 4.4943e-05,
+            "relative_MAD": 0.0935073317331935,
+            "work_per_second": 2699509873.1317697
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 6.1357e-05,
+            "median_seconds": 4.4231e-05,
+            "min_seconds": 4.3147e-05,
+            "relative_MAD": 0.0245076982207049,
+            "work_per_second": 3025909430.0377564
+          },
+          "encode_seconds": {
+            "max_seconds": 0.000719416,
+            "median_seconds": 0.000480663,
+            "min_seconds": 0.000341635,
+            "relative_MAD": 0.19701121159731447,
+            "work_per_second": 278446645.5708053
+          },
+          "name": "city",
+          "rows": 12829,
+          "selective": {},
+          "sha256": "9fe1fd1e095e870c90fe0c4efd57cb5cc87c350b1e175789d295b49d10705949"
+        },
+        {
+          "archive_bytes": 98550,
+          "bytes": 154265,
+          "decode_seconds": {
+            "max_seconds": 6.9167e-05,
+            "median_seconds": 6.2173e-05,
+            "min_seconds": 5.8047e-05,
+            "relative_MAD": 0.06062116996123726,
+            "work_per_second": 2481221752.2075496
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 6.789e-05,
+            "median_seconds": 5.852e-05,
+            "min_seconds": 5.4851e-05,
+            "relative_MAD": 0.03339029391660962,
+            "work_per_second": 2636107313.7388926
+          },
+          "encode_seconds": {
+            "max_seconds": 0.000887801,
+            "median_seconds": 0.000501723,
+            "min_seconds": 0.000452911,
+            "relative_MAD": 0.0972887429916508,
+            "work_per_second": 307470456.80584705
+          },
+          "name": "credentials",
+          "rows": 12898,
+          "selective": {},
+          "sha256": "9156d43f7a966f7ab73eb6cff8998c68bb1022a3df4f05e216ced2b8f165e895"
+        },
+        {
+          "archive_bytes": 1484178,
+          "bytes": 2217251,
+          "decode_seconds": {
+            "max_seconds": 0.000804228,
+            "median_seconds": 0.0007094520000000001,
+            "min_seconds": 0.00055492,
+            "relative_MAD": 0.09958954235099761,
+            "work_per_second": 3125300936.497465
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000655237,
+            "median_seconds": 0.000549305,
+            "min_seconds": 0.000537081,
+            "relative_MAD": 0.009779630624152366,
+            "work_per_second": 4036466079.864556
+          },
+          "encode_seconds": {
+            "max_seconds": 0.004741993,
+            "median_seconds": 0.004393932,
+            "min_seconds": 0.004373905,
+            "relative_MAD": 0.004557876635323378,
+            "work_per_second": 504616593.9755099
+          },
+          "name": "email",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "9771ffc75edefbf0d1d6702f55edc61854d563638d2b9df9280ff083bb761a25"
+        },
+        {
+          "archive_bytes": 222396,
+          "bytes": 321380,
+          "decode_seconds": {
+            "max_seconds": 0.00014485,
+            "median_seconds": 0.00010823899999999999,
+            "min_seconds": 0.000105931,
+            "relative_MAD": 0.0003325973078095476,
+            "work_per_second": 2969170077.328874
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000141729,
+            "median_seconds": 0.0001073,
+            "min_seconds": 0.000103384,
+            "relative_MAD": 0.03649580615097864,
+            "work_per_second": 2995153774.464119
+          },
+          "encode_seconds": {
+            "max_seconds": 0.001409601,
+            "median_seconds": 0.000934077,
+            "min_seconds": 0.000872214,
+            "relative_MAD": 0.06622901538095896,
+            "work_per_second": 344061570.9411537
+          },
+          "name": "faust",
+          "rows": 13035,
+          "selective": {},
+          "sha256": "6c13b28af67171fcd1e906b82b6612a5d83635ff7df11855d1ddcffd711a0fba"
+        },
+        {
+          "archive_bytes": 395386,
+          "bytes": 437523,
+          "decode_seconds": {
+            "max_seconds": 0.000189848,
+            "median_seconds": 0.000172435,
+            "min_seconds": 0.000163282,
+            "relative_MAD": 0.03801432423811868,
+            "work_per_second": 2537321309.4789343
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.00018503,
+            "median_seconds": 0.000168827,
+            "min_seconds": 0.000156941,
+            "relative_MAD": 0.0637398046520995,
+            "work_per_second": 2591546375.8758965
+          },
+          "encode_seconds": {
+            "max_seconds": 0.00126938,
+            "median_seconds": 0.000980393,
+            "min_seconds": 0.000921694,
+            "relative_MAD": 0.05987292850928143,
+            "work_per_second": 446273076.2051545
+          },
+          "name": "firstname",
+          "rows": 54937,
+          "selective": {},
+          "sha256": "5e5c732b865ebc3b19110929b53f6f1800ed3d0c49c00006f64ec098e5712c9d"
+        },
+        {
+          "archive_bytes": 581936,
+          "bytes": 1000000,
+          "decode_seconds": {
+            "max_seconds": 0.000741414,
+            "median_seconds": 0.000720679,
+            "min_seconds": 0.000539877,
+            "relative_MAD": 0.028771478008933277,
+            "work_per_second": 1387580323.5559797
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.0007191,
+            "median_seconds": 0.000712036,
+            "min_seconds": 0.000534925,
+            "relative_MAD": 0.009920846698762401,
+            "work_per_second": 1404423371.851985
+          },
+          "encode_seconds": {
+            "max_seconds": 0.00297429,
+            "median_seconds": 0.002658125,
+            "min_seconds": 0.002650582,
+            "relative_MAD": 0.0026394545027039287,
+            "work_per_second": 376205031.74229956
+          },
+          "name": "genome",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "3f9b4d73d36d198479433f6d4900dad0f3c351239d52f678994ea0fd3dbb53e4"
+        },
+        {
+          "archive_bytes": 126796,
+          "bytes": 279663,
+          "decode_seconds": {
+            "max_seconds": 0.000121172,
+            "median_seconds": 9.4607e-05,
+            "min_seconds": 9.0617e-05,
+            "relative_MAD": 0.042174469119621104,
+            "work_per_second": 2956049763.759553
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000118827,
+            "median_seconds": 8.8003e-05,
+            "min_seconds": 8.5527e-05,
+            "relative_MAD": 0.02813540447484754,
+            "work_per_second": 3177880299.535243
+          },
+          "encode_seconds": {
+            "max_seconds": 0.00102226,
+            "median_seconds": 0.000637854,
+            "min_seconds": 0.00062534,
+            "relative_MAD": 0.008219749347029157,
+            "work_per_second": 438443593.6750416
+          },
+          "name": "hamlet",
+          "rows": 9151,
+          "selective": {},
+          "sha256": "1cd6808e06d8dcfa7e66de30c2335d693c71cf66a4b310831e8086b2d37de68b"
+        },
+        {
+          "archive_bytes": 894944,
+          "bytes": 893322,
+          "decode_seconds": {
+            "max_seconds": 8.14e-05,
+            "median_seconds": 7.736100000000001e-05,
+            "min_seconds": 6.4767e-05,
+            "relative_MAD": 0.047788937578366206,
+            "work_per_second": 11547446387.714739
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 7.0586e-05,
+            "median_seconds": 6.7657e-05,
+            "min_seconds": 5.8272e-05,
+            "relative_MAD": 0.04329189884269179,
+            "work_per_second": 13203689196.978878
+          },
+          "encode_seconds": {
+            "max_seconds": 0.000637276,
+            "median_seconds": 0.000580426,
+            "min_seconds": 0.000490002,
+            "relative_MAD": 0.09560391850123869,
+            "work_per_second": 1539079917.1642897
+          },
+          "name": "hex",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "3bf50d7e6cf7b3821813a5cb62b5e3294f8aa7a85488dd3fcf5c0edaaf6e2e38"
+        },
+        {
+          "archive_bytes": 113193,
+          "bytes": 208425,
+          "decode_seconds": {
+            "max_seconds": 9.3725e-05,
+            "median_seconds": 8.0312e-05,
+            "min_seconds": 7.6455e-05,
+            "relative_MAD": 0.04802520171331807,
+            "work_per_second": 2595191254.108975
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 9.1663e-05,
+            "median_seconds": 7.7188e-05,
+            "min_seconds": 7.4416e-05,
+            "relative_MAD": 0.031947971187231174,
+            "work_per_second": 2700225423.6409807
+          },
+          "encode_seconds": {
+            "max_seconds": 0.000777758,
+            "median_seconds": 0.000673946,
+            "min_seconds": 0.000622848,
+            "relative_MAD": 0.07112736035231317,
+            "work_per_second": 309260682.60661834
+          },
+          "name": "japanese",
+          "rows": 2301,
+          "selective": {},
+          "sha256": "4f3021bfef0bc68160bda25efddfb5b9a40a0c0f47f65d629d0973215ba7d913"
+        },
+        {
+          "archive_bytes": 1172536,
+          "bytes": 2745949,
+          "decode_seconds": {
+            "max_seconds": 0.001146297,
+            "median_seconds": 0.001008255,
+            "min_seconds": 0.0009647410000000001,
+            "relative_MAD": 0.0333625918046527,
+            "work_per_second": 2723466781.7169266
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.001109724,
+            "median_seconds": 0.000987071,
+            "min_seconds": 0.0009569,
+            "relative_MAD": 0.026099439655303557,
+            "work_per_second": 2781916397.098081
+          },
+          "encode_seconds": {
+            "max_seconds": 0.006697878,
+            "median_seconds": 0.006563577,
+            "min_seconds": 0.006537371,
+            "relative_MAD": 0.003992639988835352,
+            "work_per_second": 418361664.68375397
+          },
+          "name": "l_comment",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "535449726248afb1fa41a6d5ab13da18d57e2f4af54157047e118004cb0edc6f"
+        },
+        {
+          "archive_bytes": 2138818,
+          "bytes": 2488607,
+          "decode_seconds": {
+            "max_seconds": 0.001014948,
+            "median_seconds": 0.0009245719999999999,
+            "min_seconds": 0.0009044950000000001,
+            "relative_MAD": 0.011643225189601049,
+            "work_per_second": 2691631371.056013
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000928305,
+            "median_seconds": 0.000893781,
+            "min_seconds": 0.000879615,
+            "relative_MAD": 0.011314852296032208,
+            "work_per_second": 2784358808.2539234
+          },
+          "encode_seconds": {
+            "max_seconds": 0.005248893,
+            "median_seconds": 0.005092274,
+            "min_seconds": 0.005045223,
+            "relative_MAD": 0.008611084163970712,
+            "work_per_second": 488702493.2279763
+          },
+          "name": "lastname",
+          "rows": 228976,
+          "selective": {},
+          "sha256": "a370b019b9d799d84b9edcef4a5d3c4e42aaf3fb9dd7b603f025951a8369dce0"
+        },
+        {
+          "archive_bytes": 1889000,
+          "bytes": 2713714,
+          "decode_seconds": {
+            "max_seconds": 0.000684062,
+            "median_seconds": 0.000579506,
+            "min_seconds": 0.000536527,
+            "relative_MAD": 0.03711091860998854,
+            "work_per_second": 4682805700.027265
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000581861,
+            "median_seconds": 0.00052819,
+            "min_seconds": 0.000515613,
+            "relative_MAD": 0.023811507222779575,
+            "work_per_second": 5137761032.961624
+          },
+          "encode_seconds": {
+            "max_seconds": 0.005017589,
+            "median_seconds": 0.004938695,
+            "min_seconds": 0.004906546,
+            "relative_MAD": 0.006293160440156796,
+            "work_per_second": 549479973.9607326
+          },
+          "name": "location",
+          "rows": 67751,
+          "selective": {},
+          "sha256": "7f6f91b66621b4900e9c3d4735cb0a977df5a4df7babeadcb82b2672de6f2fe2"
+        },
+        {
+          "archive_bytes": 1896816,
+          "bytes": 2123578,
+          "decode_seconds": {
+            "max_seconds": 0.000939338,
+            "median_seconds": 0.0007919919999999999,
+            "min_seconds": 0.000773692,
+            "relative_MAD": 0.023106294002969676,
+            "work_per_second": 2681312437.4993687
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000830835,
+            "median_seconds": 0.000761458,
+            "min_seconds": 0.000750692,
+            "relative_MAD": 0.010802959585426992,
+            "work_per_second": 2788831426.0274367
+          },
+          "encode_seconds": {
+            "max_seconds": 0.004536344,
+            "median_seconds": 0.004288426,
+            "min_seconds": 0.004260019,
+            "relative_MAD": 0.005438825340579484,
+            "work_per_second": 495188211.2458044
+          },
+          "name": "movies",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "8250f6367d1b882d0be029c9578709be31fc0d7eccf59da75b05032a66f63498"
+        },
+        {
+          "archive_bytes": 908134,
+          "bytes": 2491298,
+          "decode_seconds": {
+            "max_seconds": 0.001157013,
+            "median_seconds": 0.000947207,
+            "min_seconds": 0.000844571,
+            "relative_MAD": 0.08630320510722583,
+            "work_per_second": 2630151593.051994
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.00106271,
+            "median_seconds": 0.000922201,
+            "min_seconds": 0.000838034,
+            "relative_MAD": 0.06490016818459314,
+            "work_per_second": 2701469636.228978
+          },
+          "encode_seconds": {
+            "max_seconds": 0.004509508,
+            "median_seconds": 0.004408459,
+            "min_seconds": 0.004343789,
+            "relative_MAD": 0.007419372619774896,
+            "work_per_second": 565117652.2226927
+          },
+          "name": "ps_comment",
+          "rows": 20000,
+          "selective": {},
+          "sha256": "63aaf8de74270bc775d4325ae84680c7ac1e10a19001942b9178164fc082b039"
+        },
+        {
+          "archive_bytes": 79036,
+          "bytes": 138155,
+          "decode_seconds": {
+            "max_seconds": 6.3656e-05,
+            "median_seconds": 5.4148e-05,
+            "min_seconds": 4.7117e-05,
+            "relative_MAD": 0.11254339957154452,
+            "work_per_second": 2551433109.256113
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 6.7416e-05,
+            "median_seconds": 5.3789e-05,
+            "min_seconds": 4.5344e-05,
+            "relative_MAD": 0.08871702392682508,
+            "work_per_second": 2568461953.1874547
+          },
+          "encode_seconds": {
+            "max_seconds": 0.000818947,
+            "median_seconds": 0.000567966,
+            "min_seconds": 0.000388701,
+            "relative_MAD": 0.2549219495533184,
+            "work_per_second": 243245194.25458565
+          },
+          "name": "street",
+          "rows": 10329,
+          "selective": {},
+          "sha256": "9a70113061ba5c686c5f42a53b3f0b109c00d77ba946fc9e28bf7d208bbebb4e"
+        },
+        {
+          "archive_bytes": 2246196,
+          "bytes": 6327875,
+          "decode_seconds": {
+            "max_seconds": 0.002203045,
+            "median_seconds": 0.002155925,
+            "min_seconds": 0.002124,
+            "relative_MAD": 0.010657606363857732,
+            "work_per_second": 2935109059.9162774
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.002529883,
+            "median_seconds": 0.002110816,
+            "min_seconds": 0.002089501,
+            "relative_MAD": 0.010097990540151319,
+            "work_per_second": 2997833539.256856
+          },
+          "encode_seconds": {
+            "max_seconds": 0.011870979,
+            "median_seconds": 0.010605883,
+            "min_seconds": 0.010572733,
+            "relative_MAD": 0.0031256237693739553,
+            "work_per_second": 596638205.4186342
+          },
+          "name": "urls",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "45a2087b853df35c2ed6652427edd856d4cfafaa5198ab7d04079cd316aa86a9"
+        },
+        {
+          "archive_bytes": 1002269,
+          "bytes": 1671154,
+          "decode_seconds": {
+            "max_seconds": 0.000676373,
+            "median_seconds": 0.000638219,
+            "min_seconds": 0.000600597,
+            "relative_MAD": 0.03932505926649,
+            "work_per_second": 2618464821.6364603
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000652819,
+            "median_seconds": 0.000613603,
+            "min_seconds": 0.000581797,
+            "relative_MAD": 0.019053035920619653,
+            "work_per_second": 2723510152.329764
+          },
+          "encode_seconds": {
+            "max_seconds": 0.00320664,
+            "median_seconds": 0.003070056,
+            "min_seconds": 0.003048924,
+            "relative_MAD": 0.006883262064274939,
+            "work_per_second": 544339907.806242
+          },
+          "name": "urls2",
+          "rows": 30000,
+          "selective": {},
+          "sha256": "7e015c7439579e8e0415cb46b36121e1628d164b3d99e977f8f08b301ab70619"
+        },
+        {
+          "archive_bytes": 2541411,
+          "bytes": 3700000,
+          "decode_seconds": {
+            "max_seconds": 0.001027845,
+            "median_seconds": 0.001010209,
+            "min_seconds": 0.001006198,
+            "relative_MAD": 0.0027212190744685576,
+            "work_per_second": 3662608430.532692
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.001025576,
+            "median_seconds": 0.001002917,
+            "min_seconds": 0.00099048,
+            "relative_MAD": 0.008828248000582281,
+            "work_per_second": 3689238491.320817
+          },
+          "encode_seconds": {
+            "max_seconds": 0.006349385,
+            "median_seconds": 0.006228816,
+            "min_seconds": 0.006182953,
+            "relative_MAD": 0.00736303657067413,
+            "work_per_second": 594013372.6859165
+          },
+          "name": "uuid",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "f2b489f2248ea2440b47471d2898f52b3a35b0e45950beca5ad3a304d02ebde3"
+        },
+        {
+          "archive_bytes": 1928600,
+          "bytes": 2342244,
+          "decode_seconds": {
+            "max_seconds": 0.000990759,
+            "median_seconds": 0.000907945,
+            "min_seconds": 0.000846656,
+            "relative_MAD": 0.05032353281311086,
+            "work_per_second": 2579720137.232982
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000925425,
+            "median_seconds": 0.000854655,
+            "min_seconds": 0.000813571,
+            "relative_MAD": 0.033820664478649246,
+            "work_per_second": 2740572511.715254
+          },
+          "encode_seconds": {
+            "max_seconds": 0.005892188,
+            "median_seconds": 0.004861797,
+            "min_seconds": 0.004834032,
+            "relative_MAD": 0.004998768973694259,
+            "work_per_second": 481765075.75285435
+          },
+          "name": "wiki",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "4b3015fdc698aec83e412a979ce1163562465bdc33efefbcf6691d36181260db"
+        },
+        {
+          "archive_bytes": 1988394,
+          "bytes": 2862830,
+          "decode_seconds": {
+            "max_seconds": 0.001026952,
+            "median_seconds": 0.000927481,
+            "min_seconds": 0.000914448,
+            "relative_MAD": 0.00833763710523462,
+            "work_per_second": 3086672395.4452977
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000956018,
+            "median_seconds": 0.000912572,
+            "min_seconds": 0.000900753,
+            "relative_MAD": 0.012026448324077423,
+            "work_per_second": 3137100415.0905356
+          },
+          "encode_seconds": {
+            "max_seconds": 0.007445733,
+            "median_seconds": 0.00719139,
+            "min_seconds": 0.007162172,
+            "relative_MAD": 0.004062914123695158,
+            "work_per_second": 398091328.6582983
+          },
+          "name": "wikipedia",
+          "rows": 22000,
+          "selective": {},
+          "sha256": "5604b6be6366efb98d54b91b33b91106d97b37b719faa12b6d798f8af9a50b76"
+        },
+        {
+          "archive_bytes": 1669841,
+          "bytes": 1926988,
+          "decode_seconds": {
+            "max_seconds": 0.000970536,
+            "median_seconds": 0.000696094,
+            "min_seconds": 0.0006832870000000001,
+            "relative_MAD": 0.007773375434926863,
+            "work_per_second": 2768287041.692645
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000788058,
+            "median_seconds": 0.000677448,
+            "min_seconds": 0.000669541,
+            "relative_MAD": 0.007730482634829463,
+            "work_per_second": 2844481052.4202595
+          },
+          "encode_seconds": {
+            "max_seconds": 0.004082016,
+            "median_seconds": 0.003936473,
+            "min_seconds": 0.003908558,
+            "relative_MAD": 0.007091373419810039,
+            "work_per_second": 489521457.40616024
+          },
+          "name": "yago",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "edc92e4e24e977d11ee7952d15b1e0c0138b70e364210200cab5be07b1309c44"
+        }
+      ],
+      "name": "lz4",
+      "original_bytes": 39841347,
+      "result_id": "s-50c8896edf7757c6397e60aac6f205a33cd205d2e84f02f64d7c2c256bcb592d",
+      "selective": {},
+      "timing": {
+        "decode_seconds": {
+          "max_seconds": 0.0139695,
+          "median_seconds": 0.013497996,
+          "min_seconds": 0.01302027,
+          "relative_MAD": 0.012895840241766219,
+          "work_per_second": 2951649044.791538
+        },
+        "decode_warm_seconds": {
+          "max_seconds": 0.013793951,
+          "median_seconds": 0.012818879,
+          "min_seconds": 0.012654726,
+          "relative_MAD": 0.009649361695355779,
+          "work_per_second": 3108021145.9988036
+        },
+        "encode_seconds": {
+          "max_seconds": 0.08008708,
+          "median_seconds": 0.078782482,
+          "min_seconds": 0.078130452,
+          "relative_MAD": 0.00794731244948591,
+          "work_per_second": 505713275.19232005
+        }
+      },
+      "variant": "bulk"
+    },
+    {
+      "accounting": {
+        "archive_bytes": 15383446,
+        "custom_decoder_bytes": 16536,
+        "excluded_standard_codec_bytes": 755864,
+        "nonplatform_dependency_bytes": 755864,
+        "package_bytes": 15399982,
+        "strict_deployment_bytes": 16155846
+      },
+      "columns": [
+        {
+          "archive_bytes": 342170,
+          "bytes": 1900000,
+          "decode_seconds": {
+            "max_seconds": 0.001768324,
+            "median_seconds": 0.0017585139999999999,
+            "min_seconds": 0.001302023,
+            "relative_MAD": 0.005578573727590495,
+            "work_per_second": 1080457704.6301594
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.001695179,
+            "median_seconds": 0.001417526,
+            "min_seconds": 0.001272917,
+            "relative_MAD": 0.10201506004122675,
+            "work_per_second": 1340363421.905489
+          },
+          "encode_seconds": {
+            "max_seconds": 0.004115316,
+            "median_seconds": 0.003973914,
+            "min_seconds": 0.003969756,
+            "relative_MAD": 0.001046323599353341,
+            "work_per_second": 478118046.8424832
+          },
+          "name": "c_name",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "6341c1c1f597341e8e85f0cb2debe01c15b9a2e2f49ba2c4c7fce1d38ea00239"
+        },
+        {
+          "archive_bytes": 423688,
+          "bytes": 763287,
+          "decode_seconds": {
+            "max_seconds": 0.001014031,
+            "median_seconds": 0.000743287,
+            "min_seconds": 0.000734236,
+            "relative_MAD": 0.012176992198168467,
+            "work_per_second": 1026907506.790782
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.00097998,
+            "median_seconds": 0.000730469,
+            "min_seconds": 0.000704726,
+            "relative_MAD": 0.03524174194935028,
+            "work_per_second": 1044927300.1318332
+          },
+          "encode_seconds": {
+            "max_seconds": 0.003098634,
+            "median_seconds": 0.002917623,
+            "min_seconds": 0.002826525,
+            "relative_MAD": 0.031223362305548032,
+            "work_per_second": 261612620.95891073
+          },
+          "name": "chinese",
+          "rows": 8729,
+          "selective": {},
+          "sha256": "917586b53b066a97f3f94dc41eb919c0e43ed68aadb9f0ec90a7dd24b27b7a13"
+        },
+        {
+          "archive_bytes": 61213,
+          "bytes": 133839,
+          "decode_seconds": {
+            "max_seconds": 0.000217687,
+            "median_seconds": 0.000194843,
+            "min_seconds": 0.000180311,
+            "relative_MAD": 0.07458312590136669,
+            "work_per_second": 686906894.268719
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.00015721,
+            "median_seconds": 0.000132129,
+            "min_seconds": 0.000128536,
+            "relative_MAD": 0.027193121873320802,
+            "work_per_second": 1012941897.6908929
+          },
+          "encode_seconds": {
+            "max_seconds": 0.001342331,
+            "median_seconds": 0.000927586,
+            "min_seconds": 0.000804489,
+            "relative_MAD": 0.11512355727662989,
+            "work_per_second": 144287429.95258662
+          },
+          "name": "city",
+          "rows": 12829,
+          "selective": {},
+          "sha256": "9fe1fd1e095e870c90fe0c4efd57cb5cc87c350b1e175789d295b49d10705949"
+        },
+        {
+          "archive_bytes": 62837,
+          "bytes": 154265,
+          "decode_seconds": {
+            "max_seconds": 0.00022752000000000002,
+            "median_seconds": 0.000215292,
+            "min_seconds": 0.000207611,
+            "relative_MAD": 0.013957787562937852,
+            "work_per_second": 716538468.6843914
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000181015,
+            "median_seconds": 0.000169907,
+            "min_seconds": 0.000165095,
+            "relative_MAD": 0.005426498025390294,
+            "work_per_second": 907937871.8946246
+          },
+          "encode_seconds": {
+            "max_seconds": 0.00174795,
+            "median_seconds": 0.001271079,
+            "min_seconds": 0.00108449,
+            "relative_MAD": 0.08276511530754568,
+            "work_per_second": 121365391.13619216
+          },
+          "name": "credentials",
+          "rows": 12898,
+          "selective": {},
+          "sha256": "9156d43f7a966f7ab73eb6cff8998c68bb1022a3df4f05e216ced2b8f165e895"
+        },
+        {
+          "archive_bytes": 956822,
+          "bytes": 2217251,
+          "decode_seconds": {
+            "max_seconds": 0.0022648679999999997,
+            "median_seconds": 0.00197108,
+            "min_seconds": 0.0015905840000000001,
+            "relative_MAD": 0.13974673782900746,
+            "work_per_second": 1124891430.0789413
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.001810884,
+            "median_seconds": 0.001601539,
+            "min_seconds": 0.00157148,
+            "relative_MAD": 0.011296009650717235,
+            "work_per_second": 1384450206.9571831
+          },
+          "encode_seconds": {
+            "max_seconds": 0.007214854,
+            "median_seconds": 0.006990864,
+            "min_seconds": 0.006939107,
+            "relative_MAD": 0.0024836701157396673,
+            "work_per_second": 317164087.30022496
+          },
+          "name": "email",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "9771ffc75edefbf0d1d6702f55edc61854d563638d2b9df9280ff083bb761a25"
+        },
+        {
+          "archive_bytes": 157395,
+          "bytes": 321380,
+          "decode_seconds": {
+            "max_seconds": 0.000338359,
+            "median_seconds": 0.000323797,
+            "min_seconds": 0.000313787,
+            "relative_MAD": 0.022155856910348264,
+            "work_per_second": 992535446.5915372
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000304647,
+            "median_seconds": 0.000287134,
+            "min_seconds": 0.000286422,
+            "relative_MAD": 0.0024796784776445462,
+            "work_per_second": 1119268355.5413153
+          },
+          "encode_seconds": {
+            "max_seconds": 0.002248868,
+            "median_seconds": 0.002067449,
+            "min_seconds": 0.001417272,
+            "relative_MAD": 0.07193647823960841,
+            "work_per_second": 155447607.17193025
+          },
+          "name": "faust",
+          "rows": 13035,
+          "selective": {},
+          "sha256": "6c13b28af67171fcd1e906b82b6612a5d83635ff7df11855d1ddcffd711a0fba"
+        },
+        {
+          "archive_bytes": 231049,
+          "bytes": 437523,
+          "decode_seconds": {
+            "max_seconds": 0.000426351,
+            "median_seconds": 0.000343819,
+            "min_seconds": 0.00031115200000000003,
+            "relative_MAD": 0.09346196690700635,
+            "work_per_second": 1272538748.5857384
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000389115,
+            "median_seconds": 0.000310483,
+            "min_seconds": 0.000282292,
+            "relative_MAD": 0.05542654509264603,
+            "work_per_second": 1409168940.006377
+          },
+          "encode_seconds": {
+            "max_seconds": 0.002350633,
+            "median_seconds": 0.001503357,
+            "min_seconds": 0.001441318,
+            "relative_MAD": 0.04126697783693431,
+            "work_per_second": 291030673.35303587
+          },
+          "name": "firstname",
+          "rows": 54937,
+          "selective": {},
+          "sha256": "5e5c732b865ebc3b19110929b53f6f1800ed3d0c49c00006f64ec098e5712c9d"
+        },
+        {
+          "archive_bytes": 333378,
+          "bytes": 1000000,
+          "decode_seconds": {
+            "max_seconds": 0.001495308,
+            "median_seconds": 0.001457999,
+            "min_seconds": 0.001064895,
+            "relative_MAD": 0.02558918078818993,
+            "work_per_second": 685871526.660855
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.001435202,
+            "median_seconds": 0.001094116,
+            "min_seconds": 0.001040127,
+            "relative_MAD": 0.049344859228820294,
+            "work_per_second": 913979870.507332
+          },
+          "encode_seconds": {
+            "max_seconds": 0.004763112,
+            "median_seconds": 0.004593377,
+            "min_seconds": 0.004557839,
+            "relative_MAD": 0.007736791471721108,
+            "work_per_second": 217704751.8633894
+          },
+          "name": "genome",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "3f9b4d73d36d198479433f6d4900dad0f3c351239d52f678994ea0fd3dbb53e4"
+        },
+        {
+          "archive_bytes": 87964,
+          "bytes": 279663,
+          "decode_seconds": {
+            "max_seconds": 0.000299684,
+            "median_seconds": 0.000233212,
+            "min_seconds": 0.000226685,
+            "relative_MAD": 0.01606263828619454,
+            "work_per_second": 1199179287.515222
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000271459,
+            "median_seconds": 0.00020703,
+            "min_seconds": 0.000204214,
+            "relative_MAD": 0.013601893445394362,
+            "work_per_second": 1350833212.5778873
+          },
+          "encode_seconds": {
+            "max_seconds": 0.001719316,
+            "median_seconds": 0.00121587,
+            "min_seconds": 0.001061766,
+            "relative_MAD": 0.11877585597144438,
+            "work_per_second": 230010609.68689087
+          },
+          "name": "hamlet",
+          "rows": 9151,
+          "selective": {},
+          "sha256": "1cd6808e06d8dcfa7e66de30c2335d693c71cf66a4b310831e8086b2d37de68b"
+        },
+        {
+          "archive_bytes": 458270,
+          "bytes": 893322,
+          "decode_seconds": {
+            "max_seconds": 0.000522588,
+            "median_seconds": 0.00045702599999999997,
+            "min_seconds": 0.000441687,
+            "relative_MAD": 0.008949162629697327,
+            "work_per_second": 1954641530.241168
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.00048627,
+            "median_seconds": 0.000432648,
+            "min_seconds": 0.000418703,
+            "relative_MAD": 0.027731550821915252,
+            "work_per_second": 2064777833.250125
+          },
+          "encode_seconds": {
+            "max_seconds": 0.001193347,
+            "median_seconds": 0.001154286,
+            "min_seconds": 0.001148783,
+            "relative_MAD": 0.00413589006537368,
+            "work_per_second": 773917382.6937171
+          },
+          "name": "hex",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "3bf50d7e6cf7b3821813a5cb62b5e3294f8aa7a85488dd3fcf5c0edaaf6e2e38"
+        },
+        {
+          "archive_bytes": 76246,
+          "bytes": 208425,
+          "decode_seconds": {
+            "max_seconds": 0.000342659,
+            "median_seconds": 0.00024877,
+            "min_seconds": 0.000234558,
+            "relative_MAD": 0.057129075049242244,
+            "work_per_second": 837822084.6565101
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000305908,
+            "median_seconds": 0.000238359,
+            "min_seconds": 0.000216793,
+            "relative_MAD": 0.07156851639753475,
+            "work_per_second": 874416321.5989327
+          },
+          "encode_seconds": {
+            "max_seconds": 0.001901372,
+            "median_seconds": 0.001313553,
+            "min_seconds": 0.001037829,
+            "relative_MAD": 0.20990702316541468,
+            "work_per_second": 158672699.1602166
+          },
+          "name": "japanese",
+          "rows": 2301,
+          "selective": {},
+          "sha256": "4f3021bfef0bc68160bda25efddfb5b9a40a0c0f47f65d629d0973215ba7d913"
+        },
+        {
+          "archive_bytes": 774728,
+          "bytes": 2745949,
+          "decode_seconds": {
+            "max_seconds": 0.003440447,
+            "median_seconds": 0.0028553420000000003,
+            "min_seconds": 0.002437224,
+            "relative_MAD": 0.13387818341900892,
+            "work_per_second": 961688302.1368368
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.002607442,
+            "median_seconds": 0.002484503,
+            "min_seconds": 0.002410587,
+            "relative_MAD": 0.017289977110110214,
+            "work_per_second": 1105230704.0885038
+          },
+          "encode_seconds": {
+            "max_seconds": 0.009908947,
+            "median_seconds": 0.009700439,
+            "min_seconds": 0.009539338,
+            "relative_MAD": 0.006787321687193672,
+            "work_per_second": 283074714.4536448
+          },
+          "name": "l_comment",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "535449726248afb1fa41a6d5ab13da18d57e2f4af54157047e118004cb0edc6f"
+        },
+        {
+          "archive_bytes": 1262047,
+          "bytes": 2488607,
+          "decode_seconds": {
+            "max_seconds": 0.002499471,
+            "median_seconds": 0.002065454,
+            "min_seconds": 0.001873094,
+            "relative_MAD": 0.08797194224611149,
+            "work_per_second": 1204871665.0189257
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.001995485,
+            "median_seconds": 0.001885443,
+            "min_seconds": 0.001839905,
+            "relative_MAD": 0.024152414048051376,
+            "work_per_second": 1319905719.7698364
+          },
+          "encode_seconds": {
+            "max_seconds": 0.007957243,
+            "median_seconds": 0.007868822,
+            "min_seconds": 0.00774622,
+            "relative_MAD": 0.009407507248225925,
+            "work_per_second": 316261697.1129859
+          },
+          "name": "lastname",
+          "rows": 228976,
+          "selective": {},
+          "sha256": "a370b019b9d799d84b9edcef4a5d3c4e42aaf3fb9dd7b603f025951a8369dce0"
+        },
+        {
+          "archive_bytes": 949066,
+          "bytes": 2713714,
+          "decode_seconds": {
+            "max_seconds": 0.0028179200000000002,
+            "median_seconds": 0.002543426,
+            "min_seconds": 0.002109505,
+            "relative_MAD": 0.09284406151387929,
+            "work_per_second": 1066952213.274536
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.00230559,
+            "median_seconds": 0.002129038,
+            "min_seconds": 0.002055415,
+            "relative_MAD": 0.03458040673769096,
+            "work_per_second": 1274619804.8132536
+          },
+          "encode_seconds": {
+            "max_seconds": 0.009160526,
+            "median_seconds": 0.008383547,
+            "min_seconds": 0.008354404,
+            "relative_MAD": 0.003476213588353542,
+            "work_per_second": 323695209.1996383
+          },
+          "name": "location",
+          "rows": 67751,
+          "selective": {},
+          "sha256": "7f6f91b66621b4900e9c3d4735cb0a977df5a4df7babeadcb82b2672de6f2fe2"
+        },
+        {
+          "archive_bytes": 1249287,
+          "bytes": 2123578,
+          "decode_seconds": {
+            "max_seconds": 0.0019530169999999998,
+            "median_seconds": 0.001818951,
+            "min_seconds": 0.001746949,
+            "relative_MAD": 0.0327870294471923,
+            "work_per_second": 1167474000.1242473
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.001863,
+            "median_seconds": 0.001760345,
+            "min_seconds": 0.001714645,
+            "relative_MAD": 0.019152495675563673,
+            "work_per_second": 1206341938.6540706
+          },
+          "encode_seconds": {
+            "max_seconds": 0.00780714,
+            "median_seconds": 0.00684083,
+            "min_seconds": 0.006817055,
+            "relative_MAD": 0.0034754554637376144,
+            "work_per_second": 310426951.115581
+          },
+          "name": "movies",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "8250f6367d1b882d0be029c9578709be31fc0d7eccf59da75b05032a66f63498"
+        },
+        {
+          "archive_bytes": 570278,
+          "bytes": 2491298,
+          "decode_seconds": {
+            "max_seconds": 0.003014211,
+            "median_seconds": 0.0028457590000000002,
+            "min_seconds": 0.002370084,
+            "relative_MAD": 0.05638671440554157,
+            "work_per_second": 875442368.8021368
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.002212671,
+            "median_seconds": 0.002185498,
+            "min_seconds": 0.002170182,
+            "relative_MAD": 0.0049183298268861385,
+            "work_per_second": 1139922342.6422718
+          },
+          "encode_seconds": {
+            "max_seconds": 0.007436094,
+            "median_seconds": 0.007287724,
+            "min_seconds": 0.007226601,
+            "relative_MAD": 0.006474174927590532,
+            "work_per_second": 341848566.16414124
+          },
+          "name": "ps_comment",
+          "rows": 20000,
+          "selective": {},
+          "sha256": "63aaf8de74270bc775d4325ae84680c7ac1e10a19001942b9178164fc082b039"
+        },
+        {
+          "archive_bytes": 51625,
+          "bytes": 138155,
+          "decode_seconds": {
+            "max_seconds": 0.00025712500000000003,
+            "median_seconds": 0.000191006,
+            "min_seconds": 0.000185286,
+            "relative_MAD": 0.029946703244924208,
+            "work_per_second": 723301885.8046345
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000201431,
+            "median_seconds": 0.000145884,
+            "min_seconds": 0.000140187,
+            "relative_MAD": 0.03905157522415058,
+            "work_per_second": 947019549.7792767
+          },
+          "encode_seconds": {
+            "max_seconds": 0.001456703,
+            "median_seconds": 0.000822167,
+            "min_seconds": 0.000799159,
+            "relative_MAD": 0.019673618620061374,
+            "work_per_second": 168037637.1223851
+          },
+          "name": "street",
+          "rows": 10329,
+          "selective": {},
+          "sha256": "9a70113061ba5c686c5f42a53b3f0b109c00d77ba946fc9e28bf7d208bbebb4e"
+        },
+        {
+          "archive_bytes": 1515864,
+          "bytes": 6327875,
+          "decode_seconds": {
+            "max_seconds": 0.004799948,
+            "median_seconds": 0.004591765,
+            "min_seconds": 0.004529384,
+            "relative_MAD": 0.007565064849791056,
+            "work_per_second": 1378092084.4163408
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.005410944,
+            "median_seconds": 0.004540606,
+            "min_seconds": 0.004435725,
+            "relative_MAD": 0.013430365902701143,
+            "work_per_second": 1393619045.5635216
+          },
+          "encode_seconds": {
+            "max_seconds": 0.014965455,
+            "median_seconds": 0.014800141,
+            "min_seconds": 0.014550654,
+            "relative_MAD": 0.008519851263579275,
+            "work_per_second": 427555048.29312104
+          },
+          "name": "urls",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "45a2087b853df35c2ed6652427edd856d4cfafaa5198ab7d04079cd316aa86a9"
+        },
+        {
+          "archive_bytes": 679838,
+          "bytes": 1671154,
+          "decode_seconds": {
+            "max_seconds": 0.001864816,
+            "median_seconds": 0.0018405230000000002,
+            "min_seconds": 0.0017647239999999999,
+            "relative_MAD": 0.013198965728762902,
+            "work_per_second": 907977786.7486578
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.001728977,
+            "median_seconds": 0.001524645,
+            "min_seconds": 0.001316382,
+            "relative_MAD": 0.06679981241534919,
+            "work_per_second": 1096093844.7966576
+          },
+          "encode_seconds": {
+            "max_seconds": 0.005774724,
+            "median_seconds": 0.00488258,
+            "min_seconds": 0.004744837,
+            "relative_MAD": 0.028211109700199497,
+            "work_per_second": 342268636.66340333
+          },
+          "name": "urls2",
+          "rows": 30000,
+          "selective": {},
+          "sha256": "7e015c7439579e8e0415cb46b36121e1628d164b3d99e977f8f08b301ab70619"
+        },
+        {
+          "archive_bytes": 1414569,
+          "bytes": 3700000,
+          "decode_seconds": {
+            "max_seconds": 0.00339046,
+            "median_seconds": 0.003216267,
+            "min_seconds": 0.003032667,
+            "relative_MAD": 0.051032454706030385,
+            "work_per_second": 1150402003.316267
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.003008139,
+            "median_seconds": 0.002985193,
+            "min_seconds": 0.00298003,
+            "relative_MAD": 0.0009878758257841017,
+            "work_per_second": 1239450849.57656
+          },
+          "encode_seconds": {
+            "max_seconds": 0.010582999,
+            "median_seconds": 0.010114384,
+            "min_seconds": 0.010059013,
+            "relative_MAD": 0.004222600209760688,
+            "work_per_second": 365815654.22076124
+          },
+          "name": "uuid",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "f2b489f2248ea2440b47471d2898f52b3a35b0e45950beca5ad3a304d02ebde3"
+        },
+        {
+          "archive_bytes": 1278421,
+          "bytes": 2342244,
+          "decode_seconds": {
+            "max_seconds": 0.002655911,
+            "median_seconds": 0.0022000550000000002,
+            "min_seconds": 0.0020220019999999997,
+            "relative_MAD": 0.08093115853921856,
+            "work_per_second": 1064629747.8926662
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.002131592,
+            "median_seconds": 0.001990451,
+            "min_seconds": 0.001966366,
+            "relative_MAD": 0.007787179890386596,
+            "work_per_second": 1176740346.7857285
+          },
+          "encode_seconds": {
+            "max_seconds": 0.007961415,
+            "median_seconds": 0.007702788,
+            "min_seconds": 0.007633851,
+            "relative_MAD": 0.004426968521008183,
+            "work_per_second": 304077432.7425342
+          },
+          "name": "wiki",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "4b3015fdc698aec83e412a979ce1163562465bdc33efefbcf6691d36181260db"
+        },
+        {
+          "archive_bytes": 1352081,
+          "bytes": 2862830,
+          "decode_seconds": {
+            "max_seconds": 0.00312151,
+            "median_seconds": 0.002618248,
+            "min_seconds": 0.002533164,
+            "relative_MAD": 0.020491565352098024,
+            "work_per_second": 1093414374.8033035
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.00276047,
+            "median_seconds": 0.002526678,
+            "min_seconds": 0.002491511,
+            "relative_MAD": 0.013918275300612112,
+            "work_per_second": 1133041091.9001155
+          },
+          "encode_seconds": {
+            "max_seconds": 0.010707795,
+            "median_seconds": 0.01024264,
+            "min_seconds": 0.01013219,
+            "relative_MAD": 0.005854447681457159,
+            "work_per_second": 279501183.28868335
+          },
+          "name": "wikipedia",
+          "rows": 22000,
+          "selective": {},
+          "sha256": "5604b6be6366efb98d54b91b33b91106d97b37b719faa12b6d798f8af9a50b76"
+        },
+        {
+          "archive_bytes": 1094610,
+          "bytes": 1926988,
+          "decode_seconds": {
+            "max_seconds": 0.002262848,
+            "median_seconds": 0.001708467,
+            "min_seconds": 0.001652632,
+            "relative_MAD": 0.03268134532302933,
+            "work_per_second": 1127904723.9425755
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.00209301,
+            "median_seconds": 0.001645075,
+            "min_seconds": 0.00160205,
+            "relative_MAD": 0.01792988161633965,
+            "work_per_second": 1171367870.7657707
+          },
+          "encode_seconds": {
+            "max_seconds": 0.006703294,
+            "median_seconds": 0.006411454,
+            "min_seconds": 0.006355767,
+            "relative_MAD": 0.005058135018983207,
+            "work_per_second": 300553977.3037442
+          },
+          "name": "yago",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "edc92e4e24e977d11ee7952d15b1e0c0138b70e364210200cab5be07b1309c44"
+        }
+      ],
+      "name": "zstd1",
+      "original_bytes": 39841347,
+      "result_id": "s-fe03f38bf24ef3aca7568b768b581cc738e3dc982e78a3a3e09372a4c8aa5e0f",
+      "selective": {},
+      "timing": {
+        "decode_seconds": {
+          "max_seconds": 0.037131618,
+          "median_seconds": 0.036743167,
+          "min_seconds": 0.035280115,
+          "relative_MAD": 0.007996452782635825,
+          "work_per_second": 1084319895.4515815
+        },
+        "decode_warm_seconds": {
+          "max_seconds": 0.033405643,
+          "median_seconds": 0.033135582000000004,
+          "min_seconds": 0.032892776,
+          "relative_MAD": 0.0035926636206361218,
+          "work_per_second": 1202373539.1157455
+        },
+        "encode_seconds": {
+          "max_seconds": 0.126970249,
+          "median_seconds": 0.124546754,
+          "min_seconds": 0.122149309,
+          "relative_MAD": 0.0065468185545808424,
+          "work_per_second": 319890689.40327424
+        }
+      },
+      "variant": "bulk"
+    },
+    {
+      "accounting": {
+        "archive_bytes": 15134002,
+        "custom_decoder_bytes": 24328,
+        "excluded_standard_codec_bytes": 137440,
+        "nonplatform_dependency_bytes": 137440,
+        "package_bytes": 15158330,
+        "strict_deployment_bytes": 15295770
+      },
+      "columns": [
+        {
+          "archive_bytes": 300084,
+          "bytes": 1900000,
+          "decode_seconds": {
+            "max_seconds": 0.000443383,
+            "median_seconds": 0.00043733300000000004,
+            "min_seconds": 0.00031868,
+            "relative_MAD": 0.013833852007509053,
+            "work_per_second": 4344515506.490478
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000439189,
+            "median_seconds": 0.000433945,
+            "min_seconds": 0.000315637,
+            "relative_MAD": 0.012084480752169068,
+            "work_per_second": 4378435055.133716
+          },
+          "encode_seconds": {
+            "max_seconds": 0.001466957,
+            "median_seconds": 0.001424788,
+            "min_seconds": 0.001347366,
+            "relative_MAD": 0.0005762260771427222,
+            "work_per_second": 1333531725.4216065
+          },
+          "name": "c_name",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "6341c1c1f597341e8e85f0cb2debe01c15b9a2e2f49ba2c4c7fce1d38ea00239"
+        },
+        {
+          "archive_bytes": 385951,
+          "bytes": 763287,
+          "decode_seconds": {
+            "max_seconds": 0.000407987,
+            "median_seconds": 0.000299385,
+            "min_seconds": 0.000294915,
+            "relative_MAD": 0.014930607745879107,
+            "work_per_second": 2549516508.8431287
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000405177,
+            "median_seconds": 0.000297055,
+            "min_seconds": 0.000291064,
+            "relative_MAD": 0.020167982360169007,
+            "work_per_second": 2569514063.0522966
+          },
+          "encode_seconds": {
+            "max_seconds": 0.046139997,
+            "median_seconds": 0.04586722,
+            "min_seconds": 0.045593108,
+            "relative_MAD": 0.00262034629524092,
+            "work_per_second": 16641230.927010618
+          },
+          "name": "chinese",
+          "rows": 8729,
+          "selective": {},
+          "sha256": "917586b53b066a97f3f94dc41eb919c0e43ed68aadb9f0ec90a7dd24b27b7a13"
+        },
+        {
+          "archive_bytes": 72852,
+          "bytes": 133839,
+          "decode_seconds": {
+            "max_seconds": 7.522e-05,
+            "median_seconds": 5.8012999999999995e-05,
+            "min_seconds": 5.4600999999999994e-05,
+            "relative_MAD": 0.035991932842638796,
+            "work_per_second": 2307051867.684829
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 7.4579e-05,
+            "median_seconds": 5.761e-05,
+            "min_seconds": 5.4176e-05,
+            "relative_MAD": 0.032442284325637886,
+            "work_per_second": 2323190418.330151
+          },
+          "encode_seconds": {
+            "max_seconds": 0.011833558,
+            "median_seconds": 0.011008983,
+            "min_seconds": 0.010706035,
+            "relative_MAD": 0.02751825486514066,
+            "work_per_second": 12157253.762677262
+          },
+          "name": "city",
+          "rows": 12829,
+          "selective": {},
+          "sha256": "9fe1fd1e095e870c90fe0c4efd57cb5cc87c350b1e175789d295b49d10705949"
+        },
+        {
+          "archive_bytes": 71105,
+          "bytes": 154265,
+          "decode_seconds": {
+            "max_seconds": 6.500000000000001e-05,
+            "median_seconds": 5.7561999999999995e-05,
+            "min_seconds": 5.7196e-05,
+            "relative_MAD": 0.0063583614189916295,
+            "work_per_second": 2679979847.816268
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 6.3484e-05,
+            "median_seconds": 5.7444e-05,
+            "min_seconds": 5.579e-05,
+            "relative_MAD": 0.027574681428869922,
+            "work_per_second": 2685484994.081192
+          },
+          "encode_seconds": {
+            "max_seconds": 0.014728856,
+            "median_seconds": 0.014516348,
+            "min_seconds": 0.014161932,
+            "relative_MAD": 0.014479950466880465,
+            "work_per_second": 10626984.142292539
+          },
+          "name": "credentials",
+          "rows": 12898,
+          "selective": {},
+          "sha256": "9156d43f7a966f7ab73eb6cff8998c68bb1022a3df4f05e216ced2b8f165e895"
+        },
+        {
+          "archive_bytes": 1066106,
+          "bytes": 2217251,
+          "decode_seconds": {
+            "max_seconds": 0.0008197769999999999,
+            "median_seconds": 0.000554077,
+            "min_seconds": 0.0005266380000000001,
+            "relative_MAD": 0.028582669917719,
+            "work_per_second": 4001701929.5152116
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000615796,
+            "median_seconds": 0.000535139,
+            "min_seconds": 0.00051592,
+            "relative_MAD": 0.03591403355016175,
+            "work_per_second": 4143317904.3201857
+          },
+          "encode_seconds": {
+            "max_seconds": 0.134717811,
+            "median_seconds": 0.132844653,
+            "min_seconds": 0.131288515,
+            "relative_MAD": 0.007383368301620766,
+            "work_per_second": 16690555.095205825
+          },
+          "name": "email",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "9771ffc75edefbf0d1d6702f55edc61854d563638d2b9df9280ff083bb761a25"
+        },
+        {
+          "archive_bytes": 158798,
+          "bytes": 321380,
+          "decode_seconds": {
+            "max_seconds": 0.000177961,
+            "median_seconds": 0.000146106,
+            "min_seconds": 0.00013415299999999997,
+            "relative_MAD": 0.07946285573487728,
+            "work_per_second": 2199635880.7988725
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000180954,
+            "median_seconds": 0.000145433,
+            "min_seconds": 0.000127634,
+            "relative_MAD": 0.09832018867794778,
+            "work_per_second": 2209814828.8215194
+          },
+          "encode_seconds": {
+            "max_seconds": 0.024504179,
+            "median_seconds": 0.024116862,
+            "min_seconds": 0.024015684,
+            "relative_MAD": 0.0041953219286987,
+            "work_per_second": 13325945.970914459
+          },
+          "name": "faust",
+          "rows": 13035,
+          "selective": {},
+          "sha256": "6c13b28af67171fcd1e906b82b6612a5d83635ff7df11855d1ddcffd711a0fba"
+        },
+        {
+          "archive_bytes": 277904,
+          "bytes": 437523,
+          "decode_seconds": {
+            "max_seconds": 0.00030124000000000004,
+            "median_seconds": 0.000283312,
+            "min_seconds": 0.000208158,
+            "relative_MAD": 0.0632800587338343,
+            "work_per_second": 1544315101.3723388
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000287173,
+            "median_seconds": 0.000281557,
+            "min_seconds": 0.000204988,
+            "relative_MAD": 0.01994622758446783,
+            "work_per_second": 1553941120.270496
+          },
+          "encode_seconds": {
+            "max_seconds": 0.033857558,
+            "median_seconds": 0.032642287,
+            "min_seconds": 0.031814019,
+            "relative_MAD": 0.016965386034379238,
+            "work_per_second": 13403564.523527412
+          },
+          "name": "firstname",
+          "rows": 54937,
+          "selective": {},
+          "sha256": "5e5c732b865ebc3b19110929b53f6f1800ed3d0c49c00006f64ec098e5712c9d"
+        },
+        {
+          "archive_bytes": 225076,
+          "bytes": 1000000,
+          "decode_seconds": {
+            "max_seconds": 0.000223798,
+            "median_seconds": 0.000193931,
+            "min_seconds": 0.000192044,
+            "relative_MAD": 0.00931774703373876,
+            "work_per_second": 5156473178.604761
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000221567,
+            "median_seconds": 0.000201894,
+            "min_seconds": 0.000183556,
+            "relative_MAD": 0.07159202353710367,
+            "work_per_second": 4953094197.9454565
+          },
+          "encode_seconds": {
+            "max_seconds": 0.001870476,
+            "median_seconds": 0.001734347,
+            "min_seconds": 0.001721958,
+            "relative_MAD": 0.007143322530035812,
+            "work_per_second": 576585885.0622165
+          },
+          "name": "genome",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "3f9b4d73d36d198479433f6d4900dad0f3c351239d52f678994ea0fd3dbb53e4"
+        },
+        {
+          "archive_bytes": 92250,
+          "bytes": 279663,
+          "decode_seconds": {
+            "max_seconds": 0.00015492900000000002,
+            "median_seconds": 0.000106899,
+            "min_seconds": 0.000102004,
+            "relative_MAD": 0.022722382809942224,
+            "work_per_second": 2616142339.965762
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000134213,
+            "median_seconds": 0.000105554,
+            "min_seconds": 9.9586e-05,
+            "relative_MAD": 0.0543229058112435,
+            "work_per_second": 2649477992.3072553
+          },
+          "encode_seconds": {
+            "max_seconds": 0.017414084,
+            "median_seconds": 0.016902751,
+            "min_seconds": 0.016626662,
+            "relative_MAD": 0.016333968358168454,
+            "work_per_second": 16545413.228888007
+          },
+          "name": "hamlet",
+          "rows": 9151,
+          "selective": {},
+          "sha256": "1cd6808e06d8dcfa7e66de30c2335d693c71cf66a4b310831e8086b2d37de68b"
+        },
+        {
+          "archive_bytes": 400072,
+          "bytes": 893322,
+          "decode_seconds": {
+            "max_seconds": 0.00030943,
+            "median_seconds": 0.000230931,
+            "min_seconds": 0.00022668299999999998,
+            "relative_MAD": 0.018395105031373083,
+            "work_per_second": 3868350286.449199
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000293835,
+            "median_seconds": 0.000218936,
+            "min_seconds": 0.000211788,
+            "relative_MAD": 0.017955018818284856,
+            "work_per_second": 4080288303.4311395
+          },
+          "encode_seconds": {
+            "max_seconds": 0.008382449,
+            "median_seconds": 0.007868936,
+            "min_seconds": 0.007582002,
+            "relative_MAD": 0.008354496719759744,
+            "work_per_second": 113525132.2415127
+          },
+          "name": "hex",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "3bf50d7e6cf7b3821813a5cb62b5e3294f8aa7a85488dd3fcf5c0edaaf6e2e38"
+        },
+        {
+          "archive_bytes": 78866,
+          "bytes": 208425,
+          "decode_seconds": {
+            "max_seconds": 9.0318e-05,
+            "median_seconds": 7.7866e-05,
+            "min_seconds": 7.115499999999999e-05,
+            "relative_MAD": 0.06032157809570286,
+            "work_per_second": 2676713841.728097
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 8.8276e-05,
+            "median_seconds": 7.6457e-05,
+            "min_seconds": 6.9334e-05,
+            "relative_MAD": 0.0653831565455092,
+            "work_per_second": 2726042089.017356
+          },
+          "encode_seconds": {
+            "max_seconds": 0.017192671,
+            "median_seconds": 0.015726412,
+            "min_seconds": 0.014951956,
+            "relative_MAD": 0.01323906559232968,
+            "work_per_second": 13253181.971831847
+          },
+          "name": "japanese",
+          "rows": 2301,
+          "selective": {},
+          "sha256": "4f3021bfef0bc68160bda25efddfb5b9a40a0c0f47f65d629d0973215ba7d913"
+        },
+        {
+          "archive_bytes": 704365,
+          "bytes": 2745949,
+          "decode_seconds": {
+            "max_seconds": 0.00046718300000000003,
+            "median_seconds": 0.000378356,
+            "min_seconds": 0.000340214,
+            "relative_MAD": 0.10080981932360004,
+            "work_per_second": 7257580162.598188
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000459049,
+            "median_seconds": 0.000365811,
+            "min_seconds": 0.000332106,
+            "relative_MAD": 0.0921377432608643,
+            "work_per_second": 7506469187.640612
+          },
+          "encode_seconds": {
+            "max_seconds": 0.169774375,
+            "median_seconds": 0.16680701,
+            "min_seconds": 0.166199944,
+            "relative_MAD": 0.0036393314645470666,
+            "work_per_second": 16461832.14962009
+          },
+          "name": "l_comment",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "535449726248afb1fa41a6d5ab13da18d57e2f4af54157047e118004cb0edc6f"
+        },
+        {
+          "archive_bytes": 1373117,
+          "bytes": 2488607,
+          "decode_seconds": {
+            "max_seconds": 0.000861601,
+            "median_seconds": 0.000728859,
+            "min_seconds": 0.000711436,
+            "relative_MAD": 0.016346097118921522,
+            "work_per_second": 3414387419.2402096
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000714953,
+            "median_seconds": 0.000701694,
+            "min_seconds": 0.000691589,
+            "relative_MAD": 0.011948228145031811,
+            "work_per_second": 3546570157.362041
+          },
+          "encode_seconds": {
+            "max_seconds": 0.170222844,
+            "median_seconds": 0.161517971,
+            "min_seconds": 0.160310418,
+            "relative_MAD": 0.006593396347208991,
+            "work_per_second": 15407616.778445043
+          },
+          "name": "lastname",
+          "rows": 228976,
+          "selective": {},
+          "sha256": "a370b019b9d799d84b9edcef4a5d3c4e42aaf3fb9dd7b603f025951a8369dce0"
+        },
+        {
+          "archive_bytes": 1084096,
+          "bytes": 2713714,
+          "decode_seconds": {
+            "max_seconds": 0.000809945,
+            "median_seconds": 0.000712126,
+            "min_seconds": 0.000687139,
+            "relative_MAD": 0.03508789174949373,
+            "work_per_second": 3810721698.1264553
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000810696,
+            "median_seconds": 0.000702358,
+            "min_seconds": 0.000683857,
+            "relative_MAD": 0.023835422960940177,
+            "work_per_second": 3863719072.0401845
+          },
+          "encode_seconds": {
+            "max_seconds": 0.005621023,
+            "median_seconds": 0.005430406,
+            "min_seconds": 0.005403744,
+            "relative_MAD": 0.0032393526377218996,
+            "work_per_second": 499725803.1904061
+          },
+          "name": "location",
+          "rows": 67751,
+          "selective": {},
+          "sha256": "7f6f91b66621b4900e9c3d4735cb0a977df5a4df7babeadcb82b2672de6f2fe2"
+        },
+        {
+          "archive_bytes": 1298208,
+          "bytes": 2123578,
+          "decode_seconds": {
+            "max_seconds": 0.000735833,
+            "median_seconds": 0.0006699389999999999,
+            "min_seconds": 0.000651325,
+            "relative_MAD": 0.023455866877432136,
+            "work_per_second": 3169807997.444544
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000717568,
+            "median_seconds": 0.000649137,
+            "min_seconds": 0.000645227,
+            "relative_MAD": 0.005043619451672066,
+            "work_per_second": 3271386471.576878
+          },
+          "encode_seconds": {
+            "max_seconds": 0.134915145,
+            "median_seconds": 0.133232302,
+            "min_seconds": 0.132222835,
+            "relative_MAD": 0.0013688272082845662,
+            "work_per_second": 15938912.471841851
+          },
+          "name": "movies",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "8250f6367d1b882d0be029c9578709be31fc0d7eccf59da75b05032a66f63498"
+        },
+        {
+          "archive_bytes": 528334,
+          "bytes": 2491298,
+          "decode_seconds": {
+            "max_seconds": 0.000342639,
+            "median_seconds": 0.00028224200000000004,
+            "min_seconds": 0.000246477,
+            "relative_MAD": 0.11095797223659147,
+            "work_per_second": 8826815286.172857
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.00033319,
+            "median_seconds": 0.000263935,
+            "min_seconds": 0.000239391,
+            "relative_MAD": 0.09222725292212108,
+            "work_per_second": 9439058859.188814
+          },
+          "encode_seconds": {
+            "max_seconds": 0.128960927,
+            "median_seconds": 0.126379399,
+            "min_seconds": 0.124501523,
+            "relative_MAD": 0.01227451635531204,
+            "work_per_second": 19712848.92722112
+          },
+          "name": "ps_comment",
+          "rows": 20000,
+          "selective": {},
+          "sha256": "63aaf8de74270bc775d4325ae84680c7ac1e10a19001942b9178164fc082b039"
+        },
+        {
+          "archive_bytes": 56687,
+          "bytes": 138155,
+          "decode_seconds": {
+            "max_seconds": 6.392e-05,
+            "median_seconds": 5.3095e-05,
+            "min_seconds": 4.7394e-05,
+            "relative_MAD": 0.10368207929183544,
+            "work_per_second": 2602034089.838968
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 6.9754e-05,
+            "median_seconds": 5.1953e-05,
+            "min_seconds": 4.6402e-05,
+            "relative_MAD": 0.10313167670779368,
+            "work_per_second": 2659230458.2988467
+          },
+          "encode_seconds": {
+            "max_seconds": 0.013533211,
+            "median_seconds": 0.011286484,
+            "min_seconds": 0.011085338,
+            "relative_MAD": 0.01782184779600089,
+            "work_per_second": 12240747.428517155
+          },
+          "name": "street",
+          "rows": 10329,
+          "selective": {},
+          "sha256": "9a70113061ba5c686c5f42a53b3f0b109c00d77ba946fc9e28bf7d208bbebb4e"
+        },
+        {
+          "archive_bytes": 1418031,
+          "bytes": 6327875,
+          "decode_seconds": {
+            "max_seconds": 0.0011318469999999998,
+            "median_seconds": 0.001037062,
+            "min_seconds": 0.0010249579999999999,
+            "relative_MAD": 0.004811669890517705,
+            "work_per_second": 6101732586.865587
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.001038957,
+            "median_seconds": 0.001006602,
+            "min_seconds": 0.000996892,
+            "relative_MAD": 0.004592679132368146,
+            "work_per_second": 6286372369.615796
+          },
+          "encode_seconds": {
+            "max_seconds": 0.314960335,
+            "median_seconds": 0.289405075,
+            "min_seconds": 0.288602711,
+            "relative_MAD": 0.002772460019921903,
+            "work_per_second": 21865114.148395635
+          },
+          "name": "urls",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "45a2087b853df35c2ed6652427edd856d4cfafaa5198ab7d04079cd316aa86a9"
+        },
+        {
+          "archive_bytes": 734710,
+          "bytes": 1671154,
+          "decode_seconds": {
+            "max_seconds": 0.000881377,
+            "median_seconds": 0.000874739,
+            "min_seconds": 0.000793931,
+            "relative_MAD": 0.004024057461711336,
+            "work_per_second": 1910460148.6843503
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000859744,
+            "median_seconds": 0.000708521,
+            "min_seconds": 0.000632573,
+            "relative_MAD": 0.10719230622663273,
+            "work_per_second": 2358651331.435483
+          },
+          "encode_seconds": {
+            "max_seconds": 0.09189372,
+            "median_seconds": 0.087839943,
+            "min_seconds": 0.086803096,
+            "relative_MAD": 0.011803821411860517,
+            "work_per_second": 19024989.576780576
+          },
+          "name": "urls2",
+          "rows": 30000,
+          "selective": {},
+          "sha256": "7e015c7439579e8e0415cb46b36121e1628d164b3d99e977f8f08b301ab70619"
+        },
+        {
+          "archive_bytes": 1100117,
+          "bytes": 3700000,
+          "decode_seconds": {
+            "max_seconds": 0.000328418,
+            "median_seconds": 0.000242077,
+            "min_seconds": 0.00021490599999999998,
+            "relative_MAD": 0.1085357138431161,
+            "work_per_second": 15284392982.398163
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000271251,
+            "median_seconds": 0.000221915,
+            "min_seconds": 0.000209172,
+            "relative_MAD": 0.05729671270531511,
+            "work_per_second": 16673050492.305613
+          },
+          "encode_seconds": {
+            "max_seconds": 0.024016711,
+            "median_seconds": 0.023691109,
+            "min_seconds": 0.023153596,
+            "relative_MAD": 0.0005684833073875571,
+            "work_per_second": 156176732.79878962
+          },
+          "name": "uuid",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "f2b489f2248ea2440b47471d2898f52b3a35b0e45950beca5ad3a304d02ebde3"
+        },
+        {
+          "archive_bytes": 1289550,
+          "bytes": 2342244,
+          "decode_seconds": {
+            "max_seconds": 0.00093195,
+            "median_seconds": 0.000716411,
+            "min_seconds": 0.000657048,
+            "relative_MAD": 0.06803776044756427,
+            "work_per_second": 3269413786.2204795
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000769746,
+            "median_seconds": 0.000709893,
+            "min_seconds": 0.000641635,
+            "relative_MAD": 0.08396758384714309,
+            "work_per_second": 3299432449.679036
+          },
+          "encode_seconds": {
+            "max_seconds": 0.143664755,
+            "median_seconds": 0.139378419,
+            "min_seconds": 0.135302209,
+            "relative_MAD": 0.018934566907377486,
+            "work_per_second": 16804925.875934925
+          },
+          "name": "wiki",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "4b3015fdc698aec83e412a979ce1163562465bdc33efefbcf6691d36181260db"
+        },
+        {
+          "archive_bytes": 1289249,
+          "bytes": 2862830,
+          "decode_seconds": {
+            "max_seconds": 0.0008076569999999999,
+            "median_seconds": 0.000723893,
+            "min_seconds": 0.0006638,
+            "relative_MAD": 0.05637849792717983,
+            "work_per_second": 3954769558.4844723
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000800341,
+            "median_seconds": 0.00071801,
+            "min_seconds": 0.000660214,
+            "relative_MAD": 0.07167866742803027,
+            "work_per_second": 3987172880.6005483
+          },
+          "encode_seconds": {
+            "max_seconds": 0.193805389,
+            "median_seconds": 0.188466139,
+            "min_seconds": 0.186641008,
+            "relative_MAD": 0.004326798460067104,
+            "work_per_second": 15190155.723410876
+          },
+          "name": "wikipedia",
+          "rows": 22000,
+          "selective": {},
+          "sha256": "5604b6be6366efb98d54b91b33b91106d97b37b719faa12b6d798f8af9a50b76"
+        },
+        {
+          "archive_bytes": 1128474,
+          "bytes": 1926988,
+          "decode_seconds": {
+            "max_seconds": 0.00070212,
+            "median_seconds": 0.000579369,
+            "min_seconds": 0.00056329,
+            "relative_MAD": 0.0276145254578689,
+            "work_per_second": 3326011574.6613984
+          },
+          "decode_warm_seconds": {
+            "max_seconds": 0.000700753,
+            "median_seconds": 0.00056831,
+            "min_seconds": 0.000555484,
+            "relative_MAD": 0.018994914747233155,
+            "work_per_second": 3390733930.425296
+          },
+          "encode_seconds": {
+            "max_seconds": 0.120440396,
+            "median_seconds": 0.116864181,
+            "min_seconds": 0.11579373,
+            "relative_MAD": 0.004650766345592223,
+            "work_per_second": 16489124.242440034
+          },
+          "name": "yago",
+          "rows": 100000,
+          "selective": {},
+          "sha256": "edc92e4e24e977d11ee7952d15b1e0c0138b70e364210200cab5be07b1309c44"
+        }
+      ],
+      "name": "bulk-adaptive32-shared-ssse3",
+      "original_bytes": 39841347,
+      "result_id": "s-61dcb139bca8b0a3943ced1660158214ad54e50652c6c7a084abf53624a480ac",
+      "selective": {},
+      "timing": {
+        "decode_seconds": {
+          "max_seconds": 0.009813118,
+          "median_seconds": 0.00963374,
+          "min_seconds": 0.009368503,
+          "relative_MAD": 0.01689769497619811,
+          "work_per_second": 4135605382.7485485
+        },
+        "decode_warm_seconds": {
+          "max_seconds": 0.009461466,
+          "median_seconds": 0.00913652,
+          "min_seconds": 0.009039204,
+          "relative_MAD": 0.010651320196311076,
+          "work_per_second": 4360669817.3921795
+        },
+        "encode_seconds": {
+          "max_seconds": 1.789810054,
+          "median_seconds": 1.759624101,
+          "min_seconds": 1.755118305,
+          "relative_MAD": 0.002456515000870639,
+          "work_per_second": 22641964.824963488
+        }
+      },
+      "variant": "bulk"
+    }
+  ],
+  "claim_rule": "Compare size and decoding speed from the same configuration and machine; report per-column losses, timing spread and compression-speed tradeoffs."
+}

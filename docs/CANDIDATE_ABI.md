@@ -266,7 +266,7 @@ selected stage medians. Evaluator staging, hash verification, diagnostic builds
 and correctness gates are excluded from codec timing and included in evaluation
 wall time. Data-independent builds remain separately disclosed.
 
-New cards set `encoding_floor_scope: combined`: the 100 MB/s bare minimum and
+New cards normally set `encoding_floor_scope: combined`: the 100 MB/s bare minimum and
 noise rule apply to end-to-end encoding, including offline work. Continue seeking
 higher speed and compression after clearing it. If the densest implementation
 misses this floor, deliver a separately qualified fast mode and retain the slower
@@ -287,3 +287,5 @@ Peak RSS includes possible bootstrap high-water marks; sampled native RSS can mi
 short peaks. Corruption/diagnostic checks are bounded deterministic tests, not a
 proof of safety or coverage-guided fuzzing. Report these practical limits without
 weakening the required checks.
+
+For a commission whose card explicitly sets `encode_floor_bytes_per_second: null`, no fixed encoding floor applies. Follow its generated objective. The optional `strings-v1` RAM interface and supplied row-access workloads are documented in [NATIVE_STRINGS.md](NATIVE_STRINGS.md) and exposed by `strings_profile`.

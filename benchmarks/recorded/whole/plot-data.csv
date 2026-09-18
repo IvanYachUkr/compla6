@@ -1,0 +1,18 @@
+dataset,id,label,factor,speed,pareto,provisional
+python,python-lz4-1,LZ4-1,2.1513052799213206,955.2333824616298,True,False
+python,python-zstd-3,Zstd-3,3.525175751186856,725.1750184770996,False,False
+python,python-zstd-19,Zstd-19,4.943067275501053,738.2002384815261,True,False
+python,python-glm-fast,"GLM — from scratch, fast",3.6058800661765624,175.5618736537409,False,False
+python,python-glm-zstd,GLM — tuned Zstd,4.1524162020492925,506.18528641663244,False,False
+python,python-terra-dense,"Terra MAX — from scratch, dense",4.579663369964997,80.60373450115307,False,False
+yelp,yelp-lz4-1,LZ4-1,3.318814850362836,980.4760136832213,False,False
+yelp,yelp-zstd-3,Zstd-3,5.581862384878138,864.6068132379027,False,False
+yelp,yelp-zstd-19,Zstd-19,10.593163184657953,1127.495370442039,True,False
+yelp,yelp-astra-compact,Astra Ultra — compact fast,11.624269636172597,483.4770003208483,False,False
+yelp,yelp-glm-zstd,GLM — columnizer + Zstd,13.66593431282073,349.2957803546638,True,False
+yelp,yelp-astra-density,Astra Ultra — higher compression,12.445699739251417,559.2619384629979,True,False
+yelp,yelp-sol-terra-dense,Sol plan → Terra — dense,14.748192507217361,133.15810859262672,True,False
+yelp,yelp-glm-decode-structured,GLM new — structured,12.71961911540823,518.4089032188853,True,False
+python,python-glm-decode-fast,GLM new — fast mode,2.7178477143509037,570.9466222670344,False,False
+python,python-glm-decode-size,GLM new — size mode†,5.624276246940182,80.18745545972128,True,True
+python,python-glm-decode-zstd,GLM new — Zstd mode†,5.52137257366009,238.48000246645594,True,True

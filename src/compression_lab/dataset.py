@@ -82,7 +82,8 @@ def validate(c):
  o=c.get('objective',{});lim=c.get('limits',{});b=c.get('search_budget',{})
  if workload(c)=='mutable_store':
   if o.get('encode_floor_bytes_per_second') is not None or o.get('decode_floor_bytes_per_second') is not None:raise Error('invalid_speed_policy','Mutable operations have no static throughput floor')
- elif o.get('encode_floor_bytes_per_second')!=100_000_000 or o.get('decode_floor_bytes_per_second') is not None:raise Error('invalid_speed_policy','v1 static: ENCODING ONLY, 100 decimal MB/s')
+ elif (o.get('encode_floor_bytes_per_second') not in (None,100_000_000) or o.get('decode_floor_bytes_per_second') is not None):raise Error('invalid_speed_policy','Static encoding floor is 100 decimal MB/s or explicitly disabled')
+ elif o.get('encode_floor_bytes_per_second') is None and 'encode_floor_bytes_per_second' not in o:raise Error('invalid_speed_policy','Disabling the floor requires explicit null')
  if o.get('rank_by')!='deployment_total_bytes' or not isinstance(o.get('deployment_canonical_bytes'),int) or o['deployment_canonical_bytes']<=0:raise Error('invalid_objective')
  if type(lim.get('threads')) is not int or not 1<=lim['threads']<=64 or (not c.get('resource_profiles') and lim['threads']!=1) or not 64*1048576<=lim.get('memory_bytes',0)<=16*1024**3 or not 0<lim.get('timeout_seconds',0)<=3600:raise Error('invalid_limits')
  if c.get('resource_profiles'):

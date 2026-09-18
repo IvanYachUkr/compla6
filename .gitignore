@@ -15,3 +15,11 @@ releases/
 .env.*
 !.env.example
 .DS_Store
+
+# Fetched upstream sources and generated benchmark output.
+benchmarks/upstream/token/
+benchmarks/_build/
+benchmarks/_runs/
+*.so
+*.o
+*.a

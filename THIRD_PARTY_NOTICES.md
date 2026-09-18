@@ -41,3 +41,9 @@ Python runtimes are generated from the operator's installed distribution and
 charged. This source ZIP does not redistribute the copied mutable interpreter
 or its dependency binaries; operators must supply their distribution notices
 when separately distributing such candidate exports.
+
+## Benchmark review sources
+
+The FSST paper source and selected codec snapshots have their own attribution.
+See [benchmarks/upstream/README.md](benchmarks/upstream/README.md) for exact source
+commits, licenses, wrapper boundaries and the hash-checked OnPair+ fetcher.

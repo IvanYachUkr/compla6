@@ -105,9 +105,9 @@ def paired_diagnostics(reference, candidate):
         encode, decode = raw['timing'][encoding_timing_key(raw)], raw['timing']['decode']
         speed = encode['median_bytes_per_second']
         return {'encode_bytes_per_second': speed, 'decode_bytes_per_second': decode['median_bytes_per_second'],
-                'encode_floor_bytes_per_second': 100_000_000,
+                'encode_floor_bytes_per_second': raw.get('encode_floor_bytes_per_second',100_000_000),
                 'encoding_floor_scope': raw.get('encoding_floor_scope', 'encode'),
-                'encode_floor_headroom_bytes_per_second': speed - 100_000_000,
+                'encode_floor_headroom_bytes_per_second': (speed - raw.get('encode_floor_bytes_per_second',100_000_000)) if raw.get('encode_floor_bytes_per_second',100_000_000) is not None else None,
                 'encode_relative_MAD': encode['relative_MAD'], 'decode_relative_MAD': decode['relative_MAD']}
 
     n = sum(group_bytes.values())

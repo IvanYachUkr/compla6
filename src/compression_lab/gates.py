@@ -312,10 +312,12 @@ class Evaluation:
       if limits.get('cpu_quota_cores') is None or limits['cpu_quota_cores']<cores:reasons+=['declared_cpu_budget_not_commissioned']
       if limits.get('memory_max_bytes') is None:reasons+=['finite_enclosing_memory_limit_required']
      primary=self.card.get('_resource_profile',{}).get('id','legacy-single')==self.card.get('_primary_profile','legacy-single')
-     self.raw['encoding_floor_applied']=primary
+     floor=self.card['objective']['encode_floor_bytes_per_second']
+     self.raw['encode_floor_bytes_per_second']=floor
+     self.raw['encoding_floor_applied']=primary and floor is not None
      encoding=self.raw['timing'][dataset.encoding_timing_key(self.card)]
      if not primary:reasons+=['reference_profile_not_promotable']
-     elif encoding['median_bytes_per_second']<100000000:reasons+=['encoding_below_100_MBps']
+     elif floor is not None and encoding['median_bytes_per_second']<floor:reasons+=['encoding_below_100_MBps']
      if encoding['relative_MAD']>self.card.get('timing_policy',{}).get('noise_relative_mad_limit',.1):reasons+=['timing_noisy_logged_rerun_required']
     if self.card.get('timing_policy',{}).get('role','smoke')!='benchmark':reasons+=['smoke_not_certified']
     if self.mode!='required':reasons+=['unsandboxed_exploratory']

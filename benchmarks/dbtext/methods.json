@@ -1,0 +1,134 @@
+[
+  {
+    "id": "astra-bulk",
+    "variant": "bulk",
+    "build_commands": [
+      [
+        "g++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-fPIC",
+        "-shared",
+        "{source}/encoder.cpp",
+        "{source}/vendor/src/compressor/onpair_advanced/OnPairAdvancedCompressor.cpp",
+        "{source}/vendor/src/compressor/onpair_advanced/LongestPrefixMatcher.cpp",
+        "-I{source}/vendor/src",
+        "-I{source}/vendor/thirdparty",
+        "-llz4",
+        "-o",
+        "{build}/encoder.so"
+      ],
+      [
+        "g++",
+        "-std=c++20",
+        "-O3",
+        "-mssse3",
+        "-DNDEBUG",
+        "-fPIC",
+        "-shared",
+        "{source}/decoder.cpp",
+        "-llz4",
+        "-o",
+        "{build}/decoder.so"
+      ]
+    ],
+    "source_sha256": {
+      "encoder.cpp": "4f9e5431a8529ba71d354c7f65d12aa5aea192ecb9a993896566067e32b1711c",
+      "codec.h": "95ca377d103cfc75f115ba8bc1f6e5397ca0aa38508fb98b92985c9ae048883c",
+      "decoder.cpp": "f5e7c940fd31d5d5a115a2f53209206899e00d9b0e365eeafac27d9d56dbae71",
+      "ALGORITHM.md": "aae251a750bbc4c0583a6b9ea57144c81d3987d2837db7e248d13c62a019620d",
+      "structure/encoder.hpp": "8dcdd8fd168c01c80a844ea3acb5fa8a39d6e033a50aecdfc046d113b318dd4b",
+      "structure/decoder.hpp": "8526b070216064fbf1cb64734331801b1100e2ab90048a2a370c6a5f65e834c4",
+      "structure/format.hpp": "7e386e5ff48ae43542c2f871f157f12de1c7b288b7162dd38d1e350dd04c2052",
+      "vendor-overrides/src/compressor/onpair_advanced/LongestPrefixMatcher.hpp": "e8fd13e0c8c6303615d1bd3b271452b231491c80f9da32830871e48b81363bf9"
+    },
+    "original_result_id": "s-a5deb8126509211e18a59ee4175754d1034661fe7c04a9dc7427c4ec6347a4be"
+  },
+  {
+    "id": "astra-rows",
+    "variant": "rows",
+    "build_commands": [
+      [
+        "g++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-fPIC",
+        "-shared",
+        "{source}/encoder.cpp",
+        "{source}/vendor/src/compressor/onpair_advanced/OnPairAdvancedCompressor.cpp",
+        "{source}/vendor/src/compressor/onpair_advanced/LongestPrefixMatcher.cpp",
+        "-I{source}/vendor/src",
+        "-I{source}/vendor/thirdparty",
+        "-o",
+        "{build}/encoder.so"
+      ],
+      [
+        "g++",
+        "-std=c++20",
+        "-mssse3",
+        "-O3",
+        "-DNDEBUG",
+        "-fPIC",
+        "-shared",
+        "{source}/decoder.cpp",
+        "-o",
+        "{build}/decoder.so"
+      ]
+    ],
+    "source_sha256": {
+      "encoder.cpp": "8ade74bbc2e781b92376180c6e0668695bc06563aafb5481ee73ff93ddd49361",
+      "codec.h": "95ca377d103cfc75f115ba8bc1f6e5397ca0aa38508fb98b92985c9ae048883c",
+      "decoder.cpp": "0bbfc6a2a15245b2b9de5f9f54c9b78dc0e1fa3784b6a0dde8872f3516f45972",
+      "ALGORITHM.md": "3ac43fb5ebac455bb754b71307390ad383ab43ae21848cb8604c2c6bebd9eb70",
+      "structure/encoder.hpp": "8dcdd8fd168c01c80a844ea3acb5fa8a39d6e033a50aecdfc046d113b318dd4b",
+      "structure/decoder.hpp": "8526b070216064fbf1cb64734331801b1100e2ab90048a2a370c6a5f65e834c4",
+      "structure/format.hpp": "7e386e5ff48ae43542c2f871f157f12de1c7b288b7162dd38d1e350dd04c2052",
+      "structure/test.cpp": "366e0713e4a7eafe565818647cff2892865a9a2dcd842eda9467f7f793260b04",
+      "vendor-overrides/src/compressor/onpair_advanced/LongestPrefixMatcher.hpp": "e8fd13e0c8c6303615d1bd3b271452b231491c80f9da32830871e48b81363bf9"
+    },
+    "original_result_id": "s-a99212a48181f694559fc12d6b777cb07e8503f2e9cf728307f2ff60e93128a8"
+  },
+  {
+    "id": "astra-fastencode",
+    "variant": "bulk",
+    "build_commands": [
+      [
+        "g++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-fPIC",
+        "-shared",
+        "{source}/encoder.cpp",
+        "-lzstd",
+        "-o",
+        "{build}/encoder.so"
+      ],
+      [
+        "g++",
+        "-std=c++20",
+        "-O3",
+        "-mssse3",
+        "-DNDEBUG",
+        "-fPIC",
+        "-shared",
+        "{source}/decoder.cpp",
+        "-lzstd",
+        "-o",
+        "{build}/decoder.so"
+      ]
+    ],
+    "source_sha256": {
+      "encoder.cpp": "8a094eada5c5f4a2681ef52bed30f38268d42372807258a8ddcbddd1ebf5c473",
+      "codec.h": "95ca377d103cfc75f115ba8bc1f6e5397ca0aa38508fb98b92985c9ae048883c",
+      "decoder.cpp": "1220517af9052e7a596ac3dddc5998149d60ca855e812b1e952e0723f053c60f",
+      "ALGORITHM.md": "0090e425f9c77798e25ca4b208b55cf497a6885541bcb5de9d268aba5ee84010",
+      "structure/encoder.hpp": "8dcdd8fd168c01c80a844ea3acb5fa8a39d6e033a50aecdfc046d113b318dd4b",
+      "structure/decoder.hpp": "8526b070216064fbf1cb64734331801b1100e2ab90048a2a370c6a5f65e834c4",
+      "structure/format.hpp": "7e386e5ff48ae43542c2f871f157f12de1c7b288b7162dd38d1e350dd04c2052"
+    },
+    "original_result_id": "s-6124322e72842b2a4de249862792ca5168de87744e684382328f21d34fe547d1"
+  }
+]

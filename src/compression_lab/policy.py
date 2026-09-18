@@ -52,7 +52,7 @@ class PublicPolicy:
         if raw.get('workload') != 'mutable_store':
             speed = raw.get('timing', {}).get(encoding_timing_key(self.card), {}).get('median_bytes_per_second')
             floor = self.card['objective']['encode_floor_bytes_per_second']
-            if not isinstance(speed, (float, int)) or isinstance(speed, bool) or not math.isfinite(speed) or speed < floor:
+            if not isinstance(speed, (float, int)) or isinstance(speed, bool) or not math.isfinite(speed) or speed <= 0 or (floor is not None and speed < floor):
                 reasons.append('encode_floor_not_met')
         try:
             cost = bridge.rank_cost(raw)

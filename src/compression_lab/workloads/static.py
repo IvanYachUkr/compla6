@@ -12,7 +12,7 @@ def evaluate(root, rows, card, out, depth="full", mode="required", cancel=None, 
     raw["workload"] = "static_relational"
     raw["relational"] = {"format": "RLB1", "objects": profiles,
                          "equality": "Entire bundle, schema spelling, framing, table/row order and all lexical table bytes",
-                         "encoding_floor_bytes_per_second": 100_000_000, "decoder_speed_gated": False}
+                         "encoding_floor_bytes_per_second": card['objective']['encode_floor_bytes_per_second'], "decoder_speed_gated": False}
     p = Path(out) / "relational-profile.json"
     save(p, raw["relational"], 0o444)
     raw["evidence_files"] = {p.name: {"bytes": p.stat().st_size, "sha256": sha(p)}}

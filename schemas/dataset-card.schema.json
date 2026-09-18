@@ -404,7 +404,7 @@
           "objective": {
             "properties": {
               "encode_floor_bytes_per_second": {
-                "const": 100000000
+                "enum": [100000000, null]
               }
             }
           }

@@ -8,6 +8,7 @@ from . import __version__
 def parser():
  p=argparse.ArgumentParser(prog='compression-lab');p.add_argument('--version',action='version',version='compression-lab '+__version__);sub=p.add_subparsers(dest='command',required=True)
  p.add_argument('--owner-evidence',action='store_true',help='Trusted host only: include owner baseline evidence; never expose this command or workspace to researchers')
+ w=sub.add_parser('strings');w.add_argument('action',choices=['profile','evaluate','submit','status','compare']);w.add_argument('--workspace',required=True);w.add_argument('--candidate');w.add_argument('--results',nargs='+');w.add_argument('--quick',action='store_true');w.add_argument('--job');w.add_argument('--include-columns',action='store_true')
  d=sub.add_parser('doctor');d.add_argument('--release',action='store_true');d.add_argument('--owner')
  i=sub.add_parser('init');i.add_argument('--workspace',required=True);i.add_argument('--dataset',required=True);i.add_argument('--exploratory',action='store_true')
  i=sub.add_parser('card-create');i.add_argument('--dataset-id',required=True);i.add_argument('--input',nargs='+',required=True);i.add_argument('--output',required=True);i.add_argument('--implementation',choices=['open','from_scratch'],default='from_scratch');i.add_argument('--baseline-visibility',choices=['visible','hidden'],default='visible');i.add_argument('--smoke',action='store_true')
@@ -51,6 +52,15 @@ def parser():
 
 def dispatch(a):
  c=a.command
+ if c=='strings':
+  from . import strings
+  if a.action=='profile':return reply(metrics=strings.profile(a.workspace))
+  if a.action=='status':return reply(metrics=strings.status(a.workspace,a.job or ''))
+  if a.action in ('evaluate','submit'):
+   if not a.candidate:raise Error('strings_candidate_required')
+   fn=strings.evaluate if a.action=='evaluate' else strings.submit
+   return reply(metrics=fn(a.workspace,a.candidate,a.quick))
+  return reply(metrics=strings.compare(a.workspace,a.results or [],a.include_columns))
  if c=='doctor':return doctor(a.release,a.owner)
  if c=='init':return Engine.init(a.workspace,a.dataset,a.exploratory).status()
  if c=='card-create':

@@ -1,0 +1,555 @@
+[
+  {
+    "id": "yelp-astra-compact",
+    "dataset": "yelp",
+    "label": "Astra Ultra \u2014 compact fast",
+    "prior_archive_bytes": 8602733,
+    "build_commands": [
+      [
+        "g++",
+        "-std=c++17",
+        "-DBLOCK_BITS=25",
+        "-DHASH_BYTES=6",
+        "-DDEPTH=2",
+        "-DLAZY=1",
+        "-DRING_BUCKETS=0",
+        "-pthread",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/codec.cpp",
+        "-o",
+        "{build}/codec"
+      ],
+      [
+        "g++",
+        "-std=c++17",
+        "-DBLOCK_BITS=25",
+        "-DHASH_BYTES=6",
+        "-DDEPTH=2",
+        "-DLAZY=1",
+        "-DRING_BUCKETS=0",
+        "-pthread",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/decoder.cpp",
+        "-o",
+        "{build}/decoder"
+      ]
+    ],
+    "source_sha256": {
+      "encode.cpp": "5e9fc3531a596a6faa6d2e59cf8b5e2a54ef7b38d7da8194199ab103a2e30676",
+      "decode.cpp": "8ae1624fcb803c61c056f12de7cba3bb0a668d6b3e4e3654f400b1569055777c",
+      "source/rans.hpp": "8d33ba619b37e0fc57adb76901da5384699c838051880ab92edfd535b142f4e0",
+      "source/columnar.hpp": "33718f1d2e3968311d4fb2bbe19de0abe22343982fa5417e0492a029e6207132",
+      "source/common_io.hpp": "9b78b3f68775b022effe8471dba97864fa1b6889e597853b33ac427d36dfba13",
+      "source/codec.cpp": "2ca7e8283f26c2c105e58ef16cccab37031002c8a6c784c627f43e7f53081157",
+      "source/decoder.cpp": "65f175edb3ccaab721a558bd5ae49d9b89e059c8ca520ba005242da4fd2ccc54",
+      "source/core.hpp": "bae7b2c1aa5a04ddd70d104b5cbb9e8f406f31f9656e31bde1f1e570e0fcabdb",
+      "source/encode.hpp": "85367245776f8da3d21d5d4e3b2e4882d740bd3e61657ae7808bf6f2c8610626"
+    },
+    "qualification_note": "Exact fixed-dataset RAM roundtrips passed; see recorded results for qualification limits.",
+    "payload_sha256": "4b140e808e861799e2215d297c54273342a626d24f7860e444fde027fb8c8a9b"
+  },
+  {
+    "id": "yelp-astra-density",
+    "dataset": "yelp",
+    "label": "Astra Ultra \u2014 higher compression",
+    "prior_archive_bytes": 8034943,
+    "build_commands": [
+      [
+        "g++",
+        "-std=c++17",
+        "-DBLOCK_BITS=27",
+        "-DHASH_BYTES=6",
+        "-DDEPTH=16",
+        "-DLAZY=1",
+        "-DRING_BUCKETS=0",
+        "-pthread",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/codec.cpp",
+        "-o",
+        "{build}/codec"
+      ],
+      [
+        "g++",
+        "-std=c++17",
+        "-DBLOCK_BITS=27",
+        "-DHASH_BYTES=6",
+        "-DDEPTH=16",
+        "-DLAZY=1",
+        "-DRING_BUCKETS=0",
+        "-pthread",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/decoder.cpp",
+        "-o",
+        "{build}/decoder"
+      ]
+    ],
+    "source_sha256": {
+      "encode.cpp": "5e9fc3531a596a6faa6d2e59cf8b5e2a54ef7b38d7da8194199ab103a2e30676",
+      "decode.cpp": "8ae1624fcb803c61c056f12de7cba3bb0a668d6b3e4e3654f400b1569055777c",
+      "source/rans.hpp": "919c9f1674a69cc05dfbc4b059c18b9b01c4585f758136613b9df0b9c72ac399",
+      "source/columnar.hpp": "8a5399b7c738ab2343deae8c3a57cdb56ae04e4cdf6e7d7d4ceb5c3687af2a5b",
+      "source/common_io.hpp": "1c6bf2abee824c1cc09b020fba1b2c1aed10e7c34ee671fefe19584883fb5ed9",
+      "source/codec.cpp": "2ca7e8283f26c2c105e58ef16cccab37031002c8a6c784c627f43e7f53081157",
+      "source/decoder.cpp": "65f175edb3ccaab721a558bd5ae49d9b89e059c8ca520ba005242da4fd2ccc54",
+      "source/check.cpp": "32bb3a7d31e2989d92db76d5930e4aea7aa25ea64185b25f4883ae3e31e3c786",
+      "source/core.hpp": "e8e0b09cd2d221bea0a101f3ab0350345ed280b9598b65e7044407f8f416a3d0",
+      "source/encode.hpp": "4b202ae3990a8f427605cedf985728e79c7a595bb745c27d412457fc8c1780e9"
+    },
+    "qualification_note": "Exact fixed-dataset RAM roundtrips passed; see recorded results for qualification limits.",
+    "payload_sha256": "7a36e79e4dd350bd4a1fc76abba34bf0a1c2081de1feda5d6c7d23ce1409ff57"
+  },
+  {
+    "id": "yelp-glm-zstd",
+    "dataset": "yelp",
+    "label": "GLM \u2014 columnizer + Zstd",
+    "prior_archive_bytes": 7317501,
+    "build_commands": [
+      [
+        "g++",
+        "-O3",
+        "-DNDEBUG",
+        "-s",
+        "-std=c++17",
+        "-pthread",
+        "-DYELP_THREADS=4",
+        "-I{source}/vendor/include",
+        "-frandom-seed=compression-lab-v2",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "{source}/codec.cpp",
+        "{source}/vendor/lib/libzstd.a",
+        "-lm",
+        "-Wl,--gc-sections",
+        "-o",
+        "{build}/codec"
+      ],
+      [
+        "g++",
+        "-Os",
+        "-DNDEBUG",
+        "-s",
+        "-std=c++17",
+        "-pthread",
+        "-DYELP_THREADS=4",
+        "-I{source}/vendor/include",
+        "-frandom-seed=compression-lab-v2",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "-DYELP_DECODE_ONLY=1",
+        "{source}/codec.cpp",
+        "{source}/vendor/lib/libzstd.a",
+        "-lm",
+        "-Wl,--gc-sections",
+        "-o",
+        "{build}/decoder"
+      ]
+    ],
+    "source_sha256": {
+      "encode.cpp": "9830809c57d5b64c440049e653528c3e3f8902be02bc5d074305f1509a3ba899",
+      "decode.cpp": "39b2d4bef43da085f8ee9567ce67e8bbac06fe606080bc5f7b1566e3ae4c5835",
+      "source/codec.cpp": "d890c07423a86b41cde0cdf654240a473f8be03c08ed1ee332a11359f9d39dcf",
+      "source/lab_crc.hpp": "87a5ff131dae51905c293a10a489e7d9d77164e16034cf2c9555d8c0f7af4961",
+      "source/parallel_workers.hpp": "856d211ec30e115a982f30dcf17d52dede8ae04b358d2265a97210a9a7169d25"
+    },
+    "qualification_note": "Exact fixed-dataset RAM roundtrips passed; see recorded results for qualification limits.",
+    "payload_sha256": "9adfac26d20444711d924e6f1f987d1d19f1759791e8b5b1b096ac48b8fb83dd"
+  },
+  {
+    "id": "yelp-sol-terra-dense",
+    "dataset": "yelp",
+    "label": "Sol plan \u2192 Terra \u2014 dense",
+    "prior_archive_bytes": 6780525,
+    "build_commands": [
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/codec.cpp",
+        "-DTERRA_MAXIMUM=1",
+        "-DTERRA_TYPED_LEVEL=5",
+        "-DTERRA_BWT=1",
+        "-DTERRA_BWT_BLOCK_BYTES=921600",
+        "-DTERRA_ROW_REORDER=1",
+        "-DTERRA_ROW_ORDER_VARIANT=8",
+        "-DTERRA_FRONT_CODED=1",
+        "-pthread",
+        "-Wl,--gc-sections",
+        "-Wl,--build-id=none",
+        "-s",
+        "-o",
+        "{build}/codec"
+      ],
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/decoder.cpp",
+        "-DTERRA_MAXIMUM=1",
+        "-DTERRA_TYPED_LEVEL=5",
+        "-DTERRA_BWT=1",
+        "-DTERRA_BWT_BLOCK_BYTES=921600",
+        "-DTERRA_ROW_REORDER=1",
+        "-DTERRA_ROW_ORDER_VARIANT=8",
+        "-DTERRA_FRONT_CODED=1",
+        "-pthread",
+        "-Wl,--gc-sections",
+        "-Wl,--build-id=none",
+        "-s",
+        "-o",
+        "{build}/decoder"
+      ]
+    ],
+    "source_sha256": {
+      "encode.cpp": "1a0bef7fce0cb524cff0a9616ca9ab00cf00d73c763d302b3399d7e824614de3",
+      "decode.cpp": "6e5a9d39e63ebd56da9406a03a718b6babe799356aa1c9889daec052bcb6a59c",
+      "source/huffman.hpp": "692b2b3f869fbc50ae56742d5c24dd91d4cca5641a2014e330f58043d2735563",
+      "source/codec.cpp": "8dbeb218edffb26bd6b34aff7c0d2b92fd8f2202231a87055396dd016f006032",
+      "source/bwt.hpp": "941472f387affef8dfd95fe564170f447633c674149698b285fa351c2fcaf995",
+      "source/common.hpp": "da0006b476550f5cbdad3e3ec1926f61c5eb1e0f8f5dd490929b61d74366c4cf",
+      "source/decoder.cpp": "aa5161150973edb9861e3d7b73168f35288f4c9347cb53072811aa8301d98c1f"
+    },
+    "qualification_note": "Exact fixed-dataset RAM roundtrips passed; see recorded results for qualification limits.",
+    "payload_sha256": "9daff511b7afb38b7e79ace2f90ff04ca0db3a2c1f7c5295be0226d5cdc8a462"
+  },
+  {
+    "id": "python-glm-zstd",
+    "dataset": "python",
+    "label": "GLM \u2014 tuned Zstd",
+    "prior_archive_bytes": 24082361,
+    "build_commands": [
+      [
+        "g++",
+        "-O3",
+        "-DNDEBUG",
+        "-s",
+        "-std=c++17",
+        "-pthread",
+        "-DCL_LEVEL=9",
+        "-DCL_WLOG=25",
+        "-DCL_SLOG=3",
+        "-DCL_HLOG=21",
+        "-DCL_THREADS=4",
+        "-I{source}/vendor/include",
+        "-frandom-seed=compression-lab-v2",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "{source}/codec.cpp",
+        "{source}/vendor/lib/libzstd.a",
+        "-lm",
+        "-Wl,--gc-sections",
+        "-o",
+        "{build}/codec"
+      ],
+      [
+        "g++",
+        "-O3",
+        "-DNDEBUG",
+        "-s",
+        "-std=c++17",
+        "-pthread",
+        "-DCL_DECODER=1",
+        "-DCL_LEVEL=9",
+        "-DCL_WLOG=25",
+        "-DCL_SLOG=3",
+        "-DCL_HLOG=21",
+        "-DCL_THREADS=4",
+        "-I{source}/vendor/include",
+        "-frandom-seed=compression-lab-v2",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "{source}/codec.cpp",
+        "{source}/vendor/lib/libzstd.a",
+        "-lm",
+        "-Wl,--gc-sections",
+        "-o",
+        "{build}/decoder"
+      ]
+    ],
+    "source_sha256": {
+      "encode.cpp": "0518e6293d7d15b4be336cc8d1e6325324042006c8aca0df4477fb2519ec1066",
+      "decode.cpp": "87b6f8b22ea176742ec6ae631a1d42248e74bb25b5b44f0dc47c780496aa45c9",
+      "source/codec.cpp": "e03ac7b08094a5cb0f0da3376cfac38c959ed40fa6f946fb485e3395cd566248"
+    },
+    "qualification_note": "Exact fixed-dataset RAM roundtrips passed; see recorded results for qualification limits.",
+    "payload_sha256": "19b86eb6e84519aed5589da2320d222fd7bf488be1474105c633150e8994df1a"
+  },
+  {
+    "id": "python-glm-fast",
+    "dataset": "python",
+    "label": "GLM \u2014 from scratch, fast",
+    "prior_archive_bytes": 27732477,
+    "build_commands": [
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-pthread",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/codec.cpp",
+        "-o",
+        "{build}/codec"
+      ],
+      [
+        "g++",
+        "-std=c++17",
+        "-Os",
+        "-DNDEBUG",
+        "-pthread",
+        "-s",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/decoder.cpp",
+        "-o",
+        "{build}/decoder"
+      ]
+    ],
+    "source_sha256": {
+      "encode.cpp": "ee2f81a32b39542a2fbfc42fb9963bad1f2cbf3f8e9bdad09803fad6f275c9c5",
+      "decode.cpp": "384f18fcfeb56030c0f48161ea501c1731611e2ab9e070545a14944115e97b00",
+      "source/pzformat.hpp": "2c6de8f1cfabc08593aea98890c861d0218c0e293fefa61887ccbc1be409cc07",
+      "source/codec.cpp": "6780d4fdb7d50fd525b8e9f3ad1eaeb1c45ebdeb6b5b6baab2c7daabfb8d4041",
+      "source/decoder.cpp": "d80211865091e6a9c3fc006e7f7df828d775cf371a474d130162a927c8d4f2a3"
+    },
+    "qualification_note": "Exact fixed-dataset RAM roundtrips passed; see recorded results for qualification limits.",
+    "payload_sha256": "4fdef9571719fa6291c5010d59b8d4413da263fd1ca0fddfe820fc00f3531d66"
+  },
+  {
+    "id": "python-terra-dense",
+    "dataset": "python",
+    "label": "Terra MAX \u2014 from scratch, dense",
+    "prior_archive_bytes": 21835663,
+    "build_commands": [
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/codec.cpp",
+        "-pthread",
+        "-o",
+        "{build}/codec"
+      ],
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/decoder.cpp",
+        "-pthread",
+        "-o",
+        "{build}/decoder"
+      ]
+    ],
+    "source_sha256": {
+      "encode.cpp": "61729ce00ef92f3de7aa9e693c3533cbf21ba25881159c743269bd44facb68f8",
+      "decode.cpp": "981655304e23e7de3a7bb4def136a6aa19cfb7035b963cd943bfa6b50c963d8d",
+      "source/codec.cpp": "7b47b3df8ed87f37fd41b97d74a23f1bca55371fa1643c607cd56fda8639cc0c",
+      "source/decoder.cpp": "28b986f08310476ed9d002da7d014b631da723104c83aa91d6088880a5be4555"
+    },
+    "qualification_note": "Exact fixed-dataset RAM roundtrips passed; see recorded results for qualification limits.",
+    "payload_sha256": "76e7e2ceda9c6a514e596fc2b5b8e9ad02428eab3f637cc122adb65ae00d7317"
+  },
+  {
+    "id": "python-glm-decode-fast",
+    "dataset": "python",
+    "label": "GLM new \u2014 fast mode",
+    "prior_archive_bytes": 36793815,
+    "build_commands": [
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/codec.cpp",
+        "-o",
+        "{build}/codec",
+        "-l:libxxhash.so.0"
+      ],
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/decoder.cpp",
+        "-o",
+        "{build}/decoder",
+        "-l:libxxhash.so.0"
+      ]
+    ],
+    "source_sha256": {
+      "encode.cpp": "2a267e90b65362b2b8950b27b45c2a6413ac1464708302725719333a674870ee",
+      "decode.cpp": "363f2e5dbae68b960382f769598980be2272aa15d8a170a286e596eadf295ec6",
+      "source/format.h": "a2e332314acf965b3f397da699416d5329f28356ed82191d87ea95205d0f5c62",
+      "source/codec.cpp": "56c9f4175a9ef5cb1d0446c588a345268a2dd420f4b31419a9f8045ee47f7d3e",
+      "source/decoder.cpp": "c91c03c638e7106f6a607a84883190ce90e3e350a6ca0c9c6317b5fa9988cce8"
+    },
+    "qualification_note": "Exact fixed-dataset RAM roundtrips passed; see recorded results for qualification limits.",
+    "payload_sha256": "d69f326bd2e0704c9df9c499b24774b7dffef8b5357c8f3bb4052c52d4d9cd27"
+  },
+  {
+    "id": "yelp-glm-decode-structured",
+    "dataset": "yelp",
+    "label": "GLM new \u2014 structured",
+    "prior_archive_bytes": 7861909,
+    "build_commands": [
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/src/codec.cpp",
+        "-o",
+        "{build}/codec"
+      ],
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/src/decoder.cpp",
+        "-o",
+        "{build}/decoder"
+      ]
+    ],
+    "source_sha256": {
+      "encode.cpp": "bc09d5a150613adb74793dbae2c1b37850324e7d887970136ee4b1dfd65cab33",
+      "decode.cpp": "cde693de293883c7440b5ba49f6b6b2951e118b7646818928dde64e913aa3aa2",
+      "source/src/ybz_enc.h": "3334ff1b4845ae688a76cbdb209f7c261d1c8523f5e84a9e2b0b97a0ec10bb61",
+      "source/src/codec.cpp": "3f3d1e89f9fba8a27fafbcd09bfd1fa9926056435214b5ca434007bdabb70864",
+      "source/src/decoder.cpp": "219e4a7f1d5d34fdeeeb055381cb74202dcd6a0dbc2495083839f92880f5d4dc",
+      "source/src/ybz_common.h": "88d58e0de5475718d1f0bedd01d22f6604c8d618a660faa5619ea3358343f423"
+    },
+    "qualification_note": "Exact fixed-dataset RAM roundtrips passed; see recorded results for qualification limits.",
+    "payload_sha256": "1e2d578e1b708824b6f84108496a2e643c546e3047fa540a399130df25ce3d4b"
+  },
+  {
+    "id": "python-glm-decode-size",
+    "dataset": "python",
+    "label": "GLM new \u2014 size mode\u2020",
+    "prior_archive_bytes": 17780063,
+    "build_commands": [
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/codec.cpp",
+        "-o",
+        "{build}/codec",
+        "-llzma",
+        "-l:libxxhash.so.0"
+      ],
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/decoder.cpp",
+        "-o",
+        "{build}/decoder",
+        "-llzma",
+        "-l:libxxhash.so.0"
+      ]
+    ],
+    "source_sha256": {
+      "encode.cpp": "6a06d69def41aaa4df6fae0b933769e9a098dfc7f813261ae1f38d8487e34dc4",
+      "decode.cpp": "b76416649ca2ab198cf898dc2d794f48f4a0d07376d81dc59cf4e1e51d3a82a6",
+      "source/format.h": "a2e332314acf965b3f397da699416d5329f28356ed82191d87ea95205d0f5c62",
+      "source/codec.cpp": "b17279cb682d3532c200145d8f59cd94da55ab16f66dea0b322027d4d1caee88",
+      "source/decoder.cpp": "66fe95f22bd18b8c250d888476703f4bd0204783c376f13a1f91a49830474a81"
+    },
+    "qualification_note": "Supplementary server full-corpus replay only; local complete diagnostic gate was not passed.",
+    "payload_sha256": "5e5264bc5f645c2ca14cf82f0906e9064fbe39cc5c5cd17aed950a5c415f8545"
+  },
+  {
+    "id": "python-glm-decode-zstd",
+    "dataset": "python",
+    "label": "GLM new \u2014 Zstd mode\u2020",
+    "prior_archive_bytes": 18111436,
+    "build_commands": [
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/codec.cpp",
+        "-o",
+        "{build}/codec",
+        "-lzstd",
+        "-l:libxxhash.so.0"
+      ],
+      [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-ffile-prefix-map=/source=source",
+        "-ffile-prefix-map=/output=build",
+        "{source}/decoder.cpp",
+        "-o",
+        "{build}/decoder",
+        "-lzstd",
+        "-l:libxxhash.so.0"
+      ]
+    ],
+    "source_sha256": {
+      "encode.cpp": "e27086557cbddb1b011c404e47708e015cdd51a6846fcf56714ed601c1952803",
+      "decode.cpp": "785db628ea98ed6d824d16b3fa9918c5662ce720b930c4c71e24a3cc3fbec342",
+      "source/format.h": "a2e332314acf965b3f397da699416d5329f28356ed82191d87ea95205d0f5c62",
+      "source/codec.cpp": "ca62c5189d367ab1ae9d00d1075dc4bfc08330388d8fed7e2ef0bbf4db78690b",
+      "source/decoder.cpp": "0d68ecf8e9adee25c3f2fa52f42498d2cad92f292d42017b9840eb33e6a67e58"
+    },
+    "qualification_note": "Supplementary server full-corpus replay only; local complete diagnostic gate was not passed.",
+    "payload_sha256": "7aa09cad0b5671edc6c9f09b78dc90d0e321b30c5f1538984612fc094b337331"
+  }
+]

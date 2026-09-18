@@ -101,9 +101,9 @@ def feedback(engine, result_id):
         dev = raw.get('decoder_accounting' if raw.get('accounting_policy')=='supervisor-decoder-v1' else 'accounting', {}).get(part, {})
         timing = raw.get('timing', {})
         speed = timing.get(dataset.encoding_timing_key(policy.card), {}).get('median_bytes_per_second')
-        report.update(next_action='optimize_measured_bottleneck' if speed is not None and speed<floor
+        report.update(next_action='optimize_measured_bottleneck' if speed is not None and floor is not None and speed<floor
                       else 'compare_paired_full_results', **{part:dev},
-                      encode_floor_headroom_MBps=(speed-floor)/1e6 if speed is not None else None,
+                      encode_floor_headroom_MBps=(speed-floor)/1e6 if speed is not None and floor is not None else None,
                       encoding_floor_scope=policy.card.get('timing_policy',{}).get('encoding_floor_scope','encode'),
                       timing_scope=raw.get('timing_scope','train-plus-development-v1')+'; seven complete fresh-process trials; bootstrap and I/O included; no fsync.',
                       resource_profile=raw.get('resource_profile'),decoder_costs=fixed.get('decoder'),

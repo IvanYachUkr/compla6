@@ -33,6 +33,39 @@ def serve(workspace,http_port=None,bearer_token_env=None):
   options={'host':'127.0.0.1','port':http_port,'stateless_http':True,'json_response':True,
            'token_verifier':LocalTokenVerifier(),'auth':AuthSettings(issuer_url=url,resource_server_url=url+'/mcp',required_scopes=['public'])}
  server=FastMCP('Compression Lab',**options)
+
+ strings_root=os.environ.get('COMPRESSION_LAB_STRINGS_WORKSPACE')
+ if strings_root:
+  from . import strings
+  strings_config=strings.config(strings_root)
+  strings_card,strings_objects=engine.metadata()
+  if (strings_card.get('evaluation_mode')!='whole_dataset' or
+      strings_card.get('implementation_policy')!='open' or
+      strings_card.get('baseline_visibility')!='visible' or
+      strings_card['objective']['encode_floor_bytes_per_second'] is not None):
+   raise Error('strings_commission_mismatch','Use the commissioned whole-dataset open card with visible baselines and an explicit null encoding floor')
+  if sorted((r['canonical_sha256'],r['canonical_bytes']) for r in strings_objects)!=sorted((r['sha256'],r['bytes']) for r in strings_config['columns']):
+   raise Error('strings_dataset_mismatch')
+  @server.tool()
+  def strings_profile()->dict:
+   """Fixed RAM workloads, native C ABI and supplied reference result IDs."""
+   return reply(metrics=strings.profile(strings_root))
+  @server.tool()
+  def strings_submit(candidate_path:str,quick:bool=False)->dict:
+   """Submit shared-library encoder/decoder to the fixed RAM and row oracle. Returns a job ID."""
+   engine._guard_research()
+   manifest=(root/candidate_path).resolve()
+   if not manifest.is_relative_to(root/'workbench'):raise Error('candidate_outside_workbench')
+   return reply(metrics=strings.submit(strings_root,manifest,quick))
+  @server.tool()
+  def strings_status(job_id:str)->dict:
+   """Read asynchronous string-workload completion and its immutable result ID."""
+   return reply(metrics=strings.status(strings_root,job_id))
+  @server.tool()
+  def strings_compare(result_ids:list[str],include_columns:bool=False)->dict:
+   """Read matching full measurements; selected-row and bulk targets remain distinct."""
+   return reply(metrics=strings.compare(strings_root,result_ids,include_columns))
+
  @server.tool()
  def profile()->dict:
   """Verified PUBLIC dataset composition. No private metadata."""
