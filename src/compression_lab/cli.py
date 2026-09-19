@@ -9,8 +9,8 @@ def parser():
  p=argparse.ArgumentParser(prog='compression-lab');p.add_argument('--version',action='version',version='compression-lab '+__version__);sub=p.add_subparsers(dest='command',required=True)
  p.add_argument('--owner-evidence',action='store_true',help='Trusted host only: include owner baseline evidence; never expose this command or workspace to researchers')
  w=sub.add_parser('strings');w.add_argument('action',choices=['profile','evaluate','submit','status','compare']);w.add_argument('--workspace',required=True);w.add_argument('--candidate');w.add_argument('--results',nargs='+');w.add_argument('--quick',action='store_true');w.add_argument('--job');w.add_argument('--include-columns',action='store_true')
- n=sub.add_parser('native-init',help='Owner: provision a fresh native RAM commission');n.add_argument('--workspace',required=True);n.add_argument('--dataset',required=True);n.add_argument('--input',nargs='+',required=True);n.add_argument('--row-framing',choices=['lf','nul','none'],default='lf');n.add_argument('--implementation',choices=['open','from_scratch'],default='from_scratch');n.add_argument('--cpu',type=int);n.add_argument('--standard-library',action='append',default=[],metavar='SONAME=PATH')
- n=sub.add_parser('native',help='Qualify and export native source candidates');n.add_argument('action',choices=['profile','template','record-hypothesis','evaluate','submit','status','compare','export']);n.add_argument('--workspace',required=True);n.add_argument('--candidate');n.add_argument('--result');n.add_argument('--results',nargs='+');n.add_argument('--quick',action='store_true');n.add_argument('--job');n.add_argument('--include-columns',action='store_true');n.add_argument('--name',default='my-codec');n.add_argument('--variant',choices=['bulk','rows'],default='bulk');n.add_argument('--statement');n.add_argument('--expected-benefit');n.add_argument('--falsifier')
+ n=sub.add_parser('native-init',help='Owner: provision a fresh native RAM commission');n.add_argument('--workspace',required=True);n.add_argument('--dataset',required=True);n.add_argument('--input',nargs='+',required=True);n.add_argument('--row-framing',choices=['lf','nul','none'],default='lf');n.add_argument('--implementation',choices=['open','from_scratch'],default='from_scratch');n.add_argument('--cpu',type=int);n.add_argument('--standard-library',action='append',default=[],metavar='SONAME=PATH');n.add_argument('--workload',choices=['bulk','query-access','both'],help='Choose independently of input framing; default retains all supported variants')
+ n=sub.add_parser('native',help='Qualify and export native source candidates');n.add_argument('action',choices=['profile','template','record-hypothesis','evaluate','submit','status','compare','export']);n.add_argument('--workspace',required=True);n.add_argument('--candidate');n.add_argument('--result');n.add_argument('--results',nargs='+');n.add_argument('--quick',action='store_true');n.add_argument('--job');n.add_argument('--include-columns',action='store_true');n.add_argument('--name',default='my-codec');n.add_argument('--variant',choices=['bulk','rows']);n.add_argument('--statement');n.add_argument('--expected-benefit');n.add_argument('--falsifier')
  d=sub.add_parser('doctor');d.add_argument('--release',action='store_true');d.add_argument('--owner')
  i=sub.add_parser('init');i.add_argument('--workspace',required=True);i.add_argument('--dataset',required=True);i.add_argument('--exploratory',action='store_true')
  i=sub.add_parser('card-create');i.add_argument('--dataset-id',required=True);i.add_argument('--input',nargs='+',required=True);i.add_argument('--output',required=True);i.add_argument('--implementation',choices=['open','from_scratch'],default='from_scratch');i.add_argument('--baseline-visibility',choices=['visible','hidden'],default='visible');i.add_argument('--smoke',action='store_true')
@@ -61,11 +61,14 @@ def dispatch(a):
    name,separator,path=entry.partition('=')
    if not separator or not name or '/' in name or not path or name in libraries:raise Error('native_invalid_standard_library')
    libraries[name]=path
-  return reply(metrics=native_strings.init(a.workspace,a.dataset,a.input,row_framing=a.row_framing,implementation=a.implementation,cpu=a.cpu,standard_libraries=libraries))
+  return reply(metrics=native_strings.init(a.workspace,a.dataset,a.input,row_framing=a.row_framing,implementation=a.implementation,cpu=a.cpu,standard_libraries=libraries,workload=a.workload))
  if c=='native':
   from . import native_strings as native, strings
   if a.action=='profile':return reply(metrics=strings.profile(a.workspace))
-  if a.action=='template':return reply(metrics={'manifest':native.template(a.name,a.variant)})
+  if a.action=='template':
+   commission=Path(a.workspace)/'commission.json'
+   variant=a.variant or (load(commission)['variants'][0] if commission.exists() else 'bulk')
+   return reply(metrics={'manifest':native.template(a.name,variant)})
   if a.action=='record-hypothesis':return reply(metrics=native.record_hypothesis(a.workspace,a.statement,a.expected_benefit,a.falsifier))
   if a.action=='status':return reply(metrics=strings.status(a.workspace,a.job or ''))
   if a.action=='compare':return reply(metrics=strings.compare(a.workspace,a.results or [],a.include_columns))

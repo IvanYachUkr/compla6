@@ -48,8 +48,9 @@ def make_server(root, workbench, port, token):
                 'qualification':'Native full measurements of the exact supplied corpus, independent decoding, clean reproducible builds and valid-corpus UBSan.'}
 
     @server.tool()
-    def manifest_template(name:str='my-codec',variant:str='bulk')->dict:
+    def manifest_template(name:str='my-codec',variant:str|None=None)->dict:
         """Native C/C++ source manifest; compiler commands produce encoder.so and decoder.so."""
+        variant=('bulk' if 'bulk' in variants else 'rows') if variant is None else variant
         if variant not in variants:raise Error('native_variant_not_commissioned')
         return native.template(name,variant)
 

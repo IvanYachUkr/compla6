@@ -5,6 +5,7 @@ import math
 import os
 from pathlib import Path
 import resource
+import shutil
 import subprocess
 import sys
 
@@ -12,7 +13,31 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / 'src'))
 from compression_lab import candidate, strings
 from compression_lab.benchmark_run import write_metadata
-from compression_lab.util import save, sha
+from compression_lab.native_workloads import BASELINES, variants
+from compression_lab.util import safe, save, sha
+
+
+def prepare_methods(manifests, workload, row_framing):
+    """Validate capabilities before creating a run; never rewrite source manifests."""
+    variants(workload, row_framing)
+    entries = []; names = set()
+    for path in manifests:
+        path = path.resolve(); manifest = json.loads(path.read_text())
+        if set(manifest) != {'name', 'variant', 'encoder', 'decoder'} or manifest['variant'] not in ('bulk', 'rows'):
+            raise ValueError('Expected a measured-library manifest with name, variant, encoder and decoder')
+        name = manifest['name']
+        if not isinstance(name, str) or not name.replace('-', '').replace('_', '').isalnum() or name in names:
+            raise ValueError('Method names must be distinct simple identifiers')
+        names.add(name)
+        if workload == 'query-access' and manifest['variant'] != 'rows':
+            raise ValueError('Query access requires a row-access capability: ' + name)
+        variant = 'bulk' if workload == 'bulk' else manifest['variant']
+        if row_framing == 'none' and variant != 'bulk':
+            raise ValueError('Opaque-byte workloads support bulk methods only')
+        entries.append(dict(manifest=path, name=name, capability=manifest['variant'], variant=variant,
+                            **{role: safe(path.parent, manifest[role]) for role in ('encoder', 'decoder')}))
+    if not entries: raise ValueError('Select at least one baseline or candidate')
+    return entries
 
 
 def native_run(config, library, operation, source, output, capacity, ids=None):
@@ -60,17 +85,28 @@ def main():
     parser.add_argument('--build-dir', type=Path, required=True)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--cpu', type=int, default=min(os.sched_getaffinity(0)))
-    parser.add_argument('--methods', nargs='+', help='Defaults to methods in build-profile.json')
+    parser.add_argument('--methods', nargs='*', help='Baseline IDs; an empty list evaluates only supplied candidates')
+    parser.add_argument('--workload', choices=list(BASELINES), help='Bulk or individual-query access')
+    parser.add_argument('--candidate', type=Path, action='append', default=[],
+                        help='Reviewed measured-library manifest; repeat for additional candidates')
     parser.add_argument('--smoke', action='store_true', help='One supplied column, two passes; not a reported benchmark')
     args = parser.parse_args()
     build = args.build_dir.resolve()
     profile = json.loads((build / 'build-profile.json').read_text()) if (build / 'build-profile.json').exists() else {}
     if profile.get('row_framing', 'lf') != args.row_framing:
         raise RuntimeError('Build and evaluation row framing must match')
-    methods = args.methods or profile.get('methods') or ['lz4', 'zstd1', 'fsst', 'onpairplus',
-                                                        'astra-bulk', 'astra-fastencode', 'astra-rows']
+    workload = args.workload or profile.get('workload')
+    defaults = profile.get('methods') or (list(BASELINES[workload]) if workload else
+        ['lz4', 'zstd1', 'fsst', 'onpairplus', 'astra-bulk', 'astra-fastencode', 'astra-rows'])
+    if workload and profile.get('workload') != workload:
+        defaults = [name for name in defaults if name in BASELINES[workload]]
+    methods = args.methods if args.methods is not None else defaults
     if len(set(methods)) != len(methods):
         raise RuntimeError('Methods must be distinct')
+    if workload and set(methods).intersection((*BASELINES['bulk'], *BASELINES['query-access'])) - set(BASELINES[workload]):
+        raise ValueError('Selected baselines do not belong to the ' + workload + ' workload')
+    entries = prepare_methods([*(safe(build, method+'/manifest.json') for method in methods), *args.candidate],
+                              workload, args.row_framing)
     if args.smoke:
         columns = [(p.name, p) for p in sorted(args.data_dir.iterdir()) if p.is_file()][:1]
     else:
@@ -84,12 +120,9 @@ def main():
     libs['libfsst.so'] = build / 'fsst-lib/libfsst.so'
     binaries = []
     needed = set()
-    for method in methods:
-        manifest = json.loads((build / method / 'manifest.json').read_text())
-        if args.row_framing == 'none' and manifest['variant'] != 'bulk':
-            raise RuntimeError('Opaque-byte workloads support bulk methods only')
+    for entry in entries:
         for role in ('encoder', 'decoder'):
-            library = build / method / manifest[role]; binaries.append(library)
+            library = entry[role]; binaries.append(library)
             needed.update(set(candidate.elf(library)['needed']) - candidate.PLATFORM)
     if needed - {'libfsst.so', 'liblz4.so.1', 'libzstd.so.1'}:
         raise RuntimeError('Benchmark dependency is not a declared baseline codec: ' + ', '.join(sorted(needed)))
@@ -101,12 +134,22 @@ def main():
         dataset='DBText' if args.columns.resolve() == (HERE/'columns.json').resolve() else args.columns.stem,
         parameters={**{key:config[key] for key in ('row_framing','warmups','seed','memory_bytes',
                                                  'timeout_seconds','selectivities','full_decode','row_decode')},
-                    'trials':1 if args.smoke else config['trials']},
-        artifacts=[build/'driver',*binaries,*(pin['path'] for pin in pins.values())])
+                    'trials':1 if args.smoke else config['trials'],
+                    **({'evaluation_workload':workload} if workload else {})},
+        artifacts=[build/'driver',*binaries,*(entry['manifest'] for entry in entries),
+                   *(pin['path'] for pin in pins.values())])
     results = []
-    for method in methods:
-        print('Measuring', method, flush=True)
-        result = strings.evaluate(args.out, build / method / 'manifest.json', quick=args.smoke, run=native_run)
+    for entry in entries:
+        print('Measuring', entry['name'], flush=True)
+        folder = args.out/'candidates'/entry['name']; folder.mkdir(parents=True)
+        for role in ('encoder', 'decoder'):
+            shutil.copyfile(entry[role], folder/(role+'.so'))
+        save(folder/'manifest.json', dict(name=entry['name'], variant=entry['variant'],
+                                         encoder='encoder.so', decoder='decoder.so'))
+        save(folder/'provenance.json', dict(source_manifest=str(entry['manifest']),
+             source_sha256=sha(entry['manifest']), capability=entry['capability'],
+             evaluation_variant=entry['variant'], binaries={role:sha(folder/(role+'.so')) for role in ('encoder','decoder')}))
+        result = strings.evaluate(args.out, folder/'manifest.json', quick=args.smoke, run=native_run)
         if not result['quality_passed']:
             raise RuntimeError(json.dumps(result.get('error')))
         results.append(result)

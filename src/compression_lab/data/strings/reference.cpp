@@ -11,7 +11,11 @@
 #define LAB_ROW_DELIMITER 10
 #endif
 
-// Build METHOD=0 (LZ4 bulk), 1 (Zstd1 bulk), 2 (FSST indexed strings).
+#ifndef LAB_ZSTD_LEVEL
+#define LAB_ZSTD_LEVEL 1
+#endif
+
+// Build METHOD=0 (LZ4 bulk), 1 (Zstd bulk), 2 (FSST indexed strings).
 static void need(bool ok) { if (!ok) throw std::runtime_error("invalid codec input"); }
 static uint64_t get64(const uint8_t* p) { uint64_t n; std::memcpy(&n,p,8); return n; }
 static uint32_t get32(const uint8_t* p) { uint32_t n; std::memcpy(&n,p,4); return n; }
@@ -24,7 +28,7 @@ extern "C" int64_t lab_encode(const uint8_t* raw,size_t n,uint8_t* out,size_t ca
     auto written=LZ4_compress_default((const char*)raw,(char*)out+8,int(n),int(cap-8));
     need(written>0); return written+8;
 #elif METHOD == 1
-    auto written=ZSTD_compress(out+8,cap-8,raw,n,1); need(!ZSTD_isError(written)); return written+8;
+    auto written=ZSTD_compress(out+8,cap-8,raw,n,LAB_ZSTD_LEVEL); need(!ZSTD_isError(written)); return written+8;
 #else
     if(n==0) {need(cap>=20);put64(out+8,0);put32(out+16,0);return 20;}
     std::vector<size_t> lengths; std::vector<const uint8_t*> pointers;

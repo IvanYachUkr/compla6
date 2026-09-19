@@ -205,6 +205,81 @@ void lab_close(void *state) { free(state); }
                 strings.config(workspace)
             self.assertEqual(caught.exception.code, 'strings_driver_source_changed')
 
+    def test_commission_workload_is_independent_of_query_framing(self):
+        from compression_lab.cli import dispatch, parser
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); source = root/'queries'; source.write_bytes(b'select 1\0select 2\0')
+            for workload, variants in [('bulk', ['bulk']), ('query-access', ['rows'])]:
+                workspace = root/workload
+                args = parser().parse_args(['native-init', '--workspace', str(workspace),
+                    '--dataset', 'queries', '--input', str(source), '--row-framing', 'nul',
+                    '--workload', workload])
+                dispatch(args)
+                self.assertEqual(load(workspace/'commission.json')['variants'], variants)
+                self.assertEqual(load(workspace/'workbench/manifest-template.json')['variant'], variants[0])
+                self.assertEqual(strings.config(workspace)['columns'][0]['rows'], 2)
+                template = dispatch(parser().parse_args(['native', 'template', '--workspace', str(workspace)]))
+                self.assertEqual(template['metrics']['manifest']['variant'], variants[0])
+                if importlib.util.find_spec('mcp'):
+                    import asyncio
+                    from compression_lab.native_strings_server import make_server
+                    server = make_server(workspace, workspace/'workbench', 8000, 't'*32)
+                    response = asyncio.run(server.call_tool('manifest_template', {}))
+                    structured = json.loads(response[0].text)
+                    self.assertEqual(structured['variant'], variants[0])
+            with self.assertRaises(Error):
+                native_strings.init(root/'invalid', 'queries', [source], row_framing='none',
+                                    workload='query-access')
+            self.assertFalse((root/'invalid').exists())
+
+    def test_bulk_baselines_and_row_capable_candidate_share_the_bulk_workload(self):
+        spec = importlib.util.spec_from_file_location('dbtext_build', ROOT/'benchmarks/dbtext/build.py')
+        module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            module.build(root/'build', row_framing='nul', workload='bulk')
+            self.assertEqual(load(root/'build/build-profile.json')['methods'], ['lz4', 'zstd1', 'zstd3', 'zstd19'])
+            with self.assertRaises(ValueError):
+                module.build(root/'invalid', methods=['lz4'], workload='query-access')
+            self.assertFalse((root/'invalid').exists())
+            data = root/'data'; data.mkdir(); source = data/'queries'
+            source.write_bytes(b'select 1\nfrom t\0\0last')
+            columns = root/'columns.json'
+            save(columns, [dict(name=source.name, bytes=source.stat().st_size, sha256=sha(source))])
+            manifest = self.build/'candidate.json'
+            save(manifest, dict(name='stored-rows', variant='rows', encoder='encoder.so', decoder='decoder.so'))
+            original_manifest = manifest.read_bytes()
+            original_binaries = [sha(self.build/(role+'.so')) for role in ('encoder', 'decoder')]
+            command = [os.sys.executable, ROOT/'benchmarks/dbtext/run.py', '--data-dir', data,
+                '--columns', columns, '--build-dir', root/'build', '--row-framing', 'nul',
+                '--candidate', manifest, '--cpu', str(min(os.sched_getaffinity(0)))]
+            run = subprocess.run([*command, '--out', root/'bulk', '--workload', 'bulk'],
+                                 capture_output=True, text=True, timeout=60)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            results = load(root/'bulk/summary.json')['results']
+            self.assertEqual(len(results), 5)
+            for result in results:
+                self.assertTrue(result['quality_passed'])
+                self.assertEqual(result['roundtrips'], 8)
+                self.assertEqual(result['variant'], 'bulk')
+                self.assertEqual(result['selective_checks'], 0)
+            self.assertEqual(load(root/'bulk/run-metadata.json')['parameters']['evaluation_workload'], 'bulk')
+            # The exact same row-capable binary can also be evaluated with row selection.
+            run = subprocess.run([*command, '--out', root/'rows', '--workload', 'query-access',
+                                  '--methods'], capture_output=True, text=True, timeout=30)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            result = load(root/'rows/summary.json')['results'][0]
+            self.assertEqual(result['variant'], 'rows')
+            self.assertEqual(result['selective_checks'], 40)
+            self.assertEqual(manifest.read_bytes(), original_manifest)
+            self.assertEqual([sha(self.build/(role+'.so')) for role in ('encoder', 'decoder')], original_binaries)
+            save(manifest, dict(name='bulk-only', variant='bulk', encoder='encoder.so', decoder='decoder.so'))
+            run = subprocess.run([*command, '--out', root/'invalid-rows', '--workload', 'query-access',
+                                  '--methods'], capture_output=True, text=True, timeout=30)
+            self.assertNotEqual(run.returncode, 0)
+            self.assertIn('row-access capability', run.stderr)
+            self.assertFalse((root/'invalid-rows').exists())
+
     def test_portable_build_can_select_bulk_only_and_rejects_changed_published_sources(self):
         spec = importlib.util.spec_from_file_location('dbtext_build', ROOT/'benchmarks/dbtext/build.py')
         module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)

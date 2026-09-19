@@ -1,6 +1,6 @@
 # compla6
 
-Team workspace utilities, version 0.7.1.
+Team workspace utilities, version 0.7.2.
 
 | Task | Start here |
 |---|---|

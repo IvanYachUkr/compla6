@@ -23,16 +23,18 @@ from .util import Error, canonical, digest, fsync_dir, load, lock, rel, safe, sa
 
 
 def init(workspace, dataset, inputs, *, row_framing='lf', implementation='from_scratch',
-         cpu=None, standard_libraries=None):
+         cpu=None, standard_libraries=None, workload=None):
     """Provision a fresh native commission using this installed Lab package."""
     from . import __version__
     from .benchmark_run import write_metadata
     from .instructions import native_prompt
+    from .native_workloads import variants as workload_variants
     root=Path(workspace).resolve()
     if root.exists() and any(root.iterdir()):raise Error('native_workspace_not_empty')
     if not isinstance(dataset,str) or not dataset.strip():raise Error('native_dataset_required')
     if implementation not in ('open','from_scratch'):raise Error('native_invalid_implementation')
     if row_framing not in strings.ROW_FRAMINGS:raise Error('strings_invalid_row_framing')
+    variants=workload_variants(workload,row_framing)
     cpu=min(os.sched_getaffinity(0)) if cpu is None else cpu
     if cpu not in os.sched_getaffinity(0):raise Error('strings_cpu_unavailable')
     inputs=[Path(path).resolve() for path in inputs]
@@ -60,7 +62,6 @@ def init(workspace, dataset, inputs, *, row_framing='lf', implementation='from_s
     receipt=strings.init(root,[(path.name,path) for path in inputs],runtime/'driver',libraries,cpu,
                          row_framing=row_framing,driver_sources=sources)
     c=strings.config(root)
-    variants=['bulk'] if row_framing=='none' else ['bulk','rows']
     commission=dict(contract='native-exact-dataset-v1',dataset=dataset,
         original_bytes=receipt['original_bytes'],columns=len(inputs),implementation=implementation,
         variants=variants,objectives=c['primary_objectives'],workbench=str(root/'workbench'),
@@ -69,7 +70,7 @@ def init(workspace, dataset, inputs, *, row_framing='lf', implementation='from_s
     save(root/'references.json',{'results':{},'bulk':[],'rows':[]},0o444)
     (root/'hypotheses').mkdir();(root/'native-evidence').mkdir()
     shutil.copyfile(sources['codec.h'],root/'workbench/codec.h')
-    save(root/'workbench/manifest-template.json',template())
+    save(root/'workbench/manifest-template.json',template(variant=variants[0]))
     (root/'INSTRUCTIONS.md').write_text(native_prompt(c,commission));(root/'INSTRUCTIONS.md').chmod(0o444)
     write_metadata(root,protocol='strings-v1',inputs={path.name:path for path in inputs},cpu=cpu,dataset=dataset,
         parameters={key:c[key] for key in ('row_framing','trials','warmups','seed','memory_bytes','timeout_seconds',

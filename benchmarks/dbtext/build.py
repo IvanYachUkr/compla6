@@ -5,25 +5,36 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1] / 'src'))
+from compression_lab.native_workloads import BASELINES as WORKLOAD_BASELINES, variants
+
 UPSTREAM = HERE.parent / 'upstream'
 ADAPTERS = HERE.parents[1] / 'src/compression_lab/data/strings'
-BASELINES = ('lz4', 'zstd1', 'fsst', 'onpairplus')
+BASELINES = (*WORKLOAD_BASELINES['bulk'], *WORKLOAD_BASELINES['query-access'])
+LEGACY_BASELINES = ('lz4', 'zstd1', 'fsst', 'onpairplus')
 
 
-def build(output, methods=None, row_framing='lf'):
+def build(output, methods=None, row_framing='lf', workload=None):
     if row_framing not in ('lf', 'nul', 'none'):
         raise ValueError('row_framing must be lf, nul, or none')
     candidates = json.loads((HERE / 'methods.json').read_text())
     allowed = [*BASELINES, *(entry['id'] for entry in candidates)]
-    selected = list(methods) if methods is not None else (allowed if row_framing == 'lf' else
-                                                        list(BASELINES) if row_framing == 'nul' else ['lz4', 'zstd1'])
+    variants(workload, row_framing)
+    defaults = [*LEGACY_BASELINES, *(entry['id'] for entry in candidates)] if row_framing == 'lf' else (
+        list(LEGACY_BASELINES) if row_framing == 'nul' else ['lz4', 'zstd1'])
+    selected = list(methods) if methods is not None else list(WORKLOAD_BASELINES[workload]) if workload else defaults
     if not selected or len(set(selected)) != len(selected) or set(selected) - set(allowed):
         raise ValueError('Choose distinct known methods: ' + ', '.join(allowed))
     if row_framing != 'lf' and set(selected) - set(BASELINES):
         raise ValueError('Recorded candidates require their original LF workload')
-    if row_framing == 'none' and set(selected) - {'lz4', 'zstd1'}:
+    if workload and set(selected).intersection(BASELINES) - set(WORKLOAD_BASELINES[workload]):
+        raise ValueError('Selected baselines do not belong to the ' + workload + ' workload')
+    if workload == 'query-access' and any(e['id'] in selected and e['variant'] != 'rows' for e in candidates):
+        raise ValueError('Query access requires a row-access capability')
+    if row_framing == 'none' and set(selected) - set(WORKLOAD_BASELINES['bulk']):
         raise ValueError('Opaque-byte workloads support bulk methods only')
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=True)
@@ -54,6 +65,9 @@ def build(output, methods=None, row_framing='lf'):
     if wrappers != HERE:
         for name in ('codec.h', 'reference.cpp', 'onpair.cpp'):
             pin(wrappers / name)
+    elif {'zstd3', 'zstd19'}.intersection(selected):
+        for name in ('codec.h', 'reference.cpp'):
+            pin(ADAPTERS / name)
     for entry in candidates:
         if entry['id'] in selected:
             for name, expected in entry['source_sha256'].items():
@@ -63,6 +77,7 @@ def build(output, methods=None, row_framing='lf'):
         raise RuntimeError('g++ is required')
     profile = dict(row_framing=row_framing, methods=selected, source_sha256=source_pins,
                    compiler=dict(path=compiler, sha256=hashlib.sha256(Path(compiler).read_bytes()).hexdigest()))
+    if workload: profile['workload'] = workload
     (output / 'build-profile.json').write_text(json.dumps(profile, indent=2) + '\n')
 
     def run(argv):
@@ -86,14 +101,17 @@ def build(output, methods=None, row_framing='lf'):
         common.append('-DLAB_ROW_DELIMITER=0')
     built_methods = []
     for name, number, library, variant in [('lz4', 0, 'lz4', 'bulk'),
-                                          ('zstd1', 1, 'zstd', 'bulk'), ('fsst', 2, 'fsst', 'rows')]:
+                                          ('zstd1', 1, 'zstd', 'bulk'), ('zstd3', 1, 'zstd', 'bulk'),
+                                          ('zstd19', 1, 'zstd', 'bulk'), ('fsst', 2, 'fsst', 'rows')]:
         if name not in selected:
             continue
         folder = output / name
         folder.mkdir(exist_ok=True)
         for role in ('encoder', 'decoder'):
+            source = ADAPTERS / 'reference.cpp' if name in ('zstd3', 'zstd19') else wrappers / 'reference.cpp'
             run([*common, f'-DMETHOD={number}', *(['-DDECODE_ONLY'] if role == 'decoder' else []),
-                 wrappers / 'reference.cpp', '-l' + library, '-o', folder / (role + '.so')])
+                 *(['-DLAB_ZSTD_LEVEL='+name[4:]] if name.startswith('zstd') else []),
+                 source, '-l' + library, '-o', folder / (role + '.so')])
         built_methods.append((name, variant))
     token = UPSTREAM / 'token/src'
     if 'onpairplus' in selected:
@@ -132,5 +150,6 @@ if __name__ == '__main__':
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--methods', nargs='+', help='Build only the selected methods')
     parser.add_argument('--row-framing', choices=['lf', 'nul', 'none'], default='lf')
+    parser.add_argument('--workload', choices=list(WORKLOAD_BASELINES), help='Build the matching baseline family')
     args = parser.parse_args()
-    print(build(args.out, args.methods, args.row_framing))
+    print(build(args.out, args.methods, args.row_framing, args.workload))

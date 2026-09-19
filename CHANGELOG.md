@@ -1,5 +1,15 @@
 # Changes
 
+## 0.7.2
+
+- Native commissions select bulk compression, individual-query access, or both
+  independently of LF/NUL input framing.
+- Portable replay selects matching baseline families: LZ4 and Zstd 1/3/19 for
+  bulk; FSST and OnPair+ for query access. Both use the existing RAM timer.
+- Reviewed candidate libraries can join either applicable comparison. Replay
+  snapshots their unchanged binaries and records capability separately from the
+  workload; bulk-only candidates cannot enter query-access tests.
+
 ## 0.7.1
 
 - Full native qualification now enables UBSan instrumentation for the diagnostic

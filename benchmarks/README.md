@@ -5,6 +5,13 @@ Yelp tables. The small Python entry points replace machine-specific paths with
 arguments. C++ timers, workload selection and codec mechanisms are retained.
 Recorded server results are separate from newly generated runs.
 
+For new datasets, choose the workload explicitly: `--workload bulk` compares
+against LZ4 and Zstd 1/3/19; `--workload query-access` compares against FSST and
+OnPair+. The [native workload guide](../docs/NATIVE_STRINGS.md) gives build/run
+commands and shows how to add a candidate to the same comparison. The choice
+depends on whether individual records must be accessible, not on whether the
+input happens to contain SQL, JSON or source code.
+
 ## The two DBText comparisons
 
 These are separate code paths. For the review, choose the table first:
