@@ -1,6 +1,6 @@
 # Installation
 
-Version 0.7.0 requires Python 3.11 or newer. Native evaluation targets Linux
+Version 0.7.1 requires Python 3.11 or newer. Native evaluation targets Linux
 x86-64 with the toolchain and isolation prerequisites described in
 [the dependency guide](../dependencies/README.md) and
 [host provisioning](SECURITY.md).

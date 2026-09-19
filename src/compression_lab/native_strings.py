@@ -6,18 +6,20 @@ Source builds have no dataset mount; all automatic fitting belongs in lab_encode
 from __future__ import annotations
 import copy
 import fcntl
+import hashlib
 import json
 import os
 from pathlib import Path
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 import uuid
 import zipfile
 
 from . import candidate, runner, strings
-from .util import Error, canonical, digest, load, rel, safe, save, sha
+from .util import Error, canonical, digest, fsync_dir, load, lock, rel, safe, save, sha
 
 
 def init(workspace, dataset, inputs, *, row_framing='lf', implementation='from_scratch',
@@ -167,7 +169,7 @@ def qualify(root, manifest, quick=False):
             second,rebuild_logs=build(c,work/'source',m,work/'rebuild')
             if {role:sha(p) for role,p in second.items()}!=identity:raise Error('native_build_not_reproducible')
             provenance.update(reproducible=True,rebuild_logs=rebuild_logs)
-            instrumented,diagnostic_logs=build(c,work/'source',m,work/'diagnostic')
+            instrumented,diagnostic_logs=build(c,work/'source',m,work/'diagnostic',diagnostic=True)
             diagnostic_root=work/'diagnostic-workload';diagnostic_root.mkdir()
             for name in ('evidence','results'):(diagnostic_root/name).mkdir()
             dc=copy.deepcopy(c)
@@ -223,10 +225,28 @@ def result(root,rid):
     return row,p
 
 
+def _verify_export(path, descriptor):
+    """Check the bundle against the qualified evidence before returning it."""
+    try:
+        with zipfile.ZipFile(path) as archive:
+            expected = [*descriptor['files'], 'EXPORT_MANIFEST.json']
+            if sorted(archive.namelist()) != sorted(expected):
+                raise Error('native_export_changed', 'Export members do not match qualified evidence')
+            if archive.read('EXPORT_MANIFEST.json') != canonical(descriptor):
+                raise Error('native_export_changed', 'Export manifest does not match qualified evidence')
+            for name, pin in descriptor['files'].items():
+                if archive.getinfo(name).file_size != pin['bytes']:
+                    raise Error('native_export_changed', name)
+                with archive.open(name) as stream:
+                    if hashlib.file_digest(stream, 'sha256').hexdigest() != pin['sha256']:
+                        raise Error('native_export_changed', name)
+    except (zipfile.BadZipFile, OSError, KeyError, ValueError, RuntimeError, EOFError) as exc:
+        raise Error('native_export_changed', str(exc)) from exc
+
+
 def export(root,rid):
     root=Path(root);row,p=result(root,rid);c=strings.config(root)
     dest=root/'exports'/(rid+'.zip');dest.parent.mkdir(exist_ok=True)
-    if dest.exists():return {'result_id':rid,'path':str(dest),'sha256':sha(dest),'eligible':True}
     files={'result.json':root/'results'/(rid+'.json'),
            'PROVENANCE.json':Path(row['native_provenance']),
            'driver':Path(c['driver']['path']),
@@ -249,10 +269,21 @@ def export(root,rid):
                 'columns':[{k:x[k] for k in ('name','sha256','bytes','rows')} for x in row['columns']],
                 'command':'LD_LIBRARY_PATH=decoder-libraries ./driver measured/decoder.so decode measured/archives/<column-sha256>.bin output.bin <original-column-bytes-plus-32> unused',
                 'row_access_review':row['row_access_review']}
-    with zipfile.ZipFile(dest,'x',compression=zipfile.ZIP_DEFLATED) as z:
-        for name,file in files.items():z.write(file,name)
-        z.writestr('EXPORT_MANIFEST.json',canonical(descriptor))
-    dest.chmod(0o444)
+    with lock(dest.with_suffix('.lock')):
+        if dest.exists():
+            _verify_export(dest,descriptor)
+        else:
+            # Publish only a complete, verified ZIP. Failed writes leave no final
+            # archive that a subsequent export could mistake for success.
+            with tempfile.TemporaryDirectory(prefix='.'+rid+'-',dir=dest.parent) as tmp:
+                pending=Path(tmp)/dest.name
+                with zipfile.ZipFile(pending,'x',compression=zipfile.ZIP_DEFLATED) as z:
+                    for name,file in files.items():z.write(file,name)
+                    z.writestr('EXPORT_MANIFEST.json',canonical(descriptor))
+                _verify_export(pending,descriptor)
+                pending.chmod(0o444)
+                with pending.open('rb') as stream:os.fsync(stream.fileno())
+                os.replace(pending,dest);fsync_dir(dest.parent)
     return {'result_id':rid,'path':str(dest),'sha256':sha(dest),'eligible':True}
 
 

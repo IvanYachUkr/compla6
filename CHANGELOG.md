@@ -1,5 +1,17 @@
 # Changes
 
+## 0.7.1
+
+- Full native qualification now enables UBSan instrumentation for the diagnostic
+  build and rejects undefined behaviour observed on the supplied corpus. The
+  previous native diagnostic path rebuilt without sanitizer flags; its recorded
+  diagnostic passes are not UBSan evidence and need revalidation for that claim.
+- Native exports verify the manifest, complete member inventory and every member's
+  size and hash before reuse. New ZIPs are verified and published atomically, so
+  interrupted writes cannot leave a partial archive at the final export path.
+- Regression tests cover real signed overflow, valid qualification, damaged
+  exports and interrupted-write recovery. Historical measurements remain intact.
+
 ## 0.7.0
 
 - Native workspace setup pins the supplied data, row framing, timing driver and
